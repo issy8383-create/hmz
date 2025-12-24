@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Cahiers de Hamza</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #f5f6fa;
+            --shelf-color: #e58e26;
+            --shelf-shadow: #b76b15;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            /* Un fond style "papier peint" */
+            background-image: radial-gradient(#dcdde1 2px, transparent 2px);
+            background-size: 20px 20px;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- BOUTON HOME --- */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #fff;
+            border: 3px solid #e58e26;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+        }
+        .home-btn:hover { transform: scale(1.1); background-color: #fff3e0; }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            background: #fff;
+            padding: 15px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px dashed #e58e26;
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 2.5em;
+            color: #2d3436;
+            margin: 0;
+        }
+
+        /* --- ÉTAGÈRE DES CAHIERS --- */
+        .shelf {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+            padding-bottom: 20px;
+            border-bottom: 15px solid var(--shelf-color);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .shelf::after {
+            /* Ombre sous l'étagère */
+            content: '';
+            position: absolute;
+            bottom: -35px;
+            left: 20px;
+            right: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, transparent 70%);
+        }
+
+        .notebook {
+            width: 140px;
+            height: 190px;
+            background-color: #fff;
+            border-radius: 5px 15px 15px 5px;
+            position: relative;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 2px 5px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 15px solid rgba(0,0,0,0.2); /* Reliure */
+        }
+
+        .notebook:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 5px 15px 20px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .notebook::before {
+            /* Étiquette */
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 80%;
+            height: 40px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .nb-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4em;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            padding: 0 10px;
+            margin-top: 10px;
+        }
+
+        .nb-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Couleurs des cahiers */
+        .nb-math { background-color: #27ae60; }
+        .nb-fr { background-color: #2980b9; }
+        .nb-hist { background-color: #8e44ad; }
+        .nb-geo { background-color: #e67e22; }
+        .nb-jour { background-color: #c0392b; } /* Cahier du jour rouge */
+        .nb-redac { background-color: #16a085; }
+        .nb-devoirs { background-color: #34495e; }
+        .nb-educ { background-color: #f1c40f; color: #333; }
+
+        .tips {
+            background-color: #fff;
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            font-size: 1.1em;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- BOUTON HOME -->
+<a href="index.html" class="home-btn" title="Retour à l'accueil">🏠</a>
+
+<header>
+    <h1>📚 Le Bureau de Hamza</h1>
+    <p style="margin:5px 0 0 0; color:#7f8c8d;">Clique sur un cahier pour l'ouvrir !</p>
+</header>
+
+<div class="shelf">
+    <!-- MATHS -->
+    <a href="maths-cm1.pdf" target="_blank" class="notebook nb-math">
+        <span class="nb-icon">📐</span>
+        <span class="nb-title">Maths</span>
+    </a>
+
+    <!-- FRANÇAIS -->
+    <a href="francais-cm1.pdf" target="_blank" class="notebook nb-fr">
+        <span class="nb-icon">✍️</span>
+        <span class="nb-title">Français</span>
+    </a>
+
+    <!-- HISTOIRE -->
+    <a href="histoire-cm1.pdf" target="_blank" class="notebook nb-hist">
+        <span class="nb-icon">🏰</span>
+        <span class="nb-title">Histoire</span>
+    </a>
+
+    <!-- GÉOGRAPHIE -->
+    <a href="geo-cm1.pdf" target="_blank" class="notebook nb-geo">
+        <span class="nb-icon">🌍</span>
+        <span class="nb-title">Géographie</span>
+    </a>
+</div>
+
+<div class="shelf">
+    <!-- CAHIER DU JOUR -->
+    <a href="cahier-jour-cm1.pdf" target="_blank" class="notebook nb-jour">
+        <span class="nb-icon">📅</span>
+        <span class="nb-title">Cahier du Jour</span>
+    </a>
+
+    <!-- RÉDACTION -->
+    <a href="redaction-cm1.pdf" target="_blank" class="notebook nb-redac">
+        <span class="nb-icon">📝</span>
+        <span class="nb-title">Rédaction</span>
+    </a>
+
+    <!-- ÉDUCATION CIVIQUE / SCIENCE -->
+    <a href="educ-cm1.pdf" target="_blank" class="notebook nb-educ">
+        <span class="nb-icon">🌱</span>
+        <span class="nb-title">Sciences & EMC</span>
+    </a>
+
+    <!-- DEVOIRS -->
+    <a href="devoirs-cm1.pdf" target="_blank" class="notebook nb-devoirs">
+        <span class="nb-icon">🏠</span>
+        <span class="nb-title">Devoirs</span>
+    </a>
+</div>
+
+<div class="tips">
+    <span>💡</span>
+    <em>Astuce : Les fichiers s'ouvriront dans un nouvel onglet pour que tu ne perdes pas cette page.</em>
+</div>
+
+</body>
+</html>
