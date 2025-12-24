@@ -54,18 +54,92 @@
             transform: scale(1.1);
             background-color: #e0f2f1;
         }
-        /* ------------------- */
+
+        /* --- HERO SECTION (Photo - Titre - Cartable) --- */
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .hero-left, .hero-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-center {
+            flex: 2;
+            text-align: center;
+        }
+
+        /* Style du Cartable (Animation et Lien) */
+        .cartable-link {
+            display: inline-block;
+            text-decoration: none;
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cartable-link:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .cartable-link::after {
+            content: 'Mes Cahiers';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .cartable-link:hover::after {
+            opacity: 1;
+        }
+
+        .cartable-img {
+            width: 150px;
+            height: auto;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+        }
+
+        /* Style de la Photo Élève */
+        .student-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            object-fit: cover;
+            background-color: #fff;
+        }
 
         header {
-            text-align: center;
-            margin-bottom: 50px;
             background: #fff;
-            padding: 20px 50px;
+            padding: 20px 40px;
             border-radius: 50px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border: 4px solid var(--primary-color);
             transform: rotate(-2deg);
             transition: transform 0.3s;
+            display: inline-block;
         }
 
         header:hover {
@@ -75,22 +149,24 @@
         h1 {
             font-family: 'Fredoka', cursive;
             margin: 0;
-            font-size: 2.5em;
+            font-size: 2.2em;
             color: #2d3436;
         }
 
         .subtitle {
             color: #636e72;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-top: 5px;
         }
 
+        /* --- GRILLE DE MENU --- */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 25px;
             width: 100%;
             max-width: 1000px;
+            padding: 20px 0;
         }
 
         .menu-card {
@@ -118,7 +194,7 @@
         }
 
         .icon {
-            font-size: 3em;
+            font-size: 3.5em;
             margin-bottom: 15px;
             display: block;
             transition: transform 0.3s;
@@ -141,115 +217,134 @@
             display: block;
         }
 
-        /* Couleurs Spécifiques pour chaque carte */
+        /* Couleurs pour chaque bouton du menu */
         .revisions { border-bottom-color: #74b9ff; }
-        .revisions .icon { background: #e3f2fd; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #74b9ff; }
-
         .quiz { border-bottom-color: #a29bfe; }
-        .quiz .icon { background: #ede7f6; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #a29bfe; }
-
         .notes { border-bottom-color: #55efc4; }
-        .notes .icon { background: #e0f2f1; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #00b894; }
-
         .dossier { border-bottom-color: #fab1a0; }
-        .dossier .icon { background: #fbe9e7; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #e17055; }
-
         .portrait { border-bottom-color: #ffeaa7; }
-        .portrait .icon { background: #fffde7; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #fdcb6e; }
-
         .programme { border-bottom-color: #636e72; }
-        .programme .icon { background: #eceff1; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #636e72; }
 
         footer {
             margin-top: 50px;
             color: #636e72;
             font-size: 0.9em;
             text-align: center;
+            padding-bottom: 30px;
+        }
+
+        /* Adaptation Mobile */
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .cartable-img { width: 120px; }
+            .student-photo { width: 110px; height: 110px; }
+            h1 { font-size: 1.8em; }
         }
     </style>
 </head>
 <body>
 
-<!-- BOUTON HOME (Maison) - Lien relatif vers lui-même -->
-<a href="index.html" class="home-btn" title="Retour à l'accueil">🏠</a>
+<!-- BOUTON HOME FIXE -->
+<a href="index.html" class="home-btn" title="Recharger l'accueil">🏠</a>
 
-<header>
-    <h1>🚀 Mon Espace CM1</h1>
-    <div class="subtitle">Bienvenue Hamza ! Prêt à apprendre ?</div>
-</header>
+<!-- SECTION HERO : PHOTO | TITRE | CARTABLE -->
+<div class="hero-section">
+    <!-- GAUCHE : Photo de l'élève -->
+    <div class="hero-left">
+        <img src="photo_eleve.jpg" alt="Hamza" class="student-photo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2922/2922510.png';">
+    </div>
 
+    <!-- CENTRE : Header Principal -->
+    <div class="hero-center">
+        <header>
+            <h1>🚀 Mon Espace CM1</h1>
+            <div class="subtitle">Bienvenue Hamza ! Prêt à apprendre ?</div>
+        </header>
+    </div>
+
+    <!-- DROITE : Lien vers les cahiers PDF -->
+    <div class="hero-right">
+        <a href="cahiers_hamza.html" class="cartable-link" title="Ouvrir mes cahiers">
+            <img src="cartable.png" alt="Mon Cartable" class="cartable-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; font-size: 100px; cursor: pointer;">🎒</div>
+        </a>
+    </div>
+</div>
+
+<!-- GRILLE DES ACTIVITÉS -->
 <div class="grid-container">
 
-    <!-- Fiches de Révision -->
-    <a href="fiches.html" class="menu-card revisions">
+    <!-- Fiches de Révisions -->
+    <a href="fiches_revision_cm1.html" class="menu-card revisions">
         <span class="icon">📚</span>
-        <span class="card-title">Fiches de Révision</span>
-        <span class="card-desc">Toutes les leçons (Français, Maths, Histoire...)</span>
+        <span class="card-title">Fiches de Révisions</span>
+        <span class="card-desc">Toutes les leçons pour réussir.</span>
     </a>
 
-    <!-- Questionnaire Interactif -->
-    <a href="questionnaire.html" class="menu-card quiz">
+    <!-- Quiz Interactif -->
+    <a href="questionnaire_cm1.html" class="menu-card quiz">
         <span class="icon">🎮</span>
         <span class="card-title">Quiz Interactif</span>
         <span class="card-desc">Teste tes connaissances en t'amusant !</span>
     </a>
 
-    <!-- Bulletin de Notes -->
-    <a href="resultat.html" class="menu-card notes">
+    <!-- Mon Bulletin -->
+    <a href="bulletin_hamza.html" class="menu-card notes">
         <span class="icon">🏆</span>
         <span class="card-title">Mon Bulletin</span>
-        <span class="card-desc">Voir mes progrès et mes réussites.</span>
+        <span class="card-desc">Regarde tes points et tes progrès.</span>
     </a>
 
-    <!-- Mémo des Notions -->
-    <a href="Memo-Revision.html" class="menu-card revisions">
+    <!-- Mémo Express -->
+    <a href="memo_cm1.html" class="menu-card revisions">
         <span class="icon">💡</span>
         <span class="card-title">Mémo Express</span>
-        <span class="card-desc">L'essentiel à retenir en un coup d'œil.</span>
+        <span class="card-desc">L'essentiel à retenir d'un coup d'œil.</span>
     </a>
 
     <!-- Guide d'Étude -->
-    <a href="guide-etude-cm1.html" class="menu-card quiz">
+    <a href="guide_etude_cm1.html" class="menu-card quiz">
         <span class="icon">📝</span>
         <span class="card-title">Guide d'Étude</span>
-        <span class="card-desc">Questions et réponses pour approfondir.</span>
+        <span class="card-desc">Questions pour s'entraîner.</span>
     </a>
     
-    <!-- Évaluation -->
-    <a href="quiz.html" class="menu-card quiz">
+    <!-- Évaluation Blanche -->
+    <a href="questionnaire_cm1_eval.html" class="menu-card quiz">
         <span class="icon">✍️</span>
         <span class="card-title">Évaluation Blanche</span>
-        <span class="card-desc">Entraîne-toi comme à l'examen.</span>
+        <span class="card-desc">Comme un vrai contrôle à la maison.</span>
     </a>
 
-    <!-- Dossier de Suivi (Plus pour les parents/maîtres) -->
-    <a href="dossier-pedagogique.html" class="menu-card dossier">
+    <!-- Dossier de Suivi -->
+    <a href="dossier_suivi_hamza.html" class="menu-card dossier">
         <span class="icon">📁</span>
         <span class="card-title">Dossier de Suivi</span>
-        <span class="card-desc">Analyse pédagogique complète.</span>
+        <span class="card-desc">Suivi pédagogique détaillé.</span>
     </a>
 
-    <!-- Portrait -->
-    <a href="portrait-hamza.html" class="menu-card portrait">
+    <!-- Mon Portrait -->
+    <a href="portrait_hamza.html" class="menu-card portrait">
         <span class="icon">🎨</span>
         <span class="card-title">Mon Portrait</span>
-        <span class="card-desc">Ce que je dis de moi et mes passions.</span>
+        <span class="card-desc">Mes passions et mes secrets.</span>
     </a>
 
-    <!-- Programme -->
-    <a href="programme-cm1.html" class="menu-card programme">
+    <!-- Le Programme -->
+    <a href="programme_cm1.html" class="menu-card programme">
         <span class="icon">📅</span>
         <span class="card-title">Le Programme</span>
-        <span class="card-desc">Voir le document officiel.</span>
+        <span class="card-desc">Les objectifs officiels du CM1.</span>
     </a>
 
 </div>
 
 <footer>
-    <p>🌟 Continue comme ça Hamza, tu fais du super travail ! 🌟</p>
+    <p>🌟 Continue ton excellent travail Hamza ! 🌟</p>
 </footer>
 
 </body>
 </html>
-
-
