@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Espace CM1 - Hamza</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #e0f7fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --primary-color: #00cec9;
+            --secondary-color: #ffeaa7;
+            --accent-color: #ff7675;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#81ecec 2px, transparent 2px);
+            background-size: 30px 30px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: #fff;
+            padding: 20px 50px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 4px solid var(--primary-color);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+
+        header:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        h1 {
+            font-family: 'Fredoka', cursive;
+            margin: 0;
+            font-size: 2.5em;
+            color: #2d3436;
+        }
+
+        .subtitle {
+            color: #636e72;
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-bottom: 6px solid transparent;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover .icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .card-title {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-desc {
+            font-size: 0.9em;
+            color: #95a5a6;
+            display: block;
+        }
+
+        /* Couleurs Spécifiques pour chaque carte */
+        .revisions { border-bottom-color: #74b9ff; }
+        .revisions .icon { background: #e3f2fd; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #74b9ff; }
+
+        .quiz { border-bottom-color: #a29bfe; }
+        .quiz .icon { background: #ede7f6; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #a29bfe; }
+
+        .notes { border-bottom-color: #55efc4; }
+        .notes .icon { background: #e0f2f1; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #00b894; }
+
+        .dossier { border-bottom-color: #fab1a0; }
+        .dossier .icon { background: #fbe9e7; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #e17055; }
+
+        .portrait { border-bottom-color: #ffeaa7; }
+        .portrait .icon { background: #fffde7; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #fdcb6e; }
+
+        .programme { border-bottom-color: #636e72; }
+        .programme .icon { background: #eceff1; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #636e72; }
+
+        footer {
+            margin-top: 50px;
+            color: #636e72;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🚀 Mon Espace CM1</h1>
+    <div class="subtitle">Bienvenue Hamza ! Prêt à apprendre ?</div>
+</header>
+
+<div class="grid-container">
+
+    <!-- Fiches de Révision -->
+    <a href="fiches_revision_cm1.html" class="menu-card revisions">
+        <span class="icon">📚</span>
+        <span class="card-title">Fiches de Révision</span>
+        <span class="card-desc">Toutes les leçons (Français, Maths, Histoire...)</span>
+    </a>
+
+    <!-- Questionnaire Interactif -->
+    <a href="questionnaire_cm1.html" class="menu-card quiz">
+        <span class="icon">🎮</span>
+        <span class="card-title">Quiz Interactif</span>
+        <span class="card-desc">Teste tes connaissances en t'amusant !</span>
+    </a>
+
+    <!-- Bulletin de Notes -->
+    <a href="bulletin_hamza.html" class="menu-card notes">
+        <span class="icon">🏆</span>
+        <span class="card-title">Mon Bulletin</span>
+        <span class="card-desc">Voir mes progrès et mes réussites.</span>
+    </a>
+
+    <!-- Mémo des Notions -->
+    <a href="memo_cm1.html" class="menu-card revisions">
+        <span class="icon">💡</span>
+        <span class="card-title">Mémo Express</span>
+        <span class="card-desc">L'essentiel à retenir en un coup d'œil.</span>
+    </a>
+
+    <!-- Guide d'Étude -->
+    <a href="guide_etude_cm1.html" class="menu-card quiz">
+        <span class="icon">📝</span>
+        <span class="card-title">Guide d'Étude</span>
+        <span class="card-desc">Questions et réponses pour approfondir.</span>
+    </a>
+    
+    <!-- Évaluation -->
+    <a href="questionnaire_cm1_eval.html" class="menu-card quiz">
+        <span class="icon">✍️</span>
+        <span class="card-title">Évaluation Blanche</span>
+        <span class="card-desc">Entraîne-toi comme à l'examen.</span>
+    </a>
+
+    <!-- Dossier de Suivi (Plus pour les parents/maîtres) -->
+    <a href="dossier_suivi_hamza.html" class="menu-card dossier">
+        <span class="icon">📁</span>
+        <span class="card-title">Dossier de Suivi</span>
+        <span class="card-desc">Analyse pédagogique complète.</span>
+    </a>
+
+    <!-- Portrait -->
+    <a href="portrait_hamza.html" class="menu-card portrait">
+        <span class="icon">🎨</span>
+        <span class="card-title">Mon Portrait</span>
+        <span class="card-desc">Ce que je dis de moi et mes passions.</span>
+    </a>
+
+    <!-- Programme -->
+    <a href="programme_cm1.html" class="menu-card programme">
+        <span class="icon">📅</span>
+        <span class="card-title">Le Programme</span>
+        <span class="card-desc">Voir le document officiel.</span>
+    </a>
+
+</div>
+
+<footer>
+    <p>🌟 Continue comme ça Hamza, tu fais du super travail ! 🌟</p>
+</footer>
+
+</body>
+</html>
