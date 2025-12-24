@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Rentrée CM1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #f0f9ff;
+            background-image: radial-gradient(#bae6fd 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .handwritten {
+            font-family: 'Patrick Hand', cursive;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .check-animation {
+            animation: bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes bounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-10 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10 opacity-50">
+                <div class="absolute top-10 left-10 w-20 h-20 bg-yellow-300 rounded-full blur-xl"></div>
+                <div class="absolute bottom-10 right-10 w-32 h-32 bg-purple-300 rounded-full blur-xl"></div>
+            </div>
+            <span class="inline-block px-4 py-1 bg-blue-600 text-white rounded-full text-sm font-bold mb-2 transform -rotate-2">Pour Lundi 5 Janvier</span>
+            <h1 class="text-4xl md:text-6xl font-bold text-blue-900 mb-2 drop-shadow-sm">Mission Rentrée CM1 🚀</h1>
+            <p class="text-xl text-blue-600 handwritten">Prêt(e) pour l'aventure ? Complète tes objectifs !</p>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm mb-8 border-2 border-blue-100">
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-blue-800">Progression de la mission</span>
+                <span id="progress-text" class="font-bold text-blue-600">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                <div id="progress-bar" class="bg-gradient-to-r from-blue-400 to-purple-500 h-4 rounded-full transition-all duration-1000 w-0"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Card 1: EMC & Citoyenneté -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-yellow-400 card-hover relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i data-lucide="heart-handshake" class="w-24 h-24 text-yellow-500"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-yellow-100 p-2 rounded-xl text-yellow-600"><i data-lucide="crown" class="w-6 h-6"></i></span>
+                    Mission Citoyen
+                </h2>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-yellow-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700">Apprendre les définitions : <strong>Respect</strong> et <strong>Politesse</strong>.</span>
+                    </li>
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-yellow-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700">Faire signer les cahiers par les parents (Sceau royal requis !).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Maths -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-red-400 card-hover relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i data-lucide="calculator" class="w-24 h-24 text-red-500"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-red-100 p-2 rounded-xl text-red-600"><i data-lucide="brain-circuit" class="w-6 h-6"></i></span>
+                    Défi Mathématique
+                </h2>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-red-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700">Travailler le calcul mental (échauffement).</span>
+                    </li>
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-red-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <div class="flex-1">
+                            <span class="text-gray-700 block mb-2">Poser et calculer les opérations secrètes :</span>
+                            <div class="grid grid-cols-2 gap-2 text-sm font-mono bg-red-50 p-3 rounded-lg text-red-800">
+                                <div>5837 : 4</div>
+                                <div>9518 : 6</div>
+                                <div>7518 : 5</div>
+                                <div>6532 x 8</div>
+                                <div>18554 + 9939 + 8</div>
+                                <div>25958 - 12069</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Lecture & Français -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-purple-400 card-hover relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i data-lucide="book-open" class="w-24 h-24 text-purple-500"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-purple-100 p-2 rounded-xl text-purple-600"><i data-lucide="mic-2" class="w-6 h-6"></i></span>
+                    Grand Tournoi de Lecture
+                </h2>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-purple-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700">Préparer une lecture à voix haute de <strong>3 minutes</strong> (Objectif : Petits Champions !).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Leçons & Matériel -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-green-400 card-hover relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i data-lucide="backpack" class="w-24 h-24 text-green-500"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-green-100 p-2 rounded-xl text-green-600"><i data-lucide="map" class="w-6 h-6"></i></span>
+                    Savoirs & Équipement
+                </h2>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700">Géographie : Apprendre la leçon <em>"L'école en ville et à la campagne"</em>.</span>
+                    </li>
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700"><strong>Révision Générale :</strong> Revoir toutes les leçons (Attention : rumeur de contrôle à la rentrée ! 🧐).</span>
+                    </li>
+                     <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                        <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
+                            <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
+                        </div>
+                        <span class="text-gray-700">Apporter une <strong>boîte à chaussures</strong> (Mission Art Plastique ?).</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Footer Motivation -->
+        <div class="mt-10 text-center bg-blue-50 rounded-2xl p-6 border border-blue-100">
+            <h3 class="text-xl font-bold text-blue-800 mb-2">Message du QG</h3>
+            <p class="text-blue-600 handwritten text-lg">"Courage ! Une fois tout terminé, tu seras prêt(e) pour une super rentrée en 2025 !"</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-3xl max-w-sm text-center transform scale-0 transition-transform duration-300" id="modal-content">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Mission Accomplie !</h2>
+            <p class="text-gray-600 mb-6">Bravo, tu es prêt(e) pour la rentrée !</p>
+            <button onclick="closeModal()" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition-colors">Super !</button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleTask(element) {
+            const circle = element.querySelector('.check-circle');
+            const checkIcon = element.querySelector('i[data-lucide="check"]');
+            const text = element.querySelector('span');
+            
+            // Check current state based on background color class
+            const isChecked = circle.classList.contains('bg-green-500') || circle.classList.contains('bg-yellow-500') || circle.classList.contains('bg-red-500') || circle.classList.contains('bg-purple-500');
+
+            if (!isChecked) {
+                // Determine color based on border color
+                let colorClass = 'bg-blue-500';
+                if(circle.classList.contains('border-yellow-400')) colorClass = 'bg-yellow-500';
+                if(circle.classList.contains('border-red-400')) colorClass = 'bg-red-500';
+                if(circle.classList.contains('border-purple-400')) colorClass = 'bg-purple-500';
+                if(circle.classList.contains('border-green-400')) colorClass = 'bg-green-500';
+
+                circle.classList.remove('bg-white');
+                circle.classList.add(colorClass, 'border-transparent');
+                checkIcon.classList.remove('opacity-0');
+                text.classList.add('line-through', 'text-gray-400');
+                
+                // Add bounce animation
+                circle.classList.add('check-animation');
+                setTimeout(() => circle.classList.remove('check-animation'), 500);
+            } else {
+                // Reset
+                circle.className = `w-6 h-6 rounded-full border-2 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle ${circle.className.split(' ').find(c => c.startsWith('border-') && c !== 'border-transparent') || 'border-gray-400'}`;
+                
+                // Re-add the original border color if we lost it (simplified logic for demo, reliant on HTML structure not changing much)
+                // A safer way is to just clear the bg color and border-transparent
+                const parentCard = element.closest('.rounded-3xl');
+                if(parentCard.classList.contains('border-yellow-400')) circle.classList.add('border-yellow-400');
+                if(parentCard.classList.contains('border-red-400')) circle.classList.add('border-red-400');
+                if(parentCard.classList.contains('border-purple-400')) circle.classList.add('border-purple-400');
+                if(parentCard.classList.contains('border-green-400')) circle.classList.add('border-green-400');
+
+                checkIcon.classList.add('opacity-0');
+                text.classList.remove('line-through', 'text-gray-400');
+            }
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const totalTasks = document.querySelectorAll('li').length;
+            const completedTasks = document.querySelectorAll('.line-through').length;
+            const percentage = Math.round((completedTasks / totalTasks) * 100);
+
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `${percentage}%`;
+
+            if (percentage === 100) {
+                setTimeout(showSuccess, 500);
+            }
+        }
+
+        function showSuccess() {
+            const modal = document.getElementById('success-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-0');
+                content.classList.add('scale-100');
+            }, 10);
+            confettiEffect();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function confettiEffect() {
+            // Simple confetti simulation
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+            for(let i=0; i<50; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '10px';
+                conf.style.height = '10px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.zIndex = 100;
+                conf.style.transition = 'top 2s ease-in, transform 2s ease-in';
+                document.body.appendChild(conf);
+
+                setTimeout(() => {
+                    conf.style.top = '100vh';
+                    conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                }, 10);
+
+                setTimeout(() => {
+                    conf.remove();
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

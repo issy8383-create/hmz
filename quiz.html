@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Scolaire - CM1 (Hamza)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5a623;
+            --success-color: #7ed321;
+            --error-color: #d0021b;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-bottom: 5px solid var(--primary-color);
+        }
+
+        h1 {
+            font-family: 'Comic Neue', cursive;
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-family: 'Comic Neue', cursive;
+            color: #555;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+
+        .subject-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .options label:hover {
+            background-color: #f8f9fa;
+            border-color: var(--primary-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .result-message {
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .correct {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .incorrect {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn-check {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-check:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .definition-match {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🎓 Questionnaire Scolaire</h1>
+        <p>Révisions CM1 : Géographie, Histoire & Sciences</p>
+        <p style="font-size: 0.9em; color: #666;">Basé sur le portfolio d'Hamza</p>
+    </header>
+
+    <!-- GÉOGRAPHIE -->
+    <span class="subject-badge" style="background-color: #e67e22;">Géographie</span>
+    <h2>Quiz Express : Ville vs Campagne</h2>
+
+    <div class="card" id="q1-card">
+        <p class="question">1. Comment viennent souvent les élèves à l'école à la campagne ?</p>
+        <div class="options">
+            <label><input type="radio" name="q1" value="wrong"> En métro</label>
+            <label><input type="radio" name="q1" value="correct"> En car (ramassage scolaire)</label>
+            <label><input type="radio" name="q1" value="wrong"> En avion</label>
+        </div>
+        <div class="result-message" id="q1-msg"></div>
+    </div>
+
+    <div class="card" id="q2-card">
+        <p class="question">2. Qu'est-ce qui est VRAI pour une école en ville ?</p>
+        <div class="options">
+            <label><input type="radio" name="q2" value="correct"> Il y a souvent un niveau par classe (ex: une classe de CM1)</label>
+            <label><input type="radio" name="q2" value="wrong"> Il n'y a pas de récréation</label>
+            <label><input type="radio" name="q2" value="wrong"> Les cours sont entourées de champs</label>
+        </div>
+        <div class="result-message" id="q2-msg"></div>
+    </div>
+
+    <div class="card" id="q3-card">
+        <p class="question">3. Le programme scolaire est-il le même partout (ville et campagne) ?</p>
+        <div class="options">
+            <label><input type="radio" name="q3" value="correct"> OUI !</label>
+            <label><input type="radio" name="q3" value="wrong"> NON !</label>
+        </div>
+        <div class="result-message" id="q3-msg"></div>
+    </div>
+
+    <h2>Les Transports & L'Espace</h2>
+    
+    <div class="card" id="q4-card">
+        <p class="question">4. Quel est le mode de transport le plus utilisé rue de Rivoli en 2023 ?</p>
+        <div class="options">
+            <label><input type="radio" name="q4" value="wrong"> La voiture</label>
+            <label><input type="radio" name="q4" value="correct"> Le vélo</label>
+            <label><input type="radio" name="q4" value="wrong"> Le bus</label>
+        </div>
+        <div class="result-message" id="q4-msg"></div>
+    </div>
+
+    <div class="card" id="q5-card">
+        <p class="question">5. Qu'est-ce que la migration pendulaire ?</p>
+        <div class="options">
+            <label><input type="radio" name="q5" value="wrong"> Le voyage des oiseaux en hiver.</label>
+            <label><input type="radio" name="q5" value="correct"> Le déplacement quotidien domicile-travail (matin et soir).</label>
+            <label><input type="radio" name="q5" value="wrong"> Déménager d'une ville à une autre.</label>
+        </div>
+        <div class="result-message" id="q5-msg"></div>
+    </div>
+
+    <!-- HISTOIRE -->
+    <span class="subject-badge" style="background-color: #8e44ad;">Histoire</span>
+    <h2>L'Antiquité et la Gaule</h2>
+
+    <div class="card" id="q6-card">
+        <p class="question">6. Associe le mot à sa définition :</p>
+        
+        <div class="definition-match">
+            <span>Personne qui croit en un dieu unique :</span>
+            <select id="hist-def-1">
+                <option value="">Choisir...</option>
+                <option value="monotheiste">Monothéiste</option>
+                <option value="polytheiste">Polythéiste</option>
+                <option value="disciple">Disciple</option>
+            </select>
+        </div>
+
+        <div class="definition-match">
+            <span>Religion prêchée par Jésus :</span>
+            <select id="hist-def-2">
+                <option value="">Choisir...</option>
+                <option value="islam">L'Islam</option>
+                <option value="christianisme">Le Christianisme</option>
+                <option value="judaïsme">Le Judaïsme</option>
+            </select>
+        </div>
+        
+        <div class="definition-match">
+            <span>Prêtre des Gaulois qui rend la justice :</span>
+            <select id="hist-def-3">
+                <option value="">Choisir...</option>
+                <option value="soldat">Le Soldat</option>
+                <option value="empereur">L'Empereur</option>
+                <option value="druide">Le Druide</option>
+            </select>
+        </div>
+
+        <div class="result-message" id="q6-msg"></div>
+    </div>
+
+    <!-- SCIENCES -->
+    <span class="subject-badge" style="background-color: #27ae60;">Sciences</span>
+    <h2>L'Eau et la Démarche Scientifique</h2>
+
+    <div class="card" id="q7-card">
+        <p class="question">7. Vrai ou Faux : Il y a plus d'eau douce que d'eau salée sur Terre.</p>
+        <div class="options">
+            <label><input type="radio" name="q7" value="wrong"> Vrai</label>
+            <label><input type="radio" name="q7" value="correct"> Faux (Il y a plus d'eau salée !)</label>
+        </div>
+        <div class="result-message" id="q7-msg"></div>
+    </div>
+
+    <div class="card" id="q8-card">
+        <p class="question">8. Remets les étapes de la démarche scientifique dans l'ordre (1 à 4) :</p>
+        <p style="font-size: 0.9em; font-style: italic;">Interpréter - Observer - Émettre des hypothèses - Expérimenter</p>
+        
+        <div style="display: grid; gap: 5px;">
+            <div>Étape 1 : <select id="sci-step-1"><option value="observer">Observer</option><option value="hypothese">Hypothèses</option></select></div>
+            <div>Étape 2 : <select id="sci-step-2"><option value="hypothese">Émettre des hypothèses</option><option value="observer">Observer</option></select></div>
+            <div>Étape 3 : <select id="sci-step-3"><option value="experimenter">Expérimenter</option><option value="interpreter">Interpréter</option></select></div>
+            <div>Étape 4 : <select id="sci-step-4"><option value="interpreter">Interpréter / Conclure</option><option value="experimenter">Expérimenter</option></select></div>
+        </div>
+
+        <div class="result-message" id="q8-msg"></div>
+    </div>
+
+    <button class="btn-check" onclick="checkAnswers()">Vérifier mes réponses</button>
+
+    <div class="score-board" id="scoreBoard">
+        Votre Note : <span id="scoreValue">0</span> / 20
+    </div>
+
+</div>
+
+<script>
+    function checkAnswers() {
+        let score = 0;
+        let totalQuestions = 8;
+        
+        // Helper function to check Radio buttons
+        function checkRadio(name, correctVal, cardId, msgId, explanation = "") {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            const msgDiv = document.getElementById(msgId);
+            
+            if (selected) {
+                if (selected.value === "correct") {
+                    msgDiv.innerHTML = "✅ Bonne réponse ! " + explanation;
+                    msgDiv.className = "result-message correct";
+                    msgDiv.style.display = "block";
+                    return 2.5; // Weight per question
+                } else {
+                    msgDiv.innerHTML = "❌ Mauvaise réponse. " + explanation;
+                    msgDiv.className = "result-message incorrect";
+                    msgDiv.style.display = "block";
+                    return 0;
+                }
+            } else {
+                msgDiv.innerHTML = "⚠️ Tu n'as pas répondu.";
+                msgDiv.className = "result-message incorrect";
+                msgDiv.style.display = "block";
+                return 0;
+            }
+        }
+
+        // --- GEO ---
+        score += checkRadio('q1', 'correct', 'q1-card', 'q1-msg', "Le ramassage scolaire est indispensable.");
+        score += checkRadio('q2', 'correct', 'q2-card', 'q2-msg', "En ville, la densité permet une classe par niveau.");
+        score += checkRadio('q3', 'correct', 'q3-card', 'q3-msg', "Le programme est national.");
+        score += checkRadio('q4', 'correct', 'q4-card', 'q4-msg', "Le vélo a dépassé la voiture sur cet axe.");
+        score += checkRadio('q5', 'correct', 'q5-card', 'q5-msg', "C'est l'aller-retour quotidien.");
+
+        // --- HISTOIRE (Dropdowns) ---
+        let h1 = document.getElementById('hist-def-1').value;
+        let h2 = document.getElementById('hist-def-2').value;
+        let h3 = document.getElementById('hist-def-3').value;
+        let histMsg = document.getElementById('q6-msg');
+        
+        let histScore = 0;
+        if(h1 === 'monotheiste') histScore++;
+        if(h2 === 'christianisme') histScore++;
+        if(h3 === 'druide') histScore++;
+        
+        if (histScore === 3) {
+            histMsg.innerHTML = "✅ Tout est correct ! (Monothéiste, Christianisme, Druide)";
+            histMsg.className = "result-message correct";
+            score += 2.5;
+        } else {
+            histMsg.innerHTML = `❌ ${histScore}/3 corrects. Révise tes définitions.`;
+            histMsg.className = "result-message incorrect";
+            score += (histScore * 0.8);
+        }
+        histMsg.style.display = "block";
+
+        // --- SCIENCES ---
+        score += checkRadio('q7', 'correct', 'q7-card', 'q7-msg', "L'eau douce est très rare (glaciers, rivières).");
+
+        // Science Steps
+        let s1 = document.getElementById('sci-step-1').value;
+        let s2 = document.getElementById('sci-step-2').value;
+        let s3 = document.getElementById('sci-step-3').value;
+        let s4 = document.getElementById('sci-step-4').value;
+        let sciMsg = document.getElementById('q8-msg');
+
+        if(s1 === 'observer' && s2 === 'hypothese' && s3 === 'experimenter' && s4 === 'interpreter') {
+            sciMsg.innerHTML = "✅ Excellente démarche scientifique !";
+            sciMsg.className = "result-message correct";
+            score += 2.5;
+        } else {
+            sciMsg.innerHTML = "❌ L'ordre est : Observer > Hypothèses > Expérimenter > Interpréter.";
+            sciMsg.className = "result-message incorrect";
+        }
+        sciMsg.style.display = "block";
+
+        // Final Score
+        const scoreBoard = document.getElementById('scoreBoard');
+        const scoreValue = document.getElementById('scoreValue');
+        scoreValue.innerText = Math.round(score * 10) / 10; // Round to 1 decimal
+        scoreBoard.style.display = "block";
+        
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

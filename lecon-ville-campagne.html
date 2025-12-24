@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Géographie : Ville vs Campagne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #f0f9ff;
+            background-image: radial-gradient(#e0f2fe 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .handwritten {
+            font-family: 'Patrick Hand', cursive;
+        }
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        .quiz-btn {
+            transition: all 0.2s;
+        }
+        .quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .correct-answer {
+            background-color: #4ade80 !important;
+            color: white !important;
+            border-color: #22c55e !important;
+        }
+        .wrong-answer {
+            background-color: #f87171 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Hero Header -->
+    <div class="bg-gradient-to-b from-sky-400 to-sky-200 text-white pt-12 pb-24 rounded-b-[3rem] shadow-lg relative overflow-hidden">
+        <div class="absolute top-10 left-10 text-yellow-300 opacity-80"><i data-lucide="sun" class="w-16 h-16"></i></div>
+        <div class="absolute bottom-10 right-10 text-white opacity-40"><i data-lucide="cloud" class="w-24 h-24"></i></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <span class="bg-white text-sky-600 px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4 inline-block shadow-sm">Géographie CM1</span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-md">L'école : Ville vs Campagne</h1>
+            <p class="text-xl md:text-2xl font-light handwritten">Habiter la France : Espaces Urbains et Ruraux</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 -mt-16 relative z-20">
+        
+        <!-- Introduction Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-12 max-w-3xl mx-auto border-l-8 border-yellow-400">
+            <h2 class="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                <i data-lucide="info" class="text-yellow-500"></i> Le saviez-vous ?
+            </h2>
+            <p class="text-gray-600">
+                En France, tous les enfants apprennent les mêmes choses. Mais selon l'endroit où tu habites, ton école peut être très différente ! On distingue deux grands espaces : <span class="text-blue-600 font-bold">l'espace Urbain</span> (la ville) et <span class="text-green-600 font-bold">l'espace Rural</span> (la campagne).
+            </p>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            
+            <!-- Ville Column -->
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-t-8 border-blue-500 transform hover:scale-[1.01] transition-transform duration-300">
+                <div class="bg-blue-50 p-6 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full text-blue-600 mb-3 shadow-inner">
+                        <i data-lucide="building-2" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-blue-800">L'Espace Urbain</h2>
+                    <p class="text-blue-500 font-medium">L'école en ville</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600 mt-1"><i data-lucide="users" class="w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Beaucoup d'élèves</h3>
+                            <p class="text-sm text-gray-600">Forte densité de population.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600 mt-1"><i data-lucide="school" class="w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Architecture Verticale</h3>
+                            <p class="text-sm text-gray-600">Bâtiments à plusieurs étages, cour souvent bétonnée.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600 mt-1"><i data-lucide="library" class="w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">1 Classe = 1 Niveau</h3>
+                            <p class="text-sm text-gray-600">Ex: Une classe de CE2, une classe de CM1...</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 rounded-xl p-4 mt-4">
+                        <p class="text-sm text-blue-800"><span class="font-bold">Déplacements :</span> À pied, tramway ou bus de ville. Proche des musées et piscines.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campagne Column -->
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-t-8 border-green-500 transform hover:scale-[1.01] transition-transform duration-300">
+                <div class="bg-green-50 p-6 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full text-green-600 mb-3 shadow-inner">
+                        <i data-lucide="flower-2" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-green-800">L'Espace Rural</h2>
+                    <p class="text-green-500 font-medium">L'école à la campagne</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-green-100 p-2 rounded-lg text-green-600 mt-1"><i data-lucide="tree-pine" class="w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Moins d'élèves</h3>
+                            <p class="text-sm text-gray-600">Faible densité, nature autour.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-green-100 p-2 rounded-lg text-green-600 mt-1"><i data-lucide="home" class="w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Architecture Horizontale</h3>
+                            <p class="text-sm text-gray-600">De plain-pied, grande cour avec de l'herbe.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-green-100 p-2 rounded-lg text-green-600 mt-1"><i data-lucide="layers" class="w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Classes multiniveaux</h3>
+                            <p class="text-sm text-gray-600">Ex: CE2 et CM1 ensemble dans la même classe.</p>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 rounded-xl p-4 mt-4">
+                        <p class="text-sm text-green-800"><span class="font-bold">Déplacements :</span> Ramassage scolaire (Car) indispensable car les hameaux sont loin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Lexique Interactif -->
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Les mots savants <span class="handwritten text-purple-500 text-2xl">(Passe ta souris !)</span></h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 h-40">
+            <!-- Card 1 -->
+            <div class="flip-card h-full cursor-pointer">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front bg-white rounded-xl shadow-md flex flex-col items-center justify-center p-4 border-2 border-purple-100">
+                        <span class="text-purple-600 font-bold text-lg">RPI</span>
+                        <i data-lucide="refresh-ccw" class="w-6 h-6 text-purple-300 mt-2"></i>
+                    </div>
+                    <div class="flip-card-back bg-purple-500 rounded-xl flex items-center justify-center p-4 text-center">
+                        <p class="text-white text-sm font-bold">Regroupement Pédagogique Intercommunal</p>
+                    </div>
+                </div>
+            </div>
+             <!-- Card 2 -->
+             <div class="flip-card h-full cursor-pointer">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front bg-white rounded-xl shadow-md flex flex-col items-center justify-center p-4 border-2 border-orange-100">
+                        <span class="text-orange-600 font-bold text-lg">Densité</span>
+                        <i data-lucide="bar-chart-2" class="w-6 h-6 text-orange-300 mt-2"></i>
+                    </div>
+                    <div class="flip-card-back bg-orange-500 rounded-xl flex items-center justify-center p-4 text-center">
+                        <p class="text-white text-sm font-bold">Le nombre d'habitants sur un territoire donné.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="flip-card h-full cursor-pointer">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front bg-white rounded-xl shadow-md flex flex-col items-center justify-center p-4 border-2 border-teal-100">
+                        <span class="text-teal-600 font-bold text-lg">Mixité</span>
+                        <i data-lucide="shuffle" class="w-6 h-6 text-teal-300 mt-2"></i>
+                    </div>
+                    <div class="flip-card-back bg-teal-500 rounded-xl flex items-center justify-center p-4 text-center">
+                        <p class="text-white text-sm font-bold">Mélange des niveaux (CP/CE1) dans une même classe.</p>
+                    </div>
+                </div>
+            </div>
+             <!-- Card 4 -->
+             <div class="flip-card h-full cursor-pointer">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front bg-white rounded-xl shadow-md flex flex-col items-center justify-center p-4 border-2 border-pink-100">
+                        <span class="text-pink-600 font-bold text-lg">Rural</span>
+                        <i data-lucide="sprout" class="w-6 h-6 text-pink-300 mt-2"></i>
+                    </div>
+                    <div class="flip-card-back bg-pink-500 rounded-xl flex items-center justify-center p-4 text-center">
+                        <p class="text-white text-sm font-bold">Adjectif qui désigne tout ce qui concerne la campagne.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="bg-white rounded-3xl shadow-lg p-8 max-w-2xl mx-auto border-4 border-indigo-100">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-indigo-900 mb-2">Quiz Express ⚡️</h2>
+                <p class="text-gray-500">As-tu bien tout compris ?</p>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="mb-8 quiz-question" id="q1">
+                <p class="font-bold text-lg text-gray-800 mb-4">1. Comment viennent souvent les élèves à l'école à la campagne ?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <button onclick="checkAnswer(this, false, 'q1')" class="quiz-btn w-full p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-left hover:border-indigo-300 bg-white">En métro</button>
+                    <button onclick="checkAnswer(this, true, 'q1')" class="quiz-btn w-full p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-left hover:border-indigo-300 bg-white">En car (ramassage scolaire)</button>
+                    <button onclick="checkAnswer(this, false, 'q1')" class="quiz-btn w-full p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-left hover:border-indigo-300 bg-white">En avion</button>
+                </div>
+                <div class="feedback hidden mt-2 text-sm font-bold"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="mb-8 quiz-question" id="q2">
+                <p class="font-bold text-lg text-gray-800 mb-4">2. Qu'est-ce qui est VRAI pour une école en ville ?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <button onclick="checkAnswer(this, true, 'q2')" class="quiz-btn w-full p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-left hover:border-indigo-300 bg-white">Il y a souvent un niveau par classe</button>
+                    <button onclick="checkAnswer(this, false, 'q2')" class="quiz-btn w-full p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-left hover:border-indigo-300 bg-white">Il n'y a pas de récréation</button>
+                    <button onclick="checkAnswer(this, false, 'q2')" class="quiz-btn w-full p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-left hover:border-indigo-300 bg-white">Les cours sont entourées de champs</button>
+                </div>
+                <div class="feedback hidden mt-2 text-sm font-bold"></div>
+            </div>
+
+             <!-- Question 3 -->
+             <div class="mb-4 quiz-question" id="q3">
+                <p class="font-bold text-lg text-gray-800 mb-4">3. Le programme scolaire est-il le même partout ?</p>
+                <div class="flex gap-4">
+                    <button onclick="checkAnswer(this, true, 'q3')" class="quiz-btn flex-1 p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-center hover:border-indigo-300 bg-white">OUI !</button>
+                    <button onclick="checkAnswer(this, false, 'q3')" class="quiz-btn flex-1 p-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-center hover:border-indigo-300 bg-white">NON !</button>
+                </div>
+                <div class="feedback hidden mt-2 text-sm font-bold"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-12 text-gray-400 text-sm">
+        <p>Leçon créée pour la classe de CM1 - Géographie</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function checkAnswer(btn, isCorrect, questionId) {
+            const container = document.getElementById(questionId);
+            const feedback = container.querySelector('.feedback');
+            const buttons = container.querySelectorAll('button');
+
+            // Disable all buttons in this question
+            buttons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                feedback.textContent = "Bravo ! C'est la bonne réponse ! 🎉";
+                feedback.className = "feedback mt-3 text-green-600 font-bold block bg-green-50 p-2 rounded-lg text-center";
+                confettiEffect(btn);
+            } else {
+                btn.classList.add('wrong-answer');
+                feedback.textContent = "Oups, ce n'est pas ça. Regarde bien la leçon !";
+                feedback.className = "feedback mt-3 text-red-500 font-bold block bg-red-50 p-2 rounded-lg text-center";
+                
+                // Highlight the correct answer
+                buttons.forEach(b => {
+                    if (b.getAttribute('onclick').includes('true')) {
+                        setTimeout(() => b.classList.add('correct-answer'), 500);
+                    }
+                });
+            }
+        }
+
+        function confettiEffect(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#4ade80', '#60a5fa', '#facc15'];
+            
+            for(let i=0; i<20; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = (rect.left + rect.width/2) + 'px';
+                conf.style.top = (rect.top + rect.height/2) + 'px';
+                conf.style.width = '8px';
+                conf.style.height = '8px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.zIndex = 100;
+                conf.style.transition = 'all 1s ease-out';
+                document.body.appendChild(conf);
+
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 50 + Math.random() * 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+
+                requestAnimationFrame(() => {
+                    conf.style.transform = `translate(${tx}px, ${ty}px) scale(0)`;
+                    conf.style.opacity = 0;
+                });
+
+                setTimeout(() => conf.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+</html>

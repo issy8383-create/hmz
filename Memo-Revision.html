@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mémo des Notions - CM1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --fr-color: #4a90e2; /* Bleu pour Français */
+            --math-color: #27ae60; /* Vert pour Maths */
+            --accent-color: #f39c12; /* Jaune/Orange pour les astuces */
+            --bg-color: #f4f7f6;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Comic Neue', cursive;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .intro {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+
+        /* Section Styles */
+        .section-title {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .fr-title { color: var(--fr-color); border-bottom: 3px solid var(--fr-color); }
+        .math-title { color: var(--math-color); border-bottom: 3px solid var(--math-color); }
+
+        .subsection {
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Specific Table Colors */
+        .fr-table th { border-top: 3px solid var(--fr-color); }
+        .math-table th { border-top: 3px solid var(--math-color); }
+
+        /* Conjugation Grids */
+        .conjugation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .verb-card {
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 15px;
+            background: #fff;
+        }
+        
+        .verb-card h4 {
+            margin-top: 0;
+            text-align: center;
+            color: var(--fr-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Tips Box */
+        .tip-box {
+            background-color: #fff9e6;
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip-title {
+            font-weight: bold;
+            color: #d35400;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.2em;
+            color: var(--fr-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 Mémo des Notions CM1</h1>
+        <p class="intro">Bienvenue dans ton mémo de révision ! C'est un outil simple et clair pour t'aider à te souvenir des leçons les plus importantes vues en classe.</p>
+    </header>
+
+    <!-- FRANÇAIS -->
+    <div class="section-title fr-title">1. Français 🇫🇷</div>
+
+    <div class="subsection">
+        <h3>1.1. Grammaire : Les 3 types de phrases</h3>
+        <p>Pour t'exprimer, tu peux utiliser 3 grands types de phrases :</p>
+        
+        <table class="fr-table">
+            <thead>
+                <tr>
+                    <th style="width: 20%">Type</th>
+                    <th style="width: 40%">Utilité</th>
+                    <th style="width: 40%">Exemple</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Déclarative</strong></td>
+                    <td>Raconter un événement ou donner une information.<br><em>Se termine par un point (.)</em></td>
+                    <td>Julie a écrit un très joli poème.</td>
+                </tr>
+                <tr>
+                    <td><strong>Interrogative</strong></td>
+                    <td>Poser une question.<br><em>Se termine par un point d'interrogation (?)</em></td>
+                    <td>Écris-tu un poème ?</td>
+                </tr>
+                <tr>
+                    <td><strong>Impérative</strong></td>
+                    <td>Donner un ordre ou un conseil.<br><em>Se termine par un point (.) ou d'exclamation (!)</em></td>
+                    <td>Écris un poème.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip-box">
+            <span class="tip-title">💡 Astuce :</span>
+            Pour poser une question facilement, tu peux souvent commencer ta phrase par <strong>"Est-ce que..."</strong>.
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>1.2. Conjugaison : Le présent de l'indicatif</h3>
+        <p>Le présent sert à dire ce qui se passe <strong>en ce moment</strong> ou ce qui est <strong>toujours vrai</strong>.</p>
+        
+        <div class="tip-box" style="border-color: var(--fr-color); background-color: #eaf2f8;">
+            <strong>Règle du 1er groupe (-er) :</strong> On enlève le -er et on ajoute : 
+            <strong>-e, -es, -e, -ons, -ez, -ent</strong>.
+        </div>
+
+        <div class="conjugation-grid">
+            <!-- 1er Groupe -->
+            <div class="verb-card">
+                <h4>Chanter (1er groupe)</h4>
+                <table>
+                    <tr><td>je</td><td>chant<strong>e</strong></td></tr>
+                    <tr><td>tu</td><td>chant<strong>es</strong></td></tr>
+                    <tr><td>il/elle</td><td>chant<strong>e</strong></td></tr>
+                    <tr><td>nous</td><td>chant<strong>ons</strong></td></tr>
+                    <tr><td>vous</td><td>chant<strong>ez</strong></td></tr>
+                    <tr><td>ils/elles</td><td>chant<strong>ent</strong></td></tr>
+                </table>
+            </div>
+
+            <!-- Être -->
+            <div class="verb-card">
+                <h4>Être</h4>
+                <table>
+                    <tr><td>je</td><td><strong>suis</strong></td></tr>
+                    <tr><td>tu</td><td><strong>es</strong></td></tr>
+                    <tr><td>il/elle</td><td><strong>est</strong></td></tr>
+                    <tr><td>nous</td><td><strong>sommes</strong></td></tr>
+                    <tr><td>vous</td><td><strong>êtes</strong></td></tr>
+                    <tr><td>ils/elles</td><td><strong>sont</strong></td></tr>
+                </table>
+            </div>
+
+            <!-- Avoir -->
+            <div class="verb-card">
+                <h4>Avoir</h4>
+                <table>
+                    <tr><td>j'</td><td><strong>ai</strong></td></tr>
+                    <tr><td>tu</td><td><strong>as</strong></td></tr>
+                    <tr><td>il/elle</td><td><strong>a</strong></td></tr>
+                    <tr><td>nous</td><td><strong>avons</strong></td></tr>
+                    <tr><td>vous</td><td><strong>avez</strong></td></tr>
+                    <tr><td>ils/elles</td><td><strong>ont</strong></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATHÉMATIQUES -->
+    <div class="section-title math-title">2. Mathématiques 📐</div>
+
+    <div class="subsection">
+        <h3>2.1. Calcul : Les opérations clés</h3>
+        
+        <h4>La Multiplication (x 10, 100, 1000)</h4>
+        <div class="tip-box">
+            <ul>
+                <li><strong>x 10</strong> : On ajoute un <strong>0</strong> (Ex: 35 x 10 = 350)</li>
+                <li><strong>x 100</strong> : On ajoute deux <strong>00</strong> (Ex: 48 x 100 = 4 800)</li>
+                <li><strong>x 1 000</strong> : On ajoute trois <strong>000</strong> (Ex: 51 x 1 000 = 51 000)</li>
+            </ul>
+        </div>
+
+        <h4>La Division (Vocabulaire)</h4>
+        <p>Dans une division posée, il y a 4 mots importants :</p>
+        <ul style="list-style-type: none; padding: 0;">
+            <li style="margin-bottom: 5px; padding: 10px; background: #fdfefe; border: 1px solid #eee; border-radius: 5px;">
+                🍎 <strong>Le dividende</strong> : Le nombre que l'on partage (le total).
+            </li>
+            <li style="margin-bottom: 5px; padding: 10px; background: #fdfefe; border: 1px solid #eee; border-radius: 5px;">
+                🔪 <strong>Le diviseur</strong> : Le nombre de parts que l'on fait.
+            </li>
+            <li style="margin-bottom: 5px; padding: 10px; background: #fdfefe; border: 1px solid #eee; border-radius: 5px;">
+                🍰 <strong>Le quotient</strong> : Le résultat (combien chacun reçoit).
+            </li>
+            <li style="margin-bottom: 5px; padding: 10px; background: #fdfefe; border: 1px solid #eee; border-radius: 5px;">
+                📦 <strong>Le reste</strong> : Ce qu'il reste à la fin (qu'on ne peut plus partager).
+            </li>
+        </ul>
+    </div>
+
+    <div class="subsection">
+        <h3>2.2. Géométrie : Les droites</h3>
+        <table class="math-table">
+            <thead>
+                <tr>
+                    <th>Caractéristique</th>
+                    <th>Droites Perpendiculaires</th>
+                    <th>Droites Parallèles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Définition</strong></td>
+                    <td>Elles se coupent en formant un <strong>angle droit</strong> (90°).</td>
+                    <td>Elles ne se rencontrent <strong>jamais</strong>, même prolongées.</td>
+                </tr>
+                <tr>
+                    <td><strong>Symbole</strong></td>
+                    <td style="font-size: 1.5em; text-align: center;">⊥</td>
+                    <td style="font-size: 1.5em; text-align: center;">//</td>
+                </tr>
+                <tr>
+                    <td><strong>Exemple</strong></td>
+                    <td>(d1) ⊥ (d2)<br><small>"d1 est perpendiculaire à d2"</small></td>
+                    <td>(d1) // (d2)<br><small>"d1 est parallèle à d2"</small></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        🌟 Félicitations pour tes révisions ! Continue comme ça et tu seras parfaitement prêt(e). 🌟
+    </footer>
+</div>
+
+</body>
+</html>

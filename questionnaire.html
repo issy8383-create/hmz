@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Scolaire - CM1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Comic+Neue:wght@700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f9f9f9;
+            --paper-color: #ffffff;
+            --line-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--paper-color);
+            padding: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        /* En-tête type copie d'examen */
+        header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-title h1 {
+            font-family: 'Comic Neue', cursive;
+            margin: 0;
+            font-size: 2.2em;
+            color: var(--primary-color);
+        }
+
+        .header-title p {
+            margin: 5px 0 0;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .student-info {
+            text-align: right;
+            font-size: 0.95em;
+        }
+
+        .student-field {
+            margin-bottom: 8px;
+        }
+
+        .dotted-line {
+            display: inline-block;
+            border-bottom: 2px dotted #999;
+            width: 150px;
+            margin-left: 5px;
+        }
+
+        /* Sections */
+        h2 {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .instruction {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Questions */
+        .question-block {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .q-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .q-text::before {
+            content: "Q" counter(question) ". ";
+            counter-increment: question;
+            color: var(--accent-color);
+        }
+
+        body {
+            counter-reset: question;
+        }
+
+        /* Zones de réponse (Input style papier) */
+        .answer-zone {
+            width: 100%;
+            min-height: 80px;
+            background: repeating-linear-gradient(
+                transparent,
+                transparent 29px,
+                var(--line-color) 30px
+            );
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0 10px;
+            line-height: 30px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.1em;
+            color: #333;
+            resize: vertical;
+            outline: none;
+        }
+
+        .answer-zone:focus {
+            border-color: var(--accent-color);
+            background-color: #fff;
+            background-image: none;
+        }
+
+        /* Bouton Correction */
+        .correction-section {
+            margin-top: 50px;
+            border-top: 2px dashed #ccc;
+            padding-top: 20px;
+        }
+
+        .btn-toggle {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-align: center;
+        }
+
+        .btn-toggle:hover {
+            background-color: #34495e;
+        }
+
+        #corriges {
+            display: none;
+            margin-top: 20px;
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .corrige-item {
+            margin-bottom: 15px;
+        }
+
+        .corrige-label {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 0.9em;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
+            .correction-section { display: none !important; } /* Cacher les corrigés à l'impression */
+            .answer-zone { border: none; border-bottom: 1px solid #000; background: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-title">
+            <h1>Évaluation CM1</h1>
+            <p>Géographie • Français • Maths • Histoire • Sciences</p>
+        </div>
+        <div class="student-info">
+            <div class="student-field">Nom : <span class="dotted-line"></span></div>
+            <div class="student-field">Prénom : <span class="dotted-line"></span></div>
+            <div class="student-field">Date : <span class="dotted-line"></span></div>
+        </div>
+    </header>
+
+    <h2>Partie 1 : Questions à Réponse Courte</h2>
+    <p class="instruction">Répondez à chaque question par des phrases complètes.</p>
+
+    <!-- Questions -->
+    <div class="question-block">
+        <label class="q-text">Quelles sont les deux principales différences entre une école située en ville et une école située à la campagne ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Selon la leçon de français, quels sont les trois types de phrases et à quoi servent-ils respectivement ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Comment peut-on tracer deux droites parallèles en utilisant la propriété des droites perpendiculaires ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">D'après le texte de Jules César, quel était le double rôle des druides au sein de la société gauloise ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Quelles sont les quatre étapes fondamentales de la démarche scientifique telles que décrites dans l'expérience sur l'eau ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Définissez le phénomène de "migration pendulaire" expliqué dans le cahier de géographie.</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Comment peut-on distinguer un verbe du 2ème groupe d'un verbe du 3ème groupe qui se termine également par "-ir" ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Qu'est-ce que la "densité de population" et comment est-elle généralement mesurée ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">Quelle est la définition du mot "respect" telle qu'elle est fournie dans le cahier de vocabulaire ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <label class="q-text">En mathématiques, quelle est la méthode pour multiplier un nombre par un multiple de dix, comme 50 ou 800 ?</label>
+        <textarea class="answer-zone" placeholder="Votre réponse..."></textarea>
+    </div>
+
+    <h2>Partie 2 : Réflexion (Au choix)</h2>
+    <p class="instruction">Choisissez un sujet et rédigez une réponse détaillée au dos de la feuille ou ci-dessous.</p>
+    
+    <div class="question-block" style="border: 2px dashed #ddd; padding: 15px; border-radius: 8px;">
+        <p style="margin: 0 0 10px 0;"><strong>Sujets de dissertation :</strong></p>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
+            <li>Comparer les modes de vie urbain et rural (logement, école, transport).</li>
+            <li>Expliquer la structure de la société gauloise (druides, cavaliers, peuple).</li>
+            <li>Décrire le processus complet pour résoudre une division posée.</li>
+        </ul>
+        <textarea class="answer-zone" style="margin-top: 15px; min-height: 150px;" placeholder="Rédigez votre réflexion ici..."></textarea>
+    </div>
+
+    <!-- Section Corrigés -->
+    <div class="correction-section">
+        <button class="btn-toggle" onclick="toggleCorrection()">Voir / Masquer le Corrigé</button>
+        
+        <div id="corriges">
+            <h3>Corrigé Type</h3>
+            
+            <div class="corrige-item">
+                <div class="corrige-label">Q1. École Ville vs Campagne</div>
+                Ville : beaucoup d'élèves, 1 classe/niveau, vertical. Campagne : moins d'élèves, multiniveaux, plain-pied.
+            </div>
+            
+            <div class="corrige-item">
+                <div class="corrige-label">Q2. Types de phrases</div>
+                Déclarative (info), Interrogative (question), Impérative (ordre/conseil).
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q3. Droites parallèles</div>
+                Si deux droites (d2) et (d3) sont perpendiculaires à une même droite (d1), alors elles sont parallèles entre elles.
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q4. Rôle des druides</div>
+                Religieux (culte, instruction) et Judiciaire (juger les crimes et conflits).
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q5. Démarche scientifique</div>
+                1. Observer - 2. Hypothèses - 3. Expérimenter - 4. Interpréter.
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q6. Migration pendulaire</div>
+                Déplacement quotidien domicile-travail (matin) et retour (soir).
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q7. Verbes en -ir</div>
+                2ème groupe si terminaison "-issons" à "nous" (finissons) ou participe présent en "-issant". Sinon 3ème groupe.
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q8. Densité de population</div>
+                Nombre d'habitants par kilomètre carré (hab/km²).
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q9. Respect</div>
+                Considération pour l'âge/valeur de quelqu'un, et respect des règles (écouter sans couper la parole).
+            </div>
+
+            <div class="corrige-item">
+                <div class="corrige-label">Q10. Multiplication x50 / x800</div>
+                x50 : multiplier par 5 puis par 10. <br>
+                x800 : multiplier par 8 puis par 100.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleCorrection() {
+        var x = document.getElementById("corriges");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    }
+</script>
+
+</body>
+</html>

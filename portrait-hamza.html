@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portrait de l'élève : Hamza</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap');
+
+        :root {
+            --primary-color: #34495e; /* Dark Blue/Grey */
+            --accent-color: #e67e22; /* Warm Orange for personality */
+            --math-color: #27ae60;   /* Green for Maths */
+            --bg-color: #fdfbf7;     /* Warm white */
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.6em;
+            margin-top: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 25px;
+            background-color: var(--accent-color);
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Identity Card Style for Section 1 */
+        .identity-card {
+            background-color: #fff8f0;
+            border: 2px dashed var(--accent-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .identity-item strong {
+            display: block;
+            color: var(--accent-color);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        /* Math Section Highlights */
+        .math-highlight {
+            background-color: #eafaf1;
+            border-left: 5px solid var(--math-color);
+            padding: 15px;
+            margin: 15px 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tip-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .tip-card strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .tips-container { grid-template-columns: 1fr; }
+            body { padding: 15px; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Portrait de l'élève : Hamza</h1>
+        <p class="subtitle">Généré par Hajj IA - CM1</p>
+    </header>
+
+    <div class="intro">
+        <p>Pour vous permettre de faire rapidement connaissance avec le vif et attachant Hamza, élève de votre classe de CM1, voici un portrait qui s'appuie directement sur sa voix et son travail. Ce document a été pensé comme un pont pour vous aider à tisser rapidement un lien pédagogique fort et bienveillant avec lui.</p>
+    </div>
+
+    <section>
+        <h2>1. Hamza, par lui-même : Un autoportrait plein de vie</h2>
+        <p>Dans une rédaction de début d'année, Hamza se présente avec une franchise et un enthousiasme rafraîchissants. Ce texte nous offre une vision précieuse de la manière dont il se perçoit.</p>
+
+        <div class="identity-card">
+            <div class="identity-item">
+                <strong>Ses Qualités</strong>
+                Généreux, Curieux, Drôle
+            </div>
+            <div class="identity-item">
+                <strong>Passions</strong>
+                Mathématiques, Football, Pâtes, Tigres
+            </div>
+            <div class="identity-item">
+                <strong>Jeu Préféré</strong>
+                L'épervier
+            </div>
+            <div class="identity-item">
+                <strong>Ambition</strong>
+                Devenir Maître d'école
+            </div>
+        </div>
+
+        <p><strong>Sa lucidité :</strong> Hamza fait preuve d'une belle conscience de ses propres défis en écrivant : <em>« Mon plus gras defaut c'est le vocabulaire »</em>. Cette auto-évaluation est un atout majeur pour sa progression.</p>
+    </section>
+
+    <section>
+        <h2 style="--accent-color: #27ae60;">2. Son domaine de prédilection : Un mathématicien en herbe</h2>
+        <p>L'amour d'Hamza pour les mathématiques est soutenu par de solides compétences. Il aborde cette matière avec une confiance et une aisance remarquables.</p>
+        
+        <div class="math-highlight">
+            Score en calcul mental : 20/20 (100%)
+        </div>
+        
+        <p>Il fait preuve d'une grande maîtrise dans les opérations posées, y compris les multiplications à plusieurs chiffres et les additions complexes. Cette rigueur et ce goût pour la structure démontrent une approche studieuse précieuse pour son projet professionnel.</p>
+    </section>
+
+    <section>
+        <h2>3. Au-delà des chiffres : Un esprit curieux et appliqué</h2>
+        
+        <h3>3.1. Une démarche de scientifique</h3>
+        <p>Lors d'une expérience sur l'eau et la pollution, Hamza a démontré sa capacité à s'approprier une démarche complexe en 4 étapes (observer, émettre des hypothèses, expérimenter, interpréter). Cela témoigne de son aptitude à comprendre des processus structurés.</p>
+
+        <h3>3.2. Un travailleur sérieux et méthodique</h3>
+        <p>En géographie ou en histoire, Hamza est appliqué. Il définit des concepts abstraits (densité de population, zone rurale) avec ses propres mots et tient ses cahiers avec soin, reflétant le respect qu'il porte à son travail.</p>
+    </section>
+
+    <section>
+        <h2>4. Ses axes de développement : L'orthographe et le vocabulaire</h2>
+        <p>Hamza est conscient de ses défis. Si son analyse personnelle sur son vocabulaire est juste, elle est confirmée par des erreurs dans ses dictées (ex: "La Naissance de Vénus").</p>
+        <p><strong>Point fort :</strong> Sa grande diligence à recopier le texte sans erreur après la correction. Son attitude positive face à l'erreur est un levier puissant pour progresser.</p>
+    </section>
+
+    <section>
+        <h2>5. Conclusion : Pistes pour tisser un lien</h2>
+        <p>Voici quelques pistes concrètes pour connecter avec Hamza :</p>
+
+        <div class="tips-container">
+            <div class="tip-card">
+                <strong>🏆 Valorisez les Maths</strong>
+                Confiez-lui des responsabilités (tutorat, correction) pour renforcer son sentiment de compétence.
+            </div>
+            <div class="tip-card">
+                <strong>⚽ Parlez Passions</strong>
+                Le football, les tigres ou "l'épervier" sont d'excellents sujets de discussion informelle.
+            </div>
+            <div class="tip-card">
+                <strong>👨‍🏫 Soutenez son Ambition</strong>
+                Discuter de son projet de devenir "maître" donne du sens à ses apprentissages.
+            </div>
+            <div class="tip-card">
+                <strong>📝 Encouragez en Français</strong>
+                Félicitez sa persévérance face à l'erreur plutôt que de pointer uniquement les fautes.
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

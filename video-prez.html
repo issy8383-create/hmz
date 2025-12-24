@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiches de Révision - CM1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-color: #2d3436;
+            
+            /* Couleurs par matière */
+            --fr-color: #74b9ff;
+            --math-color: #55efc4;
+            --hist-color: #a29bfe;
+            --geo-color: #ffeaa7;
+            --sci-color: #81ecec;
+            --civ-color: #ff7675;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* --- STYLES VIDÉO INTRO --- */
+        #video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 9999; /* Au-dessus de tout */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+
+        #intro-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Remplit l'écran sans déformer */
+        }
+
+        #skip-btn {
+            position: absolute;
+            bottom: 40px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            z-index: 10000;
+            color: #2d3436;
+        }
+
+        #skip-btn:hover {
+            transform: scale(1.05);
+            background: #fff;
+        }
+        /* -------------------------- */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 3em;
+            color: #2d3436;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #636e72;
+            margin-top: 10px;
+        }
+        
+        /* Filtres */
+        .filters {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            background-color: #2d3436;
+            color: #fff;
+        }
+
+        .filter-btn[data-filter="fr"] { border-bottom: 3px solid var(--fr-color); }
+        .filter-btn[data-filter="math"] { border-bottom: 3px solid var(--math-color); }
+        .filter-btn[data-filter="hist"] { border-bottom: 3px solid var(--hist-color); }
+        .filter-btn[data-filter="geo"] { border-bottom: 3px solid var(--geo-color); }
+        .filter-btn[data-filter="sci"] { border-bottom: 3px solid var(--sci-color); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Style des Fiches */
+        .fiche {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fiche:hover {
+            transform: translateY(-5px);
+        }
+
+        .fiche-header {
+            padding: 15px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .fiche-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #2d3436;
+            border-bottom: 2px dashed #dfe6e9;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        
+        ol {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+
+        strong {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .fiche-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            opacity: 0.5;
+            font-weight: bold;
+        }
+
+        /* Couleurs spécifiques */
+        .fr { border-top: 8px solid var(--fr-color); }
+        .fr h3 { color: #0984e3; }
+        
+        .math { border-top: 8px solid var(--math-color); }
+        .math h3 { color: #00b894; }
+
+        .hist { border-top: 8px solid var(--hist-color); }
+        .hist h3 { color: #6c5ce7; }
+
+        .geo { border-top: 8px solid var(--geo-color); }
+        .geo h3 { color: #fdcb6e; }
+
+        .sci { border-top: 8px solid var(--sci-color); }
+        .sci h3 { color: #00cec9; }
+        
+        .civ { border-top: 8px solid var(--civ-color); }
+        .civ h3 { color: #d63031; }
+
+        /* Badge Matière */
+        .badge {
+            font-size: 0.6em;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(0,0,0,0.05);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Astuce Box */
+        .astuce {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+        
+        .exemple {
+            font-style: italic;
+            color: #636e72;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- VIDÉO EN PLEIN ÉCRAN -->
+<div id="video-overlay">
+    <video id="intro-video" autoplay muted playsinline>
+        <source src="Le_monde_d_un_élève_de_CM1.mp4" type="video/mp4">
+        Votre navigateur ne prend pas en charge la vidéo.
+    </video>
+    <button id="skip-btn" onclick="closeVideo()">Accéder aux Fiches 🚀</button>
+</div>
+
+<div class="container">
+    <header>
+        <h1>📚 69 Fiches de Révision CM1</h1>
+        <p class="subtitle">Tout le programme pour réussir ton année !</p>
+    </header>
+    
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterFiches('all')">Tout voir</button>
+        <button class="filter-btn" data-filter="fr" onclick="filterFiches('fr')">Français</button>
+        <button class="filter-btn" data-filter="math" onclick="filterFiches('math')">Mathématiques</button>
+        <button class="filter-btn" data-filter="hist" onclick="filterFiches('hist')">Histoire</button>
+        <button class="filter-btn" data-filter="geo" onclick="filterFiches('geo')">Géographie</button>
+        <button class="filter-btn" data-filter="sci" onclick="filterFiches('sci')">Sciences</button>
+    </div>
+
+    <div class="grid">
+
+        <!-- ================= FRANÇAIS ================= -->
+        
+        <!-- Grammaire -->
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Grammaire <span class="badge">Phrase</span></div>
+            <div class="fiche-content">
+                <h3>1. La Phrase Déclarative</h3>
+                <p>Elle sert à dire quelque chose, raconter un fait ou donner une opinion.</p>
+                <ul>
+                    <li>Elle se termine par un <strong>point (.)</strong>.</li>
+                </ul>
+                <span class="exemple">Ex: Julie a écrit un poème.</span>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Grammaire <span class="badge">Phrase</span></div>
+            <div class="fiche-content">
+                <h3>2. La Phrase Interrogative</h3>
+                <p>Elle sert à poser une question.</p>
+                <ul>
+                    <li>Elle se termine par un <strong>point d'interrogation (?)</strong>.</li>
+                    <li>Peut commencer par "Est-ce que", "Qui", "Où", etc.</li>
+                </ul>
+                <span class="exemple">Ex: Écris-tu un poème ?</span>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Grammaire <span class="badge">Phrase</span></div>
+            <div class="fiche-content">
+                <h3>3. La Phrase Impérative</h3>
+                <p>Elle sert à donner un ordre ou un conseil.</p>
+                <ul>
+                    <li>Le verbe est souvent en début de phrase.</li>
+                    <li>Se termine par un point (.) ou point d'exclamation (!).</li>
+                </ul>
+                <span class="exemple">Ex: Écris un poème.</span>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Grammaire <span class="badge">Construction</span></div>
+            <div class="fiche-content">
+                <h3>4. Construire une Interrogation</h3>
+                <p>3 façons de poser une question :</p>
+                <ol>
+                    <li>L'intonation (à l'oral).</li>
+                    <li>"Est-ce que..." en début de phrase.</li>
+                    <li>L'inversion du sujet (Verbe - Sujet).</li>
+                </ol>
+                <span class="exemple">Ex: As-tu fini ?</span>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Grammaire <span class="badge">Construction</span></div>
+            <div class="fiche-content">
+                <h3>5. Mots Interrogatifs</h3>
+                <p>Utilise ces mots pour préciser ta question :</p>
+                <ul>
+                    <li><strong>Qui</strong> (personne)</li>
+                    <li><strong>Où</strong> (lieu)</li>
+                    <li><strong>Quand</strong> (temps)</li>
+                    <li><strong>Combien</strong> (quantité)</li>
+                    <li><strong>Pourquoi</strong> (cause)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Conjugaison -->
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Verbe</span></div>
+            <div class="fiche-content">
+                <h3>6. L'Infinitif</h3>
+                <p>C'est le "nom" du verbe quand il n'est pas conjugué.</p>
+                <ul>
+                    <li>C'est la forme trouvée dans le dictionnaire.</li>
+                    <li>Il se compose du <strong>radical</strong> et de la <strong>terminaison</strong>.</li>
+                </ul>
+                <span class="exemple">Ex: Chant(radical) - er(terminaison).</span>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Groupes</span></div>
+            <div class="fiche-content">
+                <h3>7. Les 3 Groupes</h3>
+                <ul>
+                    <li><strong>1er groupe :</strong> Fin en -ER (sauf Aller).</li>
+                    <li><strong>2ème groupe :</strong> Fin en -IR (nous ...-issons).</li>
+                    <li><strong>3ème groupe :</strong> Tous les autres (Aller, Faire, Prendre...).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>8. Présent - 1er Groupe (-ER)</h3>
+                <p>Terminaisons à connaître par cœur :</p>
+                <ul>
+                    <li>Je ... <strong>-e</strong></li>
+                    <li>Tu ... <strong>-es</strong></li>
+                    <li>Il/Elle ... <strong>-e</strong></li>
+                    <li>Nous ... <strong>-ons</strong></li>
+                    <li>Vous ... <strong>-ez</strong></li>
+                    <li>Ils/Elles ... <strong>-ent</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>9. Présent - 2ème Groupe (-IR)</h3>
+                <p>Terminaisons à connaître :</p>
+                <ul>
+                    <li>Je ... <strong>-is</strong></li>
+                    <li>Tu ... <strong>-is</strong></li>
+                    <li>Il/Elle ... <strong>-it</strong></li>
+                    <li>Nous ... <strong>-issons</strong></li>
+                    <li>Vous ... <strong>-issez</strong></li>
+                    <li>Ils/Elles ... <strong>-issent</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>10. Verbe Être (Présent)</h3>
+                <ul>
+                    <li>Je suis</li>
+                    <li>Tu es</li>
+                    <li>Il est</li>
+                    <li>Nous sommes</li>
+                    <li>Vous êtes</li>
+                    <li>Ils sont</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>11. Verbe Avoir (Présent)</h3>
+                <ul>
+                    <li>J'ai</li>
+                    <li>Tu as</li>
+                    <li>Il a</li>
+                    <li>Nous avons</li>
+                    <li>Vous avez</li>
+                    <li>Ils ont</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>12. Verbe Aller (3e Groupe)</h3>
+                <ul>
+                    <li>Je vais</li>
+                    <li>Tu vas</li>
+                    <li>Il va</li>
+                    <li>Nous allons</li>
+                    <li>Vous allez</li>
+                    <li>Ils vont</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>13. Verbe Faire (3e Groupe)</h3>
+                <ul>
+                    <li>Je fais</li>
+                    <li>Tu fais</li>
+                    <li>Il fait</li>
+                    <li>Nous faisons</li>
+                    <li>Vous faites</li>
+                    <li>Ils font</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Présent</span></div>
+            <div class="fiche-content">
+                <h3>14. Verbe Dire (3e Groupe)</h3>
+                <ul>
+                    <li>Je dis</li>
+                    <li>Tu dis</li>
+                    <li>Il dit</li>
+                    <li>Nous disons</li>
+                    <li>Vous <strong>dites</strong></li>
+                    <li>Ils disent</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Emploi</span></div>
+            <div class="fiche-content">
+                <h3>15. Quand utiliser le Présent ?</h3>
+                <ul>
+                    <li>Pour une action qui se passe <strong>maintenant</strong>.</li>
+                    <li>Pour une <strong>habitude</strong> (tous les jours).</li>
+                    <li>Pour une <strong>vérité générale</strong> (Le soleil brille).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Particularités</span></div>
+            <div class="fiche-content">
+                <h3>16. Verbes en -GER</h3>
+                <p>Attention à la 1ère personne du pluriel (nous) !</p>
+                <ul>
+                    <li>On ajoute un <strong>e</strong> après le g pour garder le son [j].</li>
+                </ul>
+                <span class="exemple">Ex: Manger -> Nous mang<strong>e</strong>ons.</span>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Particularités</span></div>
+            <div class="fiche-content">
+                <h3>17. Verbes en -GUER</h3>
+                <p>Le u reste à toutes les personnes.</p>
+                <ul>
+                    <li>Je navigue, nous naviguons.</li>
+                </ul>
+                <span class="exemple">Ex: Naviguer.</span>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Conjugaison <span class="badge">Particularités</span></div>
+            <div class="fiche-content">
+                <h3>18. Verbes en -CER</h3>
+                <p>Attention à la 1ère personne du pluriel (nous) !</p>
+                <ul>
+                    <li>On met une <strong>cédille (ç)</strong> pour garder le son [s].</li>
+                </ul>
+                <span class="exemple">Ex: Lancer -> Nous lan<strong>ç</strong>ons.</span>
+            </div>
+        </div>
+
+        <!-- Orthographe -->
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Orthographe <span class="badge">Son [g]</span></div>
+            <div class="fiche-content">
+                <h3>19. Le son [g] (Gare)</h3>
+                <ul>
+                    <li>S'écrit <strong>g</strong> devant a, o, u (gâteau, gare).</li>
+                    <li>S'écrit <strong>gu</strong> devant e, i, y (guitare, bague).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Orthographe <span class="badge">Son [j]</span></div>
+            <div class="fiche-content">
+                <h3>20. Le son [j] (Girafe)</h3>
+                <ul>
+                    <li>S'écrit <strong>j</strong> (jardin).</li>
+                    <li>S'écrit <strong>g</strong> devant e, i, y (genou, girafe).</li>
+                    <li>S'écrit <strong>ge</strong> devant a, o (pigeon).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Orthographe <span class="badge">Accord</span></div>
+            <div class="fiche-content">
+                <h3>21. Accord dans le Groupe Nominal</h3>
+                <p>Le déterminant, le nom et l'adjectif s'accordent en genre (féminin/masculin) et en nombre (singulier/pluriel).</p>
+                <span class="exemple">Ex: Des <strong>vagues</strong> gigantesque<strong>s</strong>.</span>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Orthographe <span class="badge">Accord</span></div>
+            <div class="fiche-content">
+                <h3>22. Accord Sujet-Verbe</h3>
+                <p>Le verbe s'accorde toujours avec son sujet.</p>
+                <ul>
+                    <li>Si le sujet est au pluriel, le verbe est au pluriel (souvent -nt).</li>
+                </ul>
+                <span class="exemple">Ex: Les dieux habitent l'Olympe.</span>
+            </div>
+        </div>
+
+        <!-- Vocabulaire -->
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Vocabulaire <span class="badge">Définitions</span></div>
+            <div class="fiche-content">
+                <h3>23. Le Respect</h3>
+                <p>C'est la considération que l'on a pour quelqu'un (âge, valeur) et le fait de suivre les règles.</p>
+                <span class="exemple">Ex: Ne pas couper la parole.</span>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Vocabulaire <span class="badge">Définitions</span></div>
+            <div class="fiche-content">
+                <h3>24. La Politesse</h3>
+                <p>Ensemble de règles de savoir-vivre pour bien se comporter.</p>
+                <span class="exemple">Ex: Dire bonjour, merci, s'il te plaît.</span>
+            </div>
+        </div>
+
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Vocabulaire <span class="badge">Définitions</span></div>
+            <div class="fiche-content">
+                <h3>25. La Sympathie</h3>
+                <p>Attirance spontanée vers quelqu'un avec qui on pense bien s'entendre.</p>
+            </div>
+        </div>
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Vocabulaire <span class="badge">Outils</span></div>
+            <div class="fiche-content">
+                <h3>26. Ordre Alphabétique</h3>
+                <p>Pour ranger des mots, on regarde la 1ère lettre, puis la 2ème si besoin, etc.</p>
+                <span class="exemple">Ex: Artiste, Caravane, Casserole.</span>
+            </div>
+        </div>
+
+        <!-- ================= MATHÉMATIQUES ================= -->
+        
+        <!-- Numération -->
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Numération <span class="badge">Nombres</span></div>
+            <div class="fiche-content">
+                <h3>27. Comparer des Nombres</h3>
+                <ul>
+                    <li><strong>&lt;</strong> : plus petit que (la pointe vers le petit).</li>
+                    <li><strong>&gt;</strong> : plus grand que.</li>
+                    <li><strong>=</strong> : égal à.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Numération <span class="badge">Ordre</span></div>
+            <div class="fiche-content">
+                <h3>28. Ranger les Nombres</h3>
+                <ul>
+                    <li><strong>Croissant :</strong> Du plus petit au plus grand.</li>
+                    <li><strong>Décroissant :</strong> Du plus grand au plus petit.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Numération <span class="badge">Décomposition</span></div>
+            <div class="fiche-content">
+                <h3>29. Décomposer un Nombre</h3>
+                <p>Séparer les éléments (Milliers, Centaines, Dizaines, Unités).</p>
+                <span class="exemple">Ex: 48 615 = 40 000 + 8 000 + 600 + 10 + 5</span>
+            </div>
+        </div>
+        
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Numération <span class="badge">Unités</span></div>
+            <div class="fiche-content">
+                <h3>30. Valeurs de Position</h3>
+                <ul>
+                    <li>1 Um (Unité de mille) = 1 000</li>
+                    <li>1 C (Centaine) = 100</li>
+                    <li>1 D (Dizaine) = 10</li>
+                    <li>1 U (Unité) = 1</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Calcul -->
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Calcul <span class="badge">Multiplication</span></div>
+            <div class="fiche-content">
+                <h3>31. Tables de Multiplication</h3>
+                <p>Connaître ses tables par cœur permet de calculer vite !</p>
+                <span class="exemple">6 x 7 = 42 ; 8 x 8 = 64 ; 9 x 6 = 54...</span>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Calcul <span class="badge">Mental</span></div>
+            <div class="fiche-content">
+                <h3>32. Multiplier par 10, 100, 1000</h3>
+                <ul>
+                    <li>x 10 : on ajoute un <strong>0</strong> à droite.</li>
+                    <li>x 100 : on ajoute deux <strong>00</strong>.</li>
+                    <li>x 1000 : on ajoute trois <strong>000</strong>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Calcul <span class="badge">Mental</span></div>
+            <div class="fiche-content">
+                <h3>33. Multiplier par 50</h3>
+                <p>50, c'est 5 x 10.</p>
+                <ul>
+                    <li>Je multiplie d'abord par 5, puis j'ajoute un 0.</li>
+                </ul>
+                <span class="exemple">44 x 50 -> (44 x 5) x 10 = 220 x 10 = 2200.</span>
+            </div>
+        </div>
+        
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Calcul <span class="badge">Mental</span></div>
+            <div class="fiche-content">
+                <h3>34. Multiplier par 20, 200...</h3>
+                <p>Décompose le nombre !</p>
+                <ul>
+                    <li>x 20 = x 2 puis x 10.</li>
+                    <li>x 200 = x 2 puis x 100.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Calcul <span class="badge">Division</span></div>
+            <div class="fiche-content">
+                <h3>35. Vocabulaire de la Division</h3>
+                <ul>
+                    <li><strong>Dividende :</strong> Ce qu'on partage.</li>
+                    <li><strong>Diviseur :</strong> Le nombre de parts.</li>
+                    <li><strong>Quotient :</strong> Le résultat par part.</li>
+                    <li><strong>Reste :</strong> Ce qui reste non partagé.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Calcul <span class="badge">Division</span></div>
+            <div class="fiche-content">
+                <h3>36. Technique de la Division</h3>
+                <ol>
+                    <li>Je partage les centaines (Dans 9 combien de fois 7 ?).</li>
+                    <li>Je partage les dizaines.</li>
+                    <li>Je partage les unités.</li>
+                </ol>
+                <div class="astuce">Reste < Diviseur toujours !</div>
+            </div>
+        </div>
+
+        <!-- Géométrie -->
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Géométrie <span class="badge">Droites</span></div>
+            <div class="fiche-content">
+                <h3>37. Droites Perpendiculaires</h3>
+                <ul>
+                    <li>Elles se coupent en formant un <strong>angle droit</strong> (90°).</li>
+                    <li>On vérifie avec une <strong>équerre</strong>.</li>
+                    <li>Symbole : ⊥</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Géométrie <span class="badge">Droites</span></div>
+            <div class="fiche-content">
+                <h3>38. Tracer Perpendiculaires</h3>
+                <ol>
+                    <li>Je trace une droite (d1).</li>
+                    <li>Je place l'équerre sur la droite.</li>
+                    <li>Je trace l'autre côté de l'angle droit.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Géométrie <span class="badge">Droites</span></div>
+            <div class="fiche-content">
+                <h3>39. Droites Parallèles</h3>
+                <ul>
+                    <li>Elles ne se rencontrent <strong>jamais</strong>.</li>
+                    <li>L'écartement est toujours le même.</li>
+                    <li>Symbole : //</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Géométrie <span class="badge">Propriété</span></div>
+            <div class="fiche-content">
+                <h3>40. Propriété Parallèles</h3>
+                <p>Si deux droites (d2) et (d3) sont perpendiculaires à une même droite (d1), alors (d2) et (d3) sont <strong>parallèles</strong>.</p>
+            </div>
+        </div>
+
+        <div class="fiche math" data-category="math">
+            <div class="fiche-header" style="background-color: var(--math-color);">Géométrie <span class="badge">Chemin</span></div>
+            <div class="fiche-content">
+                <h3>41. Le plus court chemin</h3>
+                <ul>
+                    <li>Entre deux points : C'est la ligne droite.</li>
+                    <li>D'un point à une droite : C'est la perpendiculaire.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ================= HISTOIRE ================= -->
+        
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Gaule</span></div>
+            <div class="fiche-content">
+                <h3>42. Les Gaulois</h3>
+                <p>Peuple vivant en Gaule (ancienne France). Organisés en tribus.</p>
+                <ul>
+                    <li>Agriculteurs habiles.</li>
+                    <li>Artisans (métal).</li>
+                    <li>Commerçants.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Société</span></div>
+            <div class="fiche-content">
+                <h3>43. Les Druides</h3>
+                <p>Personnages très importants.</p>
+                <ul>
+                    <li>S'occupent de la religion.</li>
+                    <li>Éduquent les jeunes.</li>
+                    <li>Rendent la justice (juges).</li>
+                    <li>Ne paient pas d'impôts et ne font pas la guerre.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Société</span></div>
+            <div class="fiche-content">
+                <h3>44. Les Cavaliers</h3>
+                <p>Les nobles guerriers.</p>
+                <ul>
+                    <li>Leur rôle est de faire la guerre pour protéger la tribu.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Société</span></div>
+            <div class="fiche-content">
+                <h3>45. Le Peuple</h3>
+                <p>La majorité de la population (agriculteurs, artisans).</p>
+                <ul>
+                    <li>Ils n'ont pas de pouvoir politique.</li>
+                    <li>Jules César disait qu'ils étaient traités presque comme des esclaves.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Religion</span></div>
+            <div class="fiche-content">
+                <h3>46. Christianisation</h3>
+                <ul>
+                    <li><strong>Monothéisme :</strong> Croire en un seul dieu.</li>
+                    <li><strong>Christianisme :</strong> Religion de Jésus.</li>
+                    <li>Devient la religion de l'Empire Romain au IVe siècle.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Vocabulaire</span></div>
+            <div class="fiche-content">
+                <h3>47. Mots Clés Antiquité</h3>
+                <ul>
+                    <li><strong>Disciple :</strong> Élève d'un maître (Jésus).</li>
+                    <li><strong>Bible :</strong> Livre sacré des chrétiens.</li>
+                    <li><strong>Palestine :</strong> Région de naissance de Jésus.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche hist" data-category="hist">
+            <div class="fiche-header" style="background-color: var(--hist-color);">Histoire <span class="badge">Rome</span></div>
+            <div class="fiche-content">
+                <h3>48. Traces Romaines</h3>
+                <p>Les Romains ont laissé beaucoup de monuments en Gaule :</p>
+                <ul>
+                    <li>Aqueduc (eau), Théâtre, Arènes, Forum, Voies romaines (routes).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ================= GÉOGRAPHIE ================= -->
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Espace</span></div>
+            <div class="fiche-content">
+                <h3>49. Zone Urbaine (Ville)</h3>
+                <ul>
+                    <li>Forte densité de population.</li>
+                    <li>Bâtiments hauts et serrés.</li>
+                    <li>Beaucoup de services (transports, commerces).</li>
+                    <li>Plus de 2000 habitants.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Espace</span></div>
+            <div class="fiche-content">
+                <h3>50. Zone Rurale (Campagne)</h3>
+                <ul>
+                    <li>Faible densité de population.</li>
+                    <li>Habitat dispersé.</li>
+                    <li>Beaucoup d'espaces naturels ou agricoles (champs, forêts).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Espace</span></div>
+            <div class="fiche-content">
+                <h3>51. Zone Périurbaine</h3>
+                <p>Espace entre la ville et la campagne.</p>
+                <ul>
+                    <li>Zone en développement.</li>
+                    <li>Mélange de maisons individuelles et de nature.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Concept</span></div>
+            <div class="fiche-content">
+                <h3>52. Densité de Population</h3>
+                <p>Nombre d'habitants sur un territoire donné.</p>
+                <ul>
+                    <li>Se mesure en <strong>habitants par km²</strong>.</li>
+                    <li>Forte en ville, faible à la campagne.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">École</span></div>
+            <div class="fiche-content">
+                <h3>53. École en Ville</h3>
+                <ul>
+                    <li>Beaucoup d'élèves.</li>
+                    <li>1 classe par niveau (ex: CM1 A, CM1 B).</li>
+                    <li>Cour souvent bétonnée.</li>
+                    <li>Accès en tram, bus ou à pied.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">École</span></div>
+            <div class="fiche-content">
+                <h3>54. École à la Campagne</h3>
+                <ul>
+                    <li>Moins d'élèves.</li>
+                    <li>Classes multiniveaux (ex: CP-CE1 ensemble).</li>
+                    <li>Cour avec de l'herbe, nature proche.</li>
+                    <li>Ramassage scolaire (car) indispensable.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Mobilité</span></div>
+            <div class="fiche-content">
+                <h3>55. Migration Pendulaire</h3>
+                <p>Déplacement quotidien :</p>
+                <ul>
+                    <li>Matin : Domicile -> Travail (vers la ville).</li>
+                    <li>Soir : Travail -> Domicile (vers la périphérie).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Transport</span></div>
+            <div class="fiche-content">
+                <h3>56. Transports Urbains</h3>
+                <p>Privilégier les transports collectifs :</p>
+                <ul>
+                    <li>Métro (souterrain).</li>
+                    <li>Tramway (sur rails en ville).</li>
+                    <li>Bus.</li>
+                    <li>Vélo (en forte augmentation).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Transport</span></div>
+            <div class="fiche-content">
+                <h3>57. Transports Ruraux</h3>
+                <ul>
+                    <li>La voiture individuelle est dominante.</li>
+                    <li>Le réseau de bus est moins dense.</li>
+                    <li>Covoiturage : solution pour partager les trajets.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche geo" data-category="geo">
+            <div class="fiche-header" style="background-color: var(--geo-color);">Géographie <span class="badge">Photo</span></div>
+            <div class="fiche-content">
+                <h3>58. Analyser un Paysage</h3>
+                <p>Se poser 4 questions :</p>
+                <ol>
+                    <li>Où ? (Point de vue).</li>
+                    <li>Quand ? (Saison, moment).</li>
+                    <li>Quoi ? (Éléments naturels/humains).</li>
+                    <li>Comment ? (Plans : 1er plan, arrière-plan...).</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ================= SCIENCES ================= -->
+
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Eau</span></div>
+            <div class="fiche-content">
+                <h3>59. Eau sur Terre</h3>
+                <ul>
+                    <li>Il y a plus d'eau salée (océans) que d'eau douce.</li>
+                    <li>L'eau douce se trouve dans les rivières, lacs, glaces.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Eau</span></div>
+            <div class="fiche-content">
+                <h3>60. Eau Potable</h3>
+                <ul>
+                    <li>C'est une eau qu'on peut boire sans risque.</li>
+                    <li>Elle doit être traitée/nettoyée dans une usine de potabilisation.</li>
+                    <li>Tout le monde n'y a pas accès.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Méthode</span></div>
+            <div class="fiche-content">
+                <h3>61. Démarche Scientifique (1)</h3>
+                <p><strong>Étape 1 : Observer</strong></p>
+                <ul>
+                    <li>Regarder attentivement.</li>
+                    <li>Utiliser des outils (loupe).</li>
+                    <li>Décrire ce qu'on voit.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Méthode</span></div>
+            <div class="fiche-content">
+                <h3>62. Démarche Scientifique (2)</h3>
+                <p><strong>Étape 2 : Hypothèses</strong></p>
+                <ul>
+                    <li>Se poser une question.</li>
+                    <li>Proposer une réponse possible ("Je pense que...").</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Méthode</span></div>
+            <div class="fiche-content">
+                <h3>63. Démarche Scientifique (3)</h3>
+                <p><strong>Étape 3 : Expérimenter</strong></p>
+                <ul>
+                    <li>Faire un test ou une manipulation pour vérifier.</li>
+                    <li>Ex: Filtrer l'eau, tester le pH.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Méthode</span></div>
+            <div class="fiche-content">
+                <h3>64. Démarche Scientifique (4)</h3>
+                <p><strong>Étape 4 : Interpréter/Conclure</strong></p>
+                <ul>
+                    <li>Analyser les résultats.</li>
+                    <li>Dire si l'hypothèse était vraie ou fausse.</li>
+                    <li>Tirer une conclusion.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche sci" data-category="sci">
+            <div class="fiche-header" style="background-color: var(--sci-color);">Sciences <span class="badge">Expérience</span></div>
+            <div class="fiche-content">
+                <h3>65. Vocabulaire Expérience</h3>
+                <ul>
+                    <li><strong>Filtrer :</strong> Passer un liquide à travers un filtre pour retenir les solides.</li>
+                    <li><strong>Acide / Basique :</strong> Propriétés chimiques de l'eau (mesurées avec le pH, comme avec le jus de chou rouge).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ================= EMC ================= -->
+        
+        <div class="fiche civ" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--civ-color);">EMC <span class="badge">Valeurs</span></div>
+            <div class="fiche-content">
+                <h3>66. Le Respect (Approfondi)</h3>
+                <ul>
+                    <li>C'est accepter les autres comme ils sont.</li>
+                    <li>C'est respecter les règles de la classe et de la société.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche civ" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--civ-color);">EMC <span class="badge">Vie Scolaire</span></div>
+            <div class="fiche-content">
+                <h3>67. La Politesse à l'École</h3>
+                <ul>
+                    <li>Lever la main pour parler.</li>
+                    <li>Dire bonjour aux adultes.</li>
+                    <li>S'excuser si on bouscule quelqu'un.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="fiche civ" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--civ-color);">EMC <span class="badge">Relation</span></div>
+            <div class="fiche-content">
+                <h3>68. La Sympathie</h3>
+                <ul>
+                    <li>Être gentil et accueillant.</li>
+                    <li>Aider un camarade en difficulté.</li>
+                    <li>Sourire !</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- ================= DIVERS ================= -->
+        
+        <div class="fiche fr" data-category="fr">
+            <div class="fiche-header" style="background-color: var(--fr-color);">Méthode <span class="badge">Organisation</span></div>
+            <div class="fiche-content">
+                <h3>69. Autonomie</h3>
+                <p>Pour bien travailler seul :</p>
+                <ul>
+                    <li>Vérifier son matériel.</li>
+                    <li>Faire signer ses cahiers.</li>
+                    <li>Relire ses leçons régulièrement.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function filterFiches(category) {
+        const fiches = document.querySelectorAll('.fiche');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        // Update active button
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-filter') === category || (category === 'all' && !btn.getAttribute('data-filter'))) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Filter cards
+        fiches.forEach(fiche => {
+            if (category === 'all' || fiche.getAttribute('data-category') === category) {
+                fiche.style.display = 'flex';
+            } else {
+                fiche.style.display = 'none';
+            }
+        });
+    }
+
+    // --- SCRIPT VIDÉO INTRO ---
+    
+    // Ferme l'overlay quand la vidéo est terminée ou quand on clique sur le bouton
+    function closeVideo() {
+        const overlay = document.getElementById('video-overlay');
+        const video = document.getElementById('intro-video');
+        
+        // Effet de fondu
+        overlay.style.opacity = '0';
+        
+        // Une fois le fondu terminé, on retire l'élément de l'affichage
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            video.pause(); // Arrêter la vidéo si elle joue encore
+        }, 800); // 800ms correspond à la durée de la transition CSS
+    }
+
+    // Écouteur d'événement pour fermer automatiquement à la fin de la vidéo
+    document.getElementById('intro-video').addEventListener('ended', closeVideo);
+
+</script>
+
+</body>
+</html>

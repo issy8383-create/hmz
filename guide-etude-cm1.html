@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide d'Étude - CM1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --primary-color: #34495e;
+            --accent-color: #3498db;
+            
+            /* Subject Colors */
+            --geo-color: #e67e22;   /* Orange */
+            --hist-color: #8e44ad;  /* Purple */
+            --math-color: #27ae60;  /* Green */
+            --fr-color: #2980b9;    /* Blue */
+            --sci-color: #16a085;   /* Teal */
+            --emc-color: #e74c3c;   /* Red */
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        h1 {
+            font-family: 'Fredoka', cursive;
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        h2 {
+            font-family: 'Fredoka', cursive;
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Question Cards */
+        .qa-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border-left: 5px solid #bdc3c7; /* Default border */
+        }
+
+        .qa-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Subject Specific Borders */
+        .qa-geo { border-left-color: var(--geo-color); }
+        .qa-fr { border-left-color: var(--fr-color); }
+        .qa-math { border-left-color: var(--math-color); }
+        .qa-hist { border-left-color: var(--hist-color); }
+        .qa-sci { border-left-color: var(--sci-color); }
+        .qa-emc { border-left-color: var(--emc-color); }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Interactive Answer Section */
+        details {
+            margin-top: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent-color);
+            user-select: none;
+            background-color: #ecf0f1;
+            transition: background 0.3s;
+        }
+
+        summary:hover {
+            background-color: #dce4e6;
+        }
+
+        .answer-content {
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            background-color: #fff;
+            color: #2c3e50;
+        }
+
+        /* Essay Section */
+        .essay-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px dashed #bdc3c7;
+            margin-bottom: 20px;
+        }
+        
+        .essay-icon { font-size: 1.5em; margin-right: 10px; }
+
+        /* Glossary Table */
+        .glossary-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .glossary-table th, .glossary-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .glossary-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .glossary-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .term {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🎓 Guide d'Étude CM1</h1>
+        <p class="subtitle">Géographie • Français • Maths • Histoire • Sciences</p>
+        <p style="font-size: 0.9em; color: #666; margin-top: 10px;"><em>Utilise ce guide pour réviser. Essaie de répondre aux questions avant de cliquer pour voir la réponse !</em></p>
+    </header>
+
+    <h2>❓ Questions à Réponse Courte</h2>
+
+    <!-- Géographie -->
+    <div class="qa-card qa-geo">
+        <span class="badge" style="background: var(--geo-color);">Géographie</span>
+        <span class="question">Quelles sont les deux principales différences entre une école située en ville et une école située à la campagne ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                Une école de ville compte généralement beaucoup d'élèves, une classe par niveau, une architecture verticale et une cour bétonnée. À l'inverse, une école de campagne a moins d'élèves, des classes multiniveaux (ex: CE2/CM1) et une architecture de plain-pied avec une grande cour en herbe.
+            </div>
+        </details>
+    </div>
+
+    <!-- Français -->
+    <div class="qa-card qa-fr">
+        <span class="badge" style="background: var(--fr-color);">Français</span>
+        <span class="question">Quels sont les trois types de phrases et à quoi servent-ils ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                Les trois types de phrases sont :
+                <ul>
+                    <li><strong>La phrase déclarative</strong> : pour raconter ou informer.</li>
+                    <li><strong>La phrase interrogative</strong> : pour poser une question.</li>
+                    <li><strong>La phrase impérative</strong> : pour donner un ordre ou un conseil.</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- Mathématiques -->
+    <div class="qa-card qa-math">
+        <span class="badge" style="background: var(--math-color);">Mathématiques</span>
+        <span class="question">Comment tracer deux droites parallèles en utilisant la propriété des droites perpendiculaires ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                Si deux droites (d2) et (d3) sont toutes les deux <strong>perpendiculaires à une même droite</strong> (d1), alors ces deux droites (d2) et (d3) sont obligatoirement <strong>parallèles entre elles</strong>.
+            </div>
+        </details>
+    </div>
+
+    <!-- Histoire -->
+    <div class="qa-card qa-hist">
+        <span class="badge" style="background: var(--hist-color);">Histoire</span>
+        <span class="question">Quel était le double rôle des druides au sein de la société gauloise ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                Les druides avaient un rôle <strong>religieux</strong> (s'occuper des affaires religieuses, instruire les jeunes) et un rôle <strong>judiciaire</strong> (juger les conflits, fixer les amendes et sanctions).
+            </div>
+        </details>
+    </div>
+
+    <!-- Sciences -->
+    <div class="qa-card qa-sci">
+        <span class="badge" style="background: var(--sci-color);">Sciences</span>
+        <span class="question">Quelles sont les quatre étapes fondamentales de la démarche scientifique ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                <ol>
+                    <li><strong>Observer</strong> un phénomène.</li>
+                    <li>Émettre des <strong>hypothèses</strong>.</li>
+                    <li><strong>Expérimenter</strong> pour vérifier.</li>
+                    <li><strong>Interpréter</strong> les résultats pour conclure.</li>
+                </ol>
+            </div>
+        </details>
+    </div>
+
+    <!-- Géographie -->
+    <div class="qa-card qa-geo">
+        <span class="badge" style="background: var(--geo-color);">Géographie</span>
+        <span class="question">Qu'est-ce que la "migration pendulaire" ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                C'est le mouvement quotidien de la population : le matin du domicile (souvent en périphérie) vers le travail (centre-ville), et le soir le trajet inverse.
+            </div>
+        </details>
+    </div>
+
+    <!-- Français -->
+    <div class="qa-card qa-fr">
+        <span class="badge" style="background: var(--fr-color);">Français</span>
+        <span class="question">Comment distinguer un verbe du 2ème groupe d'un verbe du 3ème groupe finissant par "-ir" ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                Un verbe est du 2ème groupe si sa terminaison à la 1ère personne du pluriel est <strong>"-issons"</strong> (ex: nous finissons) ou si son participe présent finit en <strong>"-issant"</strong>. Sinon, c'est le 3ème groupe.
+            </div>
+        </details>
+    </div>
+
+    <!-- Géographie -->
+    <div class="qa-card qa-geo">
+        <span class="badge" style="background: var(--geo-color);">Géographie</span>
+        <span class="question">Qu'est-ce que la "densité de population" ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                C'est une mesure indiquant le nombre d'habitants sur un territoire donné, généralement exprimée en <strong>nombre d'habitants par km²</strong>.
+            </div>
+        </details>
+    </div>
+
+    <!-- EMC / Vocabulaire -->
+    <div class="qa-card qa-emc">
+        <span class="badge" style="background: var(--emc-color);">EMC / Vocabulaire</span>
+        <span class="question">Quelle est la définition du mot "respect" ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                C'est la considération que l'on éprouve pour quelqu'un (âge, valeur) et le fait de se conformer à une règle. Exemple : écouter les autres sans couper la parole.
+            </div>
+        </details>
+    </div>
+
+    <!-- Mathématiques -->
+    <div class="qa-card qa-math">
+        <span class="badge" style="background: var(--math-color);">Mathématiques</span>
+        <span class="question">Quelle est la méthode pour multiplier par 50 ou 800 ?</span>
+        <details>
+            <summary>Voir la réponse</summary>
+            <div class="answer-content">
+                Il faut décomposer :
+                <ul>
+                    <li>Pour x50 : On multiplie par 5, puis par 10.</li>
+                    <li>Pour x800 : On multiplie par 8, puis par 100.</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <h2>📝 Sujets de Réflexion (Dissertation)</h2>
+    <p><em>Prends une feuille et essaie de répondre à ces sujets plus longs.</em></p>
+
+    <div class="essay-card">
+        <p><span class="essay-icon">🌍</span> <strong>Géographie :</strong> Comparez en détail les modes de vie urbain et rural pour un élève de CM1 (logement, école, transport).</p>
+    </div>
+    <div class="essay-card">
+        <p><span class="essay-icon">⚔️</span> <strong>Histoire :</strong> Expliquez la structure de la société gauloise (rôles des druides, cavaliers, peuple) selon Jules César.</p>
+    </div>
+    <div class="essay-card">
+        <p><span class="essay-icon">➗</span> <strong>Mathématiques :</strong> Décrivez le processus complet pour résoudre une division posée (exemple 947 : 7). Définissez dividende, diviseur, quotient, reste.</p>
+    </div>
+    <div class="essay-card">
+        <p><span class="essay-icon">✍️</span> <strong>Français :</strong> Rédigez un guide sur la phrase interrogative (3 méthodes de construction avec exemples).</p>
+    </div>
+    <div class="essay-card">
+        <p><span class="essay-icon">💧</span> <strong>Sciences :</strong> Synthétisez les informations sur l'eau (douce vs salée, potable, accès à l'eau) vues à l'Académie du climat.</p>
+    </div>
+
+    <h2>📖 Glossaire</h2>
+    <div style="overflow-x: auto;">
+        <table class="glossary-table">
+            <thead>
+                <tr>
+                    <th>Terme</th>
+                    <th>Définition</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="term">Agglomération</td><td>Une ville.</td></tr>
+                <tr><td class="term">Charrue</td><td>Outil agricole permettant de labourer la terre.</td></tr>
+                <tr><td class="term">Chrétien</td><td>Personne qui croit en Jésus-Christ.</td></tr>
+                <tr><td class="term">Covoiturage</td><td>Utilisation par plusieurs personnes d'un seul véhicule pour le même trajet.</td></tr>
+                <tr><td class="term">Densité</td><td>Le nombre d'habitants sur un territoire donné (par km²).</td></tr>
+                <tr><td class="term">Disciple</td><td>Personne qui croit en les enseignements d'un maître.</td></tr>
+                <tr><td class="term">Druides</td><td>Conseiller et responsable religieux gaulois.</td></tr>
+                <tr><td class="term">Migration pendulaire</td><td>Mouvement quotidien de population (domicile-travail) matin et soir.</td></tr>
+                <tr><td class="term">Monothéiste</td><td>Personne qui croit en un dieu unique.</td></tr>
+                <tr><td class="term">Politesse</td><td>Ensemble de règles de savoir-vivre (bonjour, merci, s'il te plaît).</td></tr>
+                <tr><td class="term">RPI</td><td>Regroupement Pédagogique Intercommunal (école commune à plusieurs villages).</td></tr>
+                <tr><td class="term">Rural</td><td>Adjectif désignant ce qui concerne la campagne.</td></tr>
+                <tr><td class="term">Urbain</td><td>Adjectif désignant ce qui concerne la ville.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

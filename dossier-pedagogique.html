@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier de Suivi Pédagogique - Hamza M.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Merriweather:wght@300;700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #e67e22;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --section-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--section-bg);
+            padding: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .header-info h1 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .header-info p {
+            margin: 5px 0 0;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .header-meta {
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        /* Sections */
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-top: 40px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-top: 25px;
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Quotes */
+        blockquote {
+            background: #f0f8ff;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Lists */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%233498db" d="M21 12l-18 12v-24z"/></svg>') no-repeat 0 7px;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Synthesis Table Specifics */
+        .synthesis-table th:nth-child(1) { background-color: var(--success-color); }
+        .synthesis-table th:nth-child(2) { background-color: var(--warning-color); }
+        
+        .synthesis-table td:nth-child(1) { border-left: 3px solid var(--success-color); }
+        .synthesis-table td:nth-child(2) { border-left: 3px solid var(--warning-color); }
+
+        /* Recommendations */
+        .recommendation-box {
+            background-color: #fdfefe;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .rec-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; padding: 20px; }
+            h2 { page-break-before: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-info">
+            <h1>Dossier de Suivi Pédagogique</h1>
+            <p><strong>Élève :</strong> Hamza M. (CM1)</p>
+        </div>
+        <div class="header-meta">
+            <p><strong>Rédigé par :</strong> HAJJ IA</p>
+            <p><strong>Date :</strong> Décembre 2025</p>
+        </div>
+    </header>
+
+    <section>
+        <h2>1.0 Introduction et Profil d'Apprentissage Général</h2>
+        <p>Ce dossier de suivi présente une analyse pédagogique des travaux de l'élève Hamza M., scolarisé en classe de CM1. L'objectif de ce rapport est d'examiner de manière objective ses productions afin d'établir un profil d'apprentissage détaillé, d'identifier avec précision ses compétences acquises et de définir des axes de progression constructifs et personnalisés pour la suite de son parcours.</p>
+        <p>L'étude des travaux de Hamza révèle un profil d'apprentissage contrasté. Il démontre une aisance remarquable et une grande confiance dans les domaines qui sollicitent un raisonnement logique et structuré, particulièrement en mathématiques. Cette facilité s'oppose à des difficultés plus marquées en production d'écrits, où la maîtrise des conventions orthographiques et syntaxiques représente un défi.</p>
+        <blockquote>
+            Par ailleurs, sa rédaction de présentation du 3 septembre dépeint un élève engagé et positif : il se décrit comme étant « curieux » et « généreux » et exprime le souhait de devenir « maître ».
+        </blockquote>
+        <p>Cette projection témoigne d'une identification positive à l'environnement scolaire et d'une motivation intrinsèque qui constituent des leviers importants pour son développement.</p>
+    </section>
+
+    <section>
+        <h2>2.0 Analyse Approfondie en Maîtrise de la Langue Française</h2>
+        <p>La maîtrise de la langue française est la pierre angulaire de la réussite scolaire. Cette section vise à évaluer les compétences de Hamza en mettant en lumière un décalage significatif entre sa capacité à mémoriser des règles explicites et ses difficultés à les appliquer spontanément.</p>
+
+        <h3>2.1 Production d'Écrits : Orthographe et Rédaction</h3>
+        <p>Dans son texte de présentation, Hamza parvient à exprimer avec clarté ses idées personnelles. Cependant, l'analyse révèle des erreurs récurrentes :</p>
+        <ul>
+            <li><strong>Erreurs phonogrammiques :</strong> Difficultés à transcrire des sons complexes (ex: « vaques » pour « vagues », « narique » pour « navigue »).</li>
+            <li><strong>Erreurs d'accord :</strong> Les chaînes d'accord ne sont pas systématiquement respectées (ex: « des dieux habille », « ma matière préféré »).</li>
+            <li><strong>Confusions lexicales :</strong> Difficulté à segmenter le flux oral (ex: « ogres lefant » pour « gros défaut »).</li>
+        </ul>
+        <p>Il est important de souligner que, malgré ces erreurs, Hamza construit des phrases syntaxiquement cohérentes. Sa dictée corrigée du 5 décembre montre qu'une fois l'orthographe amendée, le texte est fluide et compréhensible.</p>
+
+        <h3>2.2 Étude de la Langue : Grammaire, Conjugaison et Vocabulaire</h3>
+        <ul>
+            <li><strong>Grammaire :</strong> Bonne identification des types de phrases (déclaratives, interrogatives, impératives), mais erreurs lors des transformations (reprise pronominale).</li>
+            <li><strong>Conjugaison :</strong> Compétence solide en cours d'acquisition pour le présent de l'indicatif des verbes du 1er groupe (mémorisation efficace des terminaisons).</li>
+            <li><strong>Vocabulaire :</strong> Bonne aptitude à la mémorisation de définitions (ex: respect, politesse).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3.0 Analyse des Compétences en Mathématiques</h2>
+        <p>Les mathématiques constituent le domaine de force manifeste de Hamza. Il le revendique lui-même (« Je suis fort en maths »), et ses résultats le confirment.</p>
+
+        <h3>3.1 Calcul Mental et Opérations Posées</h3>
+        <p>L'excellence de Hamza en calcul mental est notable, attestant d'une grande fluidité cognitive.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type d'exercice</th>
+                    <th>Score</th>
+                    <th>Pourcentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>8 décembre</td>
+                    <td>Tables de multiplication</td>
+                    <td>20/20</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>15 décembre</td>
+                    <td>Multiplication (avec 10, 100...)</td>
+                    <td>20/20</td>
+                    <td>100%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>Hamza maîtrise également les algorithmes opératoires complexes (multiplications, additions). De rares erreurs (ex: gestion de retenue dans une soustraction) nécessitent simplement une vérification plus systématique.</p>
+
+        <h3>3.2 Compréhension des Concepts</h3>
+        <ul>
+            <li><strong>Numération :</strong> Parfaite compréhension de la valeur positionnelle (décomposition des nombres).</li>
+            <li><strong>Géométrie :</strong> Capacité exemplaire à restituer des propriétés abstraites (ex: droites parallèles et perpendiculaires).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4.0 Compétences dans les Autres Disciplines et Autonomie</h2>
+        
+        <h3>4.1 Questionner le Monde</h3>
+        <ul>
+            <li><strong>Géographie :</strong> Capacité à extraire des informations documentaires, malgré quelques imprécisions lexicales.</li>
+            <li><strong>Histoire :</strong> Bonne compréhension des structures sociales (société gauloise).</li>
+            <li><strong>Sciences :</strong> Excellente restitution de la démarche scientifique (observer, hypothèses, expérimenter, interpréter), faisant écho à sa logique mathématique.</li>
+        </ul>
+
+        <h3>4.2 Autonomie et Organisation</h3>
+        <p>Le suivi du plan de travail « Mission Rentrée CM1 » et la gestion des devoirs attestent d'une bonne capacité d'organisation et d'une autonomie grandissante.</p>
+    </section>
+
+    <section>
+        <h2>5.0 Synthèse et Pistes de Soutien Pédagogique</h2>
+
+        <h3>5.1 Bilan Synthétique</h3>
+        <table class="synthesis-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Points Forts Constatés</th>
+                    <th style="width: 50%;">Axes de Progrès Prioritaires</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Raisonnement Logico-Mathématique :</strong> Grande aisance en calcul, compréhension rapide des concepts.</td>
+                    <td><strong>Orthographe et Syntaxe :</strong> Difficultés avec les règles d'accord et la phonologie complexe.</td>
+                </tr>
+                <tr>
+                    <td><strong>Curiosité et Engagement :</strong> Élève motivé, participatif et positif.</td>
+                    <td><strong>Précision du Vocabulaire :</strong> Tendance aux termes génériques ou approximations.</td>
+                </tr>
+                <tr>
+                    <td><strong>Capacité de Synthèse :</strong> Aptitude à restituer une démarche structurée.</td>
+                    <td><strong>Attention et Relecture :</strong> Besoin de renforcer les stratégies de vérification.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.2 Recommandations et Stratégies d'Accompagnement</h3>
+        
+        <div class="recommendation-box">
+            <span class="rec-title">🟦 Renforcer l'orthographe</span>
+            Capitaliser sur son esprit logique avec des activités de manipulation d'étiquettes (sujet/verbe) pour visualiser les accords. Privilégier des dictées courtes ciblées.
+        </div>
+
+        <div class="recommendation-box">
+            <span class="rec-title">🟩 Enrichir le vocabulaire</span>
+            Utiliser des cartes mentales pour relier les nouveaux mots (ex: Histoire), s'appuyant sur sa capacité de synthèse visuelle.
+        </div>
+
+        <div class="recommendation-box">
+            <span class="rec-title">🟨 Lier forces et faiblesses</span>
+            Proposer des exercices "maths-français" (ex: rédiger une propriété géométrique) pour mobiliser sa logique dans un cadre rédactionnel.
+        </div>
+
+        <div class="recommendation-box">
+            <span class="rec-title">🟧 Autonomie et Relecture</span>
+            Instaurer une grille de vérification personnalisée (Vérifier les pluriels, les accords féminins, etc.) pour systématiser la relecture active.
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
