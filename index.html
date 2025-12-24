@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Espace CM1 - Hamza</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&family=Patrick+Hand&display=swap');
 
         :root {
             --bg-color: #e0f7fa;
@@ -55,11 +55,11 @@
             background-color: #e0f2f1;
         }
 
-        /* --- HERO SECTION (Photo - Titre - Cartable) --- */
+        /* --- HERO SECTION --- */
         .hero-section {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             width: 100%;
             max-width: 1100px;
             margin-bottom: 40px;
@@ -71,16 +71,112 @@
         .hero-left, .hero-right {
             flex: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 20px;
         }
 
         .hero-center {
             flex: 2;
             text-align: center;
+            align-self: center;
         }
 
-        /* Style du Cartable (Animation et Lien) */
+        /* --- POST-IT (DEVOIRS - MODE BOUTON) --- */
+        .post-it-link {
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .post-it-link:hover {
+            transform: scale(1.05) rotate(2deg);
+            cursor: pointer;
+        }
+
+        .post-it {
+            background-color: #f1c40f;
+            width: 200px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transform: rotate(-3deg);
+            font-family: 'Patrick Hand', cursive;
+            color: #2c3e50;
+            position: relative;
+            margin-top: 20px;
+            border-bottom-right-radius: 60px 5px;
+        }
+
+        .post-it::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .post-it h3 {
+            margin: 0 0 10px 0;
+            text-align: center;
+            border-bottom: 2px dashed #d35400;
+            padding-bottom: 5px;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            color: #d35400;
+        }
+
+        .post-it ul {
+            padding-left: 15px;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .post-it li {
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            line-height: 1.2;
+        }
+        
+        .post-it li::before {
+            content: '☐ ';
+            font-weight: bold;
+        }
+
+        /* --- ICONE VIDEO --- */
+        .video-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: transform 0.3s;
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .video-link:hover {
+            transform: scale(1.1);
+            color: #e74c3c;
+        }
+
+        .video-icon {
+            font-size: 3em;
+            margin-bottom: 5px;
+        }
+
+        .video-label {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+        }
+
+        /* --- CARTABLE --- */
         .cartable-link {
             display: inline-block;
             text-decoration: none;
@@ -120,7 +216,7 @@
             filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
         }
 
-        /* Style de la Photo Élève */
+        /* --- PHOTO ELEVE --- */
         .student-photo {
             width: 140px;
             height: 140px;
@@ -224,6 +320,8 @@
         .dossier { border-bottom-color: #fab1a0; }
         .portrait { border-bottom-color: #ffeaa7; }
         .programme { border-bottom-color: #636e72; }
+        .bonus { border-bottom-color: #27ae60; }
+        .bonus .icon { background: #e8f8f5; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #27ae60; }
 
         footer {
             margin-top: 50px;
@@ -237,11 +335,19 @@
         @media (max-width: 768px) {
             .hero-section {
                 flex-direction: column;
-                gap: 20px;
+                align-items: center;
+                gap: 30px;
+            }
+            .hero-left, .hero-right {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+                flex-wrap: wrap;
             }
             .cartable-img { width: 120px; }
             .student-photo { width: 110px; height: 110px; }
             h1 { font-size: 1.8em; }
+            .post-it { width: 100%; max-width: 250px; transform: rotate(0deg); margin-top: 20px; }
         }
     </style>
 </head>
@@ -250,11 +356,25 @@
 <!-- BOUTON HOME FIXE -->
 <a href="index.html" class="home-btn" title="Recharger l'accueil">🏠</a>
 
-<!-- SECTION HERO : PHOTO | TITRE | CARTABLE -->
+<!-- SECTION HERO : PHOTO/POST-IT | TITRE | CARTABLE/VIDEO -->
 <div class="hero-section">
-    <!-- GAUCHE : Photo de l'élève -->
+    <!-- GAUCHE : Photo + Post-it (Mode Bouton) -->
     <div class="hero-left">
         <img src="photo.jpg" alt="Hamza" class="student-photo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2922/2922510.png';">
+        
+        <!-- LE POST-IT DEVOIRS (CLIQUABLE) -->
+        <a href="mission-rentree.html" target="_blank" class="post-it-link" title="Voir les devoirs en PDF">
+            <div class="post-it">
+                <h3>Devoir pour le 05/01</h3>
+                <ul>
+                    <li>Signer cahiers</li>
+                    <li>Vérifier matériel</li>
+                    <li>Lecture (3 min)</li>
+                    <li>Réviser (Contrôle!)</li>
+                    <li>Opérations & Calcul</li>
+                </ul>
+            </div>
+        </a>
     </div>
 
     <!-- CENTRE : Header Principal -->
@@ -265,11 +385,17 @@
         </header>
     </div>
 
-    <!-- DROITE : Lien vers les cahiers PDF -->
+    <!-- DROITE : Cartable + Video -->
     <div class="hero-right">
-        <a href="cahiers.html" class="cartable-link" title="Ouvrir mes cahiers">
+        <a href="cahiers_hamza.html" class="cartable-link" title="Ouvrir mes cahiers">
             <img src="cartable.png" alt="Mon Cartable" class="cartable-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div style="display:none; font-size: 100px; cursor: pointer;">🎒</div>
+        </a>
+
+        <!-- ICONE VIDEO -->
+        <a href="Le_monde_d_un_élève_de_CM1.mp4" class="video-link" target="_blank" title="Voir la vidéo">
+            <span class="video-icon">🎬</span>
+            <span class="video-label">Ma Vidéo</span>
         </a>
     </div>
 </div>
@@ -278,66 +404,73 @@
 <div class="grid-container">
 
     <!-- Fiches de Révisions -->
-    <a href="fiches.html" class="menu-card revisions">
+    <a href="fiches_revision_cm1.html" class="menu-card revisions">
         <span class="icon">📚</span>
         <span class="card-title">Fiches de Révisions</span>
         <span class="card-desc">Toutes les leçons pour réussir.</span>
     </a>
 
     <!-- Quiz Interactif -->
-    <a href="questionnaire.html" class="menu-card quiz">
+    <a href="questionnaire_cm1.html" class="menu-card quiz">
         <span class="icon">🎮</span>
         <span class="card-title">Quiz Interactif</span>
         <span class="card-desc">Teste tes connaissances en t'amusant !</span>
     </a>
 
     <!-- Mon Bulletin -->
-    <a href="resultat.html" class="menu-card notes">
+    <a href="bulletin_hamza.html" class="menu-card notes">
         <span class="icon">🏆</span>
         <span class="card-title">Mon Bulletin</span>
         <span class="card-desc">Regarde tes points et tes progrès.</span>
     </a>
 
     <!-- Mémo Express -->
-    <a href="Memo-Revision.html" class="menu-card revisions">
+    <a href="memo_cm1.html" class="menu-card revisions">
         <span class="icon">💡</span>
         <span class="card-title">Mémo Express</span>
         <span class="card-desc">L'essentiel à retenir d'un coup d'œil.</span>
     </a>
 
     <!-- Guide d'Étude -->
-    <a href="guide-etude-cm1.html" class="menu-card quiz">
+    <a href="guide_etude_cm1.html" class="menu-card quiz">
         <span class="icon">📝</span>
         <span class="card-title">Guide d'Étude</span>
         <span class="card-desc">Questions pour s'entraîner.</span>
     </a>
     
     <!-- Évaluation Blanche -->
-    <a href="quiz.html" class="menu-card quiz">
+    <a href="questionnaire_cm1_eval.html" class="menu-card quiz">
         <span class="icon">✍️</span>
         <span class="card-title">Évaluation Blanche</span>
         <span class="card-desc">Comme un vrai contrôle à la maison..</span>
     </a>
 
     <!-- Dossier de Suivi -->
-    <a href="dossier-pedagogique.html" class="menu-card dossier">
+    <a href="dossier_suivi_hamza.html" class="menu-card dossier">
         <span class="icon">📁</span>
         <span class="card-title">Dossier de Suivi</span>
         <span class="card-desc">Suivi pédagogique détaillé.</span>
     </a>
 
     <!-- Mon Portrait -->
-    <a href="portrait-hamza.html" class="menu-card portrait">
+    <a href="portrait_hamza.html" class="menu-card portrait">
         <span class="icon">🎨</span>
         <span class="card-title">Mon Portrait</span>
         <span class="card-desc">Mes préferences et mes secrets.</span>
     </a>
 
     <!-- Le Programme -->
-    <a href="programme-cm1.html" class="menu-card programme">
+    <a href="programme_cm1.html" class="menu-card programme">
         <span class="icon">📅</span>
         <span class="card-title">Le Programme</span>
         <span class="card-desc">Les objectifs officiels du CM1.</span>
+    </a>
+
+    <!-- Bonus Géo -->
+    <a href="lecon-ville-campagne.html" class="menu-card bonus">
+        <span class="icon">🏡</span>
+        <span class="card-title">Bonus Géo</span>
+        <span class="card-desc">Ville vs Campagne : Le Match !</span>
     </a>
 
 </div>
@@ -348,8 +481,3 @@
 
 </body>
 </html>
-
-
-
-
-
