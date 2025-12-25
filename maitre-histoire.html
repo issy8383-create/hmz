@@ -30,7 +30,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // Composant Icône SVG personnalisé corrigé (avec fragments JSX)
+        // Composant Icône SVG personnalisé
         const Icon = ({ name, className = "w-6 h-6" }) => {
             const icons = {
                 home: <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
@@ -45,7 +45,8 @@
                 "book-open": <><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></>,
                 "chevron-right": <polyline points="9 18 15 12 9 6"/>,
                 trophy: <><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></>,
-                "refresh-cw": <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></>
+                "refresh-cw": <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></>,
+                "arrow-left": <><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></>
             };
 
             return (
@@ -123,7 +124,7 @@
                 questions: [
                     { q: "Qui est sacré Empereur d'Occident en l'an 800 ?", options: ["Clovis", "Charlemagne", "Saint Louis", "Hugues Capet"], good: 1, info: "Charlemagne a restauré l'idée d'Empire en Europe occidentale." },
                     { q: "Qu'est-ce que la 'Féodalité' ?", options: ["Un sport médiéval", "L'organisation de la société autour du seigneur", "La religion chrétienne", "Une technique de construction"], good: 1, info: "C'est un système de liens entre un suzerain (chef) et un vassal (protégé)." },
-                    { q: "Qui a délivré Orléans en 1429 ?", options: ["Aliénor d'Aquitaine", "Jeanne d'Arc", "Anne de Bretagne", "Blanche de Castille"], good: 1, info: "Jeanne d'Arc a convaincu le roi Charles VII de lui confier une armée contre les Anglais." },
+                    { q: "Qui a délivré Orléans en 1429 ?", options: ["Aliénor d'Aquitaine", "Jeanne d'Arc", "Anne de Bretagne", "Blanche de Castille"], good: 1, info: "Jeanne d'Arc a convaincun le roi Charles VII de lui confier une armée contre les Anglais." },
                     { q: "Quelle est la principale différence de l'art Gothique ?", options: ["Des murs épais", "Des arcs brisés et de grands vitraux", "L'utilisation du bois", "L'absence de décorations"], good: 1, info: "L'art gothique permet de construire des églises plus hautes et lumineuses que l'art roman." },
                     { q: "Comment appelle-t-on le paysan attaché à la terre d'un seigneur ?", options: ["Un chevalier", "Un moine", "Un serf", "Un artisan"], good: 2, info: "Le serf n'est pas un esclave, mais il ne peut pas quitter sa terre sans permission." },
                     { q: "Quel roi a participé à la 8ème croisade et est mort à Tunis ?", options: ["Saint Louis (Louis IX)", "François Ier", "Charlemagne", "Philippe Auguste"], good: 0, info: "Saint Louis était réputé pour sa piété et sa justice." },
@@ -205,9 +206,23 @@
                 }
             };
 
+            const goToExercises = () => {
+                window.location.href = 'exercices_hamza.html';
+            };
+
             if (view === 'menu') {
                 return (
                     <div className="min-h-screen p-6 max-w-5xl mx-auto flex flex-col items-center">
+                        <div className="w-full flex justify-start mb-4">
+                            <button 
+                                onClick={goToExercises}
+                                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors font-semibold shadow-sm"
+                            >
+                                <Icon name="arrow-left" className="w-4 h-4" />
+                                Retour aux exercices
+                            </button>
+                        </div>
+
                         <header className="text-center mb-10 fade-in">
                             <h1 className="text-4xl font-extrabold text-slate-800 mb-2">Maître Chrono Histoire</h1>
                             <p className="text-slate-500 font-medium">Relève le défi Expert du programme CM1 !</p>
@@ -249,9 +264,14 @@
                         <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col fade-in">
                             
                             <div className="bg-slate-800 p-4 flex justify-between items-center text-white">
-                                <button onClick={() => setView('menu')} className="text-slate-400 hover:text-white transition-colors">
-                                    <Icon name="home" className="w-5 h-5" />
-                                </button>
+                                <div className="flex items-center gap-3">
+                                    <button onClick={goToExercises} title="Retour aux exercices" className="text-slate-400 hover:text-white transition-colors">
+                                        <Icon name="arrow-left" className="w-5 h-5" />
+                                    </button>
+                                    <button onClick={() => setView('menu')} title="Retour au menu principal" className="text-slate-400 hover:text-white transition-colors">
+                                        <Icon name="home" className="w-5 h-5" />
+                                    </button>
+                                </div>
                                 <span className="font-bold text-sm tracking-widest uppercase">{category.title}</span>
                                 <span className="font-mono bg-slate-700 px-3 py-1 rounded-full text-xs">{qIndex + 1} / {category.questions.length}</span>
                             </div>
@@ -333,12 +353,18 @@
                                 <div className="text-5xl font-black text-slate-800">{score} <span className="text-2xl text-slate-300">/ 10</span></div>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <button onClick={() => setView('menu')} className="flex-1 py-4 px-6 rounded-2xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
-                                    <Icon name="home" className="w-5 h-5" /> Menu
+                            <div className="grid grid-cols-1 gap-3 mb-4">
+                                <button onClick={() => startQuiz(category.id)} className="w-full py-4 px-6 rounded-2xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                                    <Icon name="refresh-cw" className="w-5 h-5" /> Rejouer ce thème
                                 </button>
-                                <button onClick={() => startQuiz(category.id)} className="flex-1 py-4 px-6 rounded-2xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
-                                    <Icon name="refresh-cw" className="w-5 h-5" /> Rejouer
+                            </div>
+
+                            <div className="flex gap-3">
+                                <button onClick={() => setView('menu')} className="flex-1 py-4 px-6 rounded-2xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                                    <Icon name="home" className="w-5 h-5" /> Menu Quiz
+                                </button>
+                                <button onClick={goToExercises} className="flex-1 py-4 px-6 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition-colors flex items-center justify-center gap-2">
+                                    <Icon name="arrow-left" className="w-5 h-5" /> Exercices
                                 </button>
                             </div>
                         </div>
