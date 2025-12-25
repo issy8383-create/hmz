@@ -56,6 +56,15 @@
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
+        /* Style pour indiquer que la carte lecture est cliquable */
+        .clickable-card:hover {
+            cursor: pointer;
+            border-color: #a855f7; /* Violet plus foncé au survol */
+        }
+        .clickable-card:hover h2 {
+            text-decoration: underline;
+            text-decoration-color: #d8b4fe;
+        }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8">
@@ -148,17 +157,21 @@
                 </ul>
             </div>
 
-            <!-- Card 3: Lecture & Français -->
-            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-purple-400 card-hover relative overflow-hidden group">
+            <!-- Card 3: Lecture & Français (MODIFIÉE POUR LE LIEN) -->
+            <!-- Ajout de onclick et de la classe clickable-card -->
+            <div onclick="window.location.href='petit-champion.html'" class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-purple-400 card-hover relative overflow-hidden group clickable-card">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i data-lucide="book-open" class="w-24 h-24 text-purple-500"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="bg-purple-100 p-2 rounded-xl text-purple-600"><i data-lucide="mic-2" class="w-6 h-6"></i></span>
                     Grand Tournoi de Lecture
+                    <!-- Petit indicateur visuel de lien -->
+                    <i data-lucide="external-link" class="w-5 h-5 text-gray-400 ml-auto"></i>
                 </h2>
                 <ul class="space-y-3">
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <!-- Ajout de (this, event) pour empêcher la redirection si on clique juste sur la checkbox -->
+                    <li class="flex items-start gap-3 cursor-pointer hover:bg-purple-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-purple-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
@@ -220,21 +233,23 @@
     <script>
         lucide.createIcons();
 
-        function toggleTask(element) {
+        // Modifié pour accepter l'événement (event) afin d'empêcher la propagation
+        function toggleTask(element, event) {
+            // Si l'événement existe (clic sur la tâche), on empêche le clic de remonter à la carte parente
+            // Cela évite d'être redirigé si on veut juste cocher la case dans la carte "Lecture"
+            if (event) {
+                event.stopPropagation();
+            }
+
             const circle = element.querySelector('.check-circle');
-            // FIX: On cherche soit le SVG (si Lucide a déjà chargé) soit le i (si pas encore chargé ou fallback)
-            // Cela empêche l'erreur "Cannot read properties of null"
             const checkIcon = circle.querySelector('svg') || circle.querySelector('i');
             const text = element.querySelector('span');
             
-            // Safety check
             if (!circle || !checkIcon) return;
 
-            // Check current state based on background color class
             const isChecked = circle.classList.contains('bg-green-500') || circle.classList.contains('bg-yellow-500') || circle.classList.contains('bg-red-500') || circle.classList.contains('bg-purple-500');
 
             if (!isChecked) {
-                // Determine color based on border color
                 let colorClass = 'bg-blue-500';
                 if(circle.classList.contains('border-yellow-400')) colorClass = 'bg-yellow-500';
                 if(circle.classList.contains('border-red-400')) colorClass = 'bg-red-500';
@@ -246,15 +261,12 @@
                 checkIcon.classList.remove('opacity-0');
                 text.classList.add('line-through', 'text-gray-400');
                 
-                // Add bounce animation
                 circle.classList.add('check-animation');
                 setTimeout(() => circle.classList.remove('check-animation'), 500);
             } else {
-                // Reset
                 circle.classList.remove('bg-yellow-500', 'bg-red-500', 'bg-purple-500', 'bg-green-500', 'bg-blue-500', 'border-transparent');
                 circle.classList.add('bg-white');
                 
-                // Re-add the original border color if we lost it
                 const parentCard = element.closest('.rounded-3xl');
                 if(parentCard.classList.contains('border-yellow-400')) circle.classList.add('border-yellow-400');
                 if(parentCard.classList.contains('border-red-400')) circle.classList.add('border-red-400');
@@ -272,7 +284,6 @@
             const totalTasks = document.querySelectorAll('li').length;
             const completedTasks = document.querySelectorAll('.line-through').length;
             
-            // Éviter la division par zéro
             if (totalTasks === 0) return;
 
             const percentage = Math.round((completedTasks / totalTasks) * 100);
@@ -307,7 +318,6 @@
         }
 
         function confettiEffect() {
-            // Simple confetti simulation
             const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
             for(let i=0; i<50; i++) {
                 const conf = document.createElement('div');
@@ -334,3 +344,4 @@
     </script>
 </body>
 </html>
+
