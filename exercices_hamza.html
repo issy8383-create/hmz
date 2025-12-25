@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices de Hamza - CM1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&family=Patrick+Hand&display=swap');
+
+        :root {
+            --bg-color: transparent; 
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --primary-color: #e67e22; /* Couleur orange pour le thème exercices */
+            --secondary-color: #ffeaa7;
+            --accent-color: #ff7675;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-color);
+            background-color: transparent; 
+        }
+
+        /* --- VIDÉO DE FOND (Identique à l'accueil) --- */
+        #video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100vw;
+            min-height: 100vh;
+            width: auto;
+            height: auto;
+            z-index: -10;
+            object-fit: cover;
+            background: #e0f7fa;
+        }
+
+        /* --- VOILE BLANC --- */
+        .overlay-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(224, 247, 250, 0.6);
+            z-index: -5;
+            pointer-events: none;
+        }
+
+        /* --- BOUTON RETOUR --- */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #fff;
+            border: 3px solid #00cec9;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.1);
+            background-color: #e0f2f1;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 4px solid var(--primary-color);
+            transform: rotate(-1deg);
+            margin-top: 40px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Fredoka', cursive;
+            margin: 0;
+            font-size: 2.2em;
+            color: #2d3436;
+        }
+
+        .subtitle {
+            color: #636e72;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+
+        /* --- GRILLE DES MATIÈRES --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .subject-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 8px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: #fff;
+        }
+
+        .icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+
+        .subject-card:hover .icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .subject-name {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.6em;
+            margin-bottom: 8px;
+        }
+
+        .subject-info {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        /* Couleurs par matière */
+        .francais { border-bottom-color: #3498db; }
+        .maths { border-bottom-color: #e74c3c; }
+        .histoire { border-bottom-color: #f1c40f; }
+        .sciences { border-bottom-color: #2ecc71; }
+        .anglais { border-bottom-color: #9b59b6; }
+        .geographie { border-bottom-color: #e67e22; }
+
+        footer {
+            margin-top: auto;
+            color: #2c3e50;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6em; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- VIDÉO DE FOND -->
+<video autoplay muted loop playsinline id="video-bg">
+    <source src="roblox-background.mp4" type="video/mp4">
+</video>
+
+<div class="overlay-bg"></div>
+
+<!-- RETOUR ACCUEIL -->
+<a href="index.html" class="home-btn" title="Retour à l'accueil">🏠</a>
+
+<header>
+    <h1>✏️ Mes Exercices</h1>
+    <div class="subtitle">Choisis une matière pour commencer l'entraînement !</div>
+</header>
+
+<div class="grid-container">
+
+    <!-- Français -->
+    <a href="ex_francais.html" class="subject-card francais">
+        <span class="icon">📖</span>
+        <span class="subject-name">Français</span>
+        <span class="subject-info">Grammaire, Conjugaison...</span>
+    </a>
+
+    <!-- Mathématiques -->
+    <a href="ex_maths.html" class="subject-card maths">
+        <span class="icon">➗</span>
+        <span class="subject-name">Maths</span>
+        <span class="subject-info">Calcul, Géométrie...</span>
+    </a>
+
+    <!-- Histoire -->
+    <a href="ex_histoire.html" class="subject-card histoire">
+        <span class="icon">🏰</span>
+        <span class="subject-name">Histoire</span>
+        <span class="subject-info">Les grandes époques.</span>
+    </a>
+
+    <!-- Géographie -->
+    <a href="ex_geo.html" class="subject-card geographie">
+        <span class="icon">🌍</span>
+        <span class="subject-name">Géographie</span>
+        <span class="subject-info">Le monde et la France.</span>
+    </a>
+
+    <!-- Sciences -->
+    <a href="ex_sciences.html" class="subject-card sciences">
+        <span class="icon">🧪</span>
+        <span class="subject-name">Sciences</span>
+        <span class="subject-info">Nature et technologie.</span>
+    </a>
+
+    <!-- Anglais -->
+    <a href="ex_anglais.html" class="subject-card anglais">
+        <span class="icon">🇬🇧</span>
+        <span class="subject-name">Anglais</span>
+        <span class="subject-info">Vocabulaire & dialogues.</span>
+    </a>
+
+</div>
+
+<footer>
+    <p>🎯 Force à toi Hamza, tu vas tout réussir ! 🎯</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var video = document.getElementById("video-bg");
+        video.muted = true;
+        video.play().catch(e => console.log("Echec lecture video:", e));
+    });
+</script>
+
+</body>
+</html>
