@@ -56,14 +56,14 @@
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
-        /* Style pour indiquer que la carte lecture est cliquable */
+        /* Style pour indiquer que la carte est cliquable */
         .clickable-card:hover {
             cursor: pointer;
-            border-color: #a855f7; /* Violet plus foncé au survol */
+            filter: brightness(0.98);
         }
         .clickable-card:hover h2 {
             text-decoration: underline;
-            text-decoration-color: #d8b4fe;
+            text-decoration-thickness: 3px;
         }
     </style>
 </head>
@@ -97,23 +97,26 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- Card 1: EMC & Citoyenneté -->
-            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-yellow-400 card-hover relative overflow-hidden group">
+            <!-- Card 1: EMC & Citoyenneté (MODIFIÉE) -->
+            <!-- Ajout de onclick et clickable-card -->
+            <div onclick="window.location.href='mission-citoyen.html'" class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-yellow-400 card-hover relative overflow-hidden group clickable-card">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i data-lucide="heart-handshake" class="w-24 h-24 text-yellow-500"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="bg-yellow-100 p-2 rounded-xl text-yellow-600"><i data-lucide="crown" class="w-6 h-6"></i></span>
                     Mission Citoyen
+                    <i data-lucide="external-link" class="w-5 h-5 text-gray-400 ml-auto"></i>
                 </h2>
                 <ul class="space-y-3">
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <!-- Ajout de (this, event) pour bloquer la redirection lors du clic sur la tâche -->
+                    <li class="flex items-start gap-3 cursor-pointer hover:bg-yellow-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-yellow-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
                         <span class="text-gray-700">Apprendre les définitions : <strong>Respect</strong> et <strong>Politesse</strong>.</span>
                     </li>
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer hover:bg-yellow-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-yellow-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
@@ -132,13 +135,13 @@
                     Défi Mathématique
                 </h2>
                 <ul class="space-y-3">
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-red-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
                         <span class="text-gray-700">Travailler le calcul mental (échauffement).</span>
                     </li>
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-red-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
@@ -157,8 +160,7 @@
                 </ul>
             </div>
 
-            <!-- Card 3: Lecture & Français (MODIFIÉE POUR LE LIEN) -->
-            <!-- Ajout de onclick et de la classe clickable-card -->
+            <!-- Card 3: Lecture & Français -->
             <div onclick="window.location.href='petit-champion.html'" class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-purple-400 card-hover relative overflow-hidden group clickable-card">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i data-lucide="book-open" class="w-24 h-24 text-purple-500"></i>
@@ -166,11 +168,9 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="bg-purple-100 p-2 rounded-xl text-purple-600"><i data-lucide="mic-2" class="w-6 h-6"></i></span>
                     Grand Tournoi de Lecture
-                    <!-- Petit indicateur visuel de lien -->
                     <i data-lucide="external-link" class="w-5 h-5 text-gray-400 ml-auto"></i>
                 </h2>
                 <ul class="space-y-3">
-                    <!-- Ajout de (this, event) pour empêcher la redirection si on clique juste sur la checkbox -->
                     <li class="flex items-start gap-3 cursor-pointer hover:bg-purple-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-purple-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
@@ -190,19 +190,19 @@
                     Savoirs & Équipement
                 </h2>
                 <ul class="space-y-3">
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
                         <span class="text-gray-700">Géographie : Apprendre la leçon <em>"L'école en ville et à la campagne"</em>.</span>
                     </li>
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
                         <span class="text-gray-700"><strong>Révision Générale :</strong> Revoir toutes les leçons (Attention : rumeur de contrôle à la rentrée ! 🧐).</span>
                     </li>
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
@@ -233,10 +233,8 @@
     <script>
         lucide.createIcons();
 
-        // Modifié pour accepter l'événement (event) afin d'empêcher la propagation
         function toggleTask(element, event) {
-            // Si l'événement existe (clic sur la tâche), on empêche le clic de remonter à la carte parente
-            // Cela évite d'être redirigé si on veut juste cocher la case dans la carte "Lecture"
+            // Empêche la redirection de la carte si on clique juste sur la tâche
             if (event) {
                 event.stopPropagation();
             }
@@ -344,4 +342,5 @@
     </script>
 </body>
 </html>
+
 
