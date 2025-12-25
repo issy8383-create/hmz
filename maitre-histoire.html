@@ -22,6 +22,41 @@
             50% { background-color: #dcfce7; }
             100% { background-color: #f0fdf4; }
         }
+
+        /* --- BOUTON HOME STYLE --- */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #fff;
+            border: 3px solid #333;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.1);
+            background-color: #f0f0f0;
+        }
+
+        /* Essay Section Placeholder style if needed */
+        .essay-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px dashed #bdc3c7;
+            margin-bottom: 20px;
+        }
+        .essay-icon { font-size: 1.5em; margin-right: 10px; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -124,7 +159,7 @@
                 questions: [
                     { q: "Qui est sacré Empereur d'Occident en l'an 800 ?", options: ["Clovis", "Charlemagne", "Saint Louis", "Hugues Capet"], good: 1, info: "Charlemagne a restauré l'idée d'Empire en Europe occidentale." },
                     { q: "Qu'est-ce que la 'Féodalité' ?", options: ["Un sport médiéval", "L'organisation de la société autour du seigneur", "La religion chrétienne", "Une technique de construction"], good: 1, info: "C'est un système de liens entre un suzerain (chef) et un vassal (protégé)." },
-                    { q: "Qui a délivré Orléans en 1429 ?", options: ["Aliénor d'Aquitaine", "Jeanne d'Arc", "Anne de Bretagne", "Blanche de Castille"], good: 1, info: "Jeanne d'Arc a convaincun le roi Charles VII de lui confier une armée contre les Anglais." },
+                    { q: "Qui a délivré Orléans en 1429 ?", options: ["Aliénor d'Aquitaine", "Jeanne d'Arc", "Anne de Bretagne", "Blanche de Castille"], good: 1, info: "Jeanne d'Arc a convaincu le roi Charles VII de lui confier une armée contre les Anglais." },
                     { q: "Quelle est la principale différence de l'art Gothique ?", options: ["Des murs épais", "Des arcs brisés et de grands vitraux", "L'utilisation du bois", "L'absence de décorations"], good: 1, info: "L'art gothique permet de construire des églises plus hautes et lumineuses que l'art roman." },
                     { q: "Comment appelle-t-on le paysan attaché à la terre d'un seigneur ?", options: ["Un chevalier", "Un moine", "Un serf", "Un artisan"], good: 2, info: "Le serf n'est pas un esclave, mais il ne peut pas quitter sa terre sans permission." },
                     { q: "Quel roi a participé à la 8ème croisade et est mort à Tunis ?", options: ["Saint Louis (Louis IX)", "François Ier", "Charlemagne", "Philippe Auguste"], good: 0, info: "Saint Louis était réputé pour sa piété et sa justice." },
@@ -206,24 +241,16 @@
                 }
             };
 
-            const goToExercises = () => {
-                window.location.href = 'exercices_hamza.html';
-            };
+            const renderHomeButton = () => (
+                <a href="index.html" className="home-btn" title="Retour à l'accueil">🏠</a>
+            );
 
             if (view === 'menu') {
                 return (
                     <div className="min-h-screen p-6 max-w-5xl mx-auto flex flex-col items-center">
-                        <div className="w-full flex justify-start mb-4">
-                            <button 
-                                onClick={goToExercises}
-                                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors font-semibold shadow-sm"
-                            >
-                                <Icon name="arrow-left" className="w-4 h-4" />
-                                Retour aux exercices
-                            </button>
-                        </div>
+                        {renderHomeButton()}
 
-                        <header className="text-center mb-10 fade-in">
+                        <header className="text-center mb-10 fade-in mt-12 sm:mt-0">
                             <h1 className="text-4xl font-extrabold text-slate-800 mb-2">Maître Chrono Histoire</h1>
                             <p className="text-slate-500 font-medium">Relève le défi Expert du programme CM1 !</p>
                         </header>
@@ -261,17 +288,13 @@
 
                 return (
                     <div className="min-h-screen p-4 flex items-center justify-center bg-slate-50">
+                        {renderHomeButton()}
                         <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col fade-in">
                             
                             <div className="bg-slate-800 p-4 flex justify-between items-center text-white">
-                                <div className="flex items-center gap-3">
-                                    <button onClick={goToExercises} title="Retour aux exercices" className="text-slate-400 hover:text-white transition-colors">
-                                        <Icon name="arrow-left" className="w-5 h-5" />
-                                    </button>
-                                    <button onClick={() => setView('menu')} title="Retour au menu principal" className="text-slate-400 hover:text-white transition-colors">
-                                        <Icon name="home" className="w-5 h-5" />
-                                    </button>
-                                </div>
+                                <button onClick={() => setView('menu')} title="Retour au menu principal" className="text-slate-400 hover:text-white transition-colors">
+                                    <Icon name="home" className="w-5 h-5" />
+                                </button>
                                 <span className="font-bold text-sm tracking-widest uppercase">{category.title}</span>
                                 <span className="font-mono bg-slate-700 px-3 py-1 rounded-full text-xs">{qIndex + 1} / {category.questions.length}</span>
                             </div>
@@ -341,6 +364,7 @@
 
                 return (
                     <div className="min-h-screen p-4 flex items-center justify-center">
+                        {renderHomeButton()}
                         <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 text-center border border-slate-100 fade-in">
                             <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center ${colors.light} ${colors.text}`}>
                                 <Icon name="trophy" className="w-12 h-12" />
@@ -363,9 +387,9 @@
                                 <button onClick={() => setView('menu')} className="flex-1 py-4 px-6 rounded-2xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
                                     <Icon name="home" className="w-5 h-5" /> Menu Quiz
                                 </button>
-                                <button onClick={goToExercises} className="flex-1 py-4 px-6 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition-colors flex items-center justify-center gap-2">
-                                    <Icon name="arrow-left" className="w-5 h-5" /> Exercices
-                                </button>
+                                <a href="index.html" className="flex-1 py-4 px-6 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition-colors flex items-center justify-center gap-2">
+                                    <Icon name="home" className="w-5 h-5" /> Accueil
+                                </a>
                             </div>
                         </div>
                     </div>
