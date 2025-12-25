@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Citoyen : Respect et Politesse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #fffbeb; /* Fond jaune très clair */
+            background-image: radial-gradient(#fcd34d 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .handwritten {
+            font-family: 'Patrick Hand', cursive;
+        }
+        .definition-box {
+            background-color: #fff;
+            border-left: 5px solid #ca8a04;
+            box-shadow: 4px 4px 0px #fde047;
+        }
+        .notebook-paper {
+            background-color: white;
+            background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 100% 2em;
+            line-height: 2em;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 flex flex-col items-center">
+
+    <!-- Header avec retour -->
+    <div class="w-full max-w-3xl flex items-center justify-between mb-8 mt-4">
+        <a href="index.html" class="flex items-center gap-2 text-yellow-700 font-bold hover:bg-yellow-100 px-4 py-2 rounded-full transition-colors">
+            <i data-lucide="arrow-left"></i> Retour aux missions
+        </a>
+        <div class="bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full font-bold text-sm">
+            EMC & Citoyenneté
+        </div>
+    </div>
+
+    <!-- Contenu Principal -->
+    <main class="w-full max-w-3xl">
+        
+        <!-- Titre -->
+        <header class="text-center mb-10">
+            <div class="inline-block p-4 bg-yellow-400 rounded-full mb-4 text-white shadow-lg transform -rotate-3">
+                <i data-lucide="heart-handshake" class="w-12 h-12"></i>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-yellow-900 mb-4">Le Respect et la Politesse</h1>
+            <p class="text-lg text-gray-700 bg-white p-4 rounded-xl shadow-sm border border-yellow-200">
+                Le respect et la politesse sont deux savoirs essentiels pour bien vivre ensemble, que ce soit à l'école, à la maison ou partout ailleurs. Ils nous permettent de créer un environnement agréable pour tout le monde.
+            </p>
+        </header>
+
+        <!-- Section 1: Le Respect -->
+        <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-4 border-yellow-500 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-700 mb-6 flex items-center gap-3">
+                <span class="bg-yellow-100 w-10 h-10 rounded-full flex items-center justify-center text-lg">1</span>
+                Le Respect : Qu'est-ce que c'est ? 🤝
+            </h2>
+
+            <div class="mb-6">
+                <p class="mb-2 font-bold text-gray-600">Pour bien comprendre ce qu'est le respect, commençons par sa définition officielle :</p>
+                <div class="definition-box p-4 rounded-r-xl mb-4">
+                    <p class="italic text-gray-800 font-serif text-lg">
+                        <strong class="text-yellow-700">respect :</strong> Considération que l'on a pour quelqu'un en raison de son âge, de sa valeur.<br>
+                        <span class="text-yellow-700 font-bold">2-</span> Fait de se conformer à une règle, à une loi.
+                    </p>
+                </div>
+                <p class="text-gray-600 text-sm">Cette définition nous montre deux choses très importantes.</p>
+            </div>
+
+            <div class="bg-yellow-50 rounded-xl p-5 border border-yellow-200">
+                <h3 class="font-bold text-yellow-800 mb-3 handwritten text-xl">En pratique, respecter c'est :</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle-2" class="text-green-500 mt-1"></i>
+                        <span>Écouter les autres sans leur couper la parole.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle-2" class="text-green-500 mt-1"></i>
+                        <span>Avoir de la considération pour son professeur.</span>
+                    </li>
+                </ul>
+            </div>
+            <p class="mt-4 text-center font-bold text-yellow-800 handwritten text-xl">
+                La politesse est la manière la plus simple et la plus directe de montrer son respect au quotidien.
+            </p>
+        </section>
+
+        <!-- Section 2: La Politesse -->
+        <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-4 border-yellow-500 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-700 mb-6 flex items-center gap-3">
+                <span class="bg-yellow-100 w-10 h-10 rounded-full flex items-center justify-center text-lg">2</span>
+                La Politesse : Les règles du savoir-vivre 👋
+            </h2>
+
+            <div class="mb-6">
+                <p class="mb-2 text-gray-700">La politesse, ce sont les gestes et les mots qui nous aident à appliquer le respect chaque jour. Voici ce que dit le dictionnaire :</p>
+                <div class="definition-box p-4 rounded-r-xl mb-4" style="border-left-color: #854d0e; box-shadow: 4px 4px 0px #ca8a04;">
+                    <p class="italic text-gray-800 font-serif text-lg">
+                        <strong class="text-yellow-800">politesse :</strong> Ensemble de règles sur la façon de se comporter et de parler que l'on suit quand on est bien élevé.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2"><i data-lucide="message-circle"></i> Les mots magiques</h3>
+                    <p class="text-gray-700">Utiliser les mots : <strong>bonjour</strong>, <strong>au revoir</strong>, <strong>merci</strong> et <strong>s'il te plaît</strong>.</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-xl border border-green-100">
+                    <h3 class="font-bold text-green-800 mb-2 flex items-center gap-2"><i data-lucide="user-check"></i> Les gestes</h3>
+                    <p class="text-gray-700">Ne pas se lever en classe sans avoir demandé l'autorisation à la maîtresse.</p>
+                </div>
+            </div>
+            
+            <p class="mt-6 text-gray-600 italic">Mais au-delà des mots et des gestes, pourquoi est-il si essentiel d'être respectueux et poli au quotidien ?</p>
+        </section>
+
+        <!-- Section 3: Pourquoi -->
+        <section class="bg-gradient-to-br from-yellow-400 to-orange-400 rounded-3xl p-6 md:p-8 shadow-lg text-white mb-10">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-3 text-white">
+                <i data-lucide="lightbulb" class="w-8 h-8"></i>
+                3. Pourquoi est-ce si important ? 🤔
+            </h2>
+            <p class="text-lg leading-relaxed font-medium">
+                Le respect et la politesse ne sont pas juste des règles à apprendre par cœur. Ce sont des outils précieux qui rendent la vie en communauté plus douce et plus juste pour chacun.
+            </p>
+            <div class="mt-4 bg-white bg-opacity-20 p-4 rounded-xl backdrop-blur-sm border border-white border-opacity-30">
+                <p class="text-xl handwritten text-center">
+                    "En les utilisant, tu montres aux autres que tu fais attention à eux et que tu participes à créer une bonne ambiance dans la classe et à l'école."
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
