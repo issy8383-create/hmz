@@ -35,13 +35,14 @@
             position: fixed;
             right: 0;
             bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            /* Utilisation de vw/vh pour forcer la couverture de l'écran */
+            min-width: 100vw;
+            min-height: 100vh;
             width: auto;
             height: auto;
             z-index: -10; /* Derrière tout le reste */
             object-fit: cover; /* Remplit l'écran sans déformer */
-            background: #e0f7fa; /* Couleur de secours si la vidéo ne charge pas */
+            background: #e0f7fa; /* Couleur de secours ultime */
         }
 
         /* --- VOILE BLANC (OVERLAY) --- */
@@ -394,10 +395,15 @@
      1. Assure-toi que ta vidéo s'appelle bien "roblox-background.mp4"
      2. Assure-toi qu'elle est dans le MÊME DOSSIER que ce fichier html.
      3. Modifie la ligne <source> ci-dessous.
+     
+     J'ai ajouté "poster" : c'est une image qui s'affiche si la vidéo ne charge pas ou met du temps.
 -->
-<video autoplay muted loop playsinline id="video-bg">
+<video autoplay muted loop playsinline id="video-bg" poster="https://wallpapers.com/images/hd/roblox-cool-loading-screen-o51z2y4k4d0u6m5u.jpg">
     <!-- Pour l'instant, je laisse le lien internet pour que tu testes si ça marche -->
     <source src="roblox-background.mp4" type="video/mp4">
+    
+    <!-- SI TU VEUX TA VIDÉO LOCALE, ENLÈVE LES COMMENTAIRES DE LA LIGNE CI-DESSOUS ET SUPPRIME CELLE DU DESSUS : -->
+    <!-- <source src="roblox-background.mp4" type="video/mp4"> -->
     
     <!-- Message si le navigateur ne supporte pas la vidéo -->
     Votre navigateur ne supporte pas la vidéo HTML5.
@@ -411,7 +417,7 @@
 
 <!-- SECTION HERO : PHOTO/POST-IT | TITRE | CARTABLE/VIDEO -->
 <div class="hero-section">
-    <!-- GAUCHE : Photo + Post-it (Mode Bouton)  -->
+    <!-- GAUCHE : Photo + Post-it (Mode Bouton) -->
     <div class="hero-left">
         <img src="photo.jpg" alt="Hamza" class="student-photo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2922/2922510.png';">
         
@@ -534,7 +540,3 @@
 
 </body>
 </html>
-
-
-
-
