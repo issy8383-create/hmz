@@ -97,8 +97,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- Card 1: EMC & Citoyenneté (MODIFIÉE) -->
-            <!-- Ajout de onclick et clickable-card -->
+            <!-- Card 1: EMC & Citoyenneté -->
             <div onclick="window.location.href='mission-citoyen.html'" class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-yellow-400 card-hover relative overflow-hidden group clickable-card">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i data-lucide="heart-handshake" class="w-24 h-24 text-yellow-500"></i>
@@ -109,7 +108,6 @@
                     <i data-lucide="external-link" class="w-5 h-5 text-gray-400 ml-auto"></i>
                 </h2>
                 <ul class="space-y-3">
-                    <!-- Ajout de (this, event) pour bloquer la redirection lors du clic sur la tâche -->
                     <li class="flex items-start gap-3 cursor-pointer hover:bg-yellow-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-yellow-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
@@ -180,29 +178,30 @@
                 </ul>
             </div>
 
-            <!-- Card 4: Leçons & Matériel -->
-            <div class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-green-400 card-hover relative overflow-hidden group">
+            <!-- Card 4: Leçons & Matériel (MODIFIÉE POUR LE LIEN) -->
+            <div onclick="window.location.href='revisions.html'" class="bg-white rounded-3xl p-6 shadow-sm border-b-4 border-green-400 card-hover relative overflow-hidden group clickable-card">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i data-lucide="backpack" class="w-24 h-24 text-green-500"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="bg-green-100 p-2 rounded-xl text-green-600"><i data-lucide="map" class="w-6 h-6"></i></span>
                     Savoirs & Équipement
+                    <i data-lucide="external-link" class="w-5 h-5 text-gray-400 ml-auto"></i>
                 </h2>
                 <ul class="space-y-3">
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
+                    <li class="flex items-start gap-3 cursor-pointer hover:bg-green-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
                         <span class="text-gray-700">Géographie : Apprendre la leçon <em>"L'école en ville et à la campagne"</em>.</span>
                     </li>
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
+                    <li class="flex items-start gap-3 cursor-pointer hover:bg-green-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
-                        <span class="text-gray-700"><strong>Révision Générale :</strong> Revoir toutes les leçons (Attention : rumeur de contrôle à la rentrée ! 🧐).</span>
+                        <span class="text-gray-700"><strong>Révision Générale :</strong> Guide complet de révision (Contrôle imminent ! 🧐).</span>
                     </li>
-                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this, event)">
+                    <li class="flex items-start gap-3 cursor-pointer hover:bg-green-50 p-2 rounded-lg transition-colors" onclick="toggleTask(this, event)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
@@ -234,7 +233,6 @@
         lucide.createIcons();
 
         function toggleTask(element, event) {
-            // Empêche la redirection de la carte si on clique juste sur la tâche
             if (event) {
                 event.stopPropagation();
             }
