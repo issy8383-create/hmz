@@ -26,7 +26,7 @@
             top: 20px;
             left: 20px;
             background-color: #fff;
-            border: 3px solid #333; /* Vous pouvez adapter la couleur selon la page */
+            border: 3px solid #333;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -60,8 +60,9 @@
 </head>
 <body class="min-h-screen p-4 md:p-8">
 
-<!-- BOUTON HOME -->
-<a href="index.html" class="home-btn" title="Retour à l'accueil">🏠</a>
+    <!-- BOUTON HOME -->
+    <a href="index.html" class="home-btn" title="Retour à l'accueil">🏠</a>
+
     <div class="max-w-4xl mx-auto">
         <!-- Header -->
         <header class="text-center mb-10 relative">
@@ -188,7 +189,7 @@
                         </div>
                         <span class="text-gray-700"><strong>Révision Générale :</strong> Revoir toutes les leçons (Attention : rumeur de contrôle à la rentrée ! 🧐).</span>
                     </li>
-                     <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
+                    <li class="flex items-start gap-3 cursor-pointer" onclick="toggleTask(this)">
                         <div class="w-6 h-6 rounded-full border-2 border-green-400 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle">
                             <i data-lucide="check" class="w-4 h-4 text-white opacity-0 transition-opacity"></i>
                         </div>
@@ -221,9 +222,14 @@
 
         function toggleTask(element) {
             const circle = element.querySelector('.check-circle');
-            const checkIcon = element.querySelector('i[data-lucide="check"]');
+            // FIX: On cherche soit le SVG (si Lucide a déjà chargé) soit le i (si pas encore chargé ou fallback)
+            // Cela empêche l'erreur "Cannot read properties of null"
+            const checkIcon = circle.querySelector('svg') || circle.querySelector('i');
             const text = element.querySelector('span');
             
+            // Safety check
+            if (!circle || !checkIcon) return;
+
             // Check current state based on background color class
             const isChecked = circle.classList.contains('bg-green-500') || circle.classList.contains('bg-yellow-500') || circle.classList.contains('bg-red-500') || circle.classList.contains('bg-purple-500');
 
@@ -245,10 +251,10 @@
                 setTimeout(() => circle.classList.remove('check-animation'), 500);
             } else {
                 // Reset
-                circle.className = `w-6 h-6 rounded-full border-2 flex items-center justify-center bg-white flex-shrink-0 mt-1 transition-colors check-circle ${circle.className.split(' ').find(c => c.startsWith('border-') && c !== 'border-transparent') || 'border-gray-400'}`;
+                circle.classList.remove('bg-yellow-500', 'bg-red-500', 'bg-purple-500', 'bg-green-500', 'bg-blue-500', 'border-transparent');
+                circle.classList.add('bg-white');
                 
-                // Re-add the original border color if we lost it (simplified logic for demo, reliant on HTML structure not changing much)
-                // A safer way is to just clear the bg color and border-transparent
+                // Re-add the original border color if we lost it
                 const parentCard = element.closest('.rounded-3xl');
                 if(parentCard.classList.contains('border-yellow-400')) circle.classList.add('border-yellow-400');
                 if(parentCard.classList.contains('border-red-400')) circle.classList.add('border-red-400');
@@ -265,6 +271,10 @@
         function updateProgress() {
             const totalTasks = document.querySelectorAll('li').length;
             const completedTasks = document.querySelectorAll('.line-through').length;
+            
+            // Éviter la division par zéro
+            if (totalTasks === 0) return;
+
             const percentage = Math.round((completedTasks / totalTasks) * 100);
 
             const progressBar = document.getElementById('progress-bar');
