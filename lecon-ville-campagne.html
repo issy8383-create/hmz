@@ -23,7 +23,7 @@
             top: 20px;
             left: 20px;
             background-color: #fff;
-            border: 3px solid #333; /* Vous pouvez adapter la couleur selon la page */
+            border: 3px solid #333;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -101,13 +101,38 @@
     <div class="container mx-auto px-4 -mt-16 relative z-20">
         
         <!-- Introduction Card -->
-        <div class="bg-white rounded-2xl shadow-md p-6 mb-12 max-w-3xl mx-auto border-l-8 border-yellow-400">
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-8 max-w-3xl mx-auto border-l-8 border-yellow-400">
             <h2 class="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
                 <i data-lucide="info" class="text-yellow-500"></i> Le saviez-vous ?
             </h2>
             <p class="text-gray-600">
                 En France, tous les enfants apprennent les mêmes choses. Mais selon l'endroit où tu habites, ton école peut être très différente ! On distingue deux grands espaces : <span class="text-blue-600 font-bold">l'espace Urbain</span> (la ville) et <span class="text-green-600 font-bold">l'espace Rural</span> (la campagne).
             </p>
+        </div>
+
+        <!-- Section Multimédia (AJOUT) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
+            <!-- Bouton Vidéo -->
+            <a href="Géographie__Ville_vs_Campagne.mp4" target="_blank" class="group bg-white p-4 rounded-2xl shadow-md border-2 border-red-100 flex items-center gap-4 hover:shadow-xl hover:border-red-400 transition-all transform hover:-translate-y-1 cursor-pointer no-underline">
+                <div class="bg-red-100 p-3 rounded-full text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                    <i data-lucide="video" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-lg group-hover:text-red-600">Regarder la vidéo</h3>
+                    <p class="text-sm text-gray-500">Comprendre en images</p>
+                </div>
+            </a>
+
+            <!-- Bouton Image -->
+            <a href="ville-campagne.png" target="_blank" class="group bg-white p-4 rounded-2xl shadow-md border-2 border-purple-100 flex items-center gap-4 hover:shadow-xl hover:border-purple-400 transition-all transform hover:-translate-y-1 cursor-pointer no-underline">
+                <div class="bg-purple-100 p-3 rounded-full text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                    <i data-lucide="image" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-lg group-hover:text-purple-600">Voir le schéma</h3>
+                    <p class="text-sm text-gray-500">Résumé visuel</p>
+                </div>
+            </a>
         </div>
 
         <!-- Comparison Section -->
