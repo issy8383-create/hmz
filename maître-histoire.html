@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maître Chrono Histoire - Défi Expert CM1</title>
+    <!-- Tailwind CSS pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React et Babel pour le fonctionnement -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .correct-anim { animation: pulseGreen 0.5s ease-in-out; }
+        @keyframes pulseGreen {
+            0% { background-color: white; }
+            50% { background-color: #dcfce7; }
+            100% { background-color: #f0fdf4; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- DONNÉES DU QUIZ (6 SECTIONS x 10 QUESTIONS = 60 QUESTIONS) ---
+        const QUIZ_DATA = {
+            temps: {
+                id: 'temps',
+                title: "La Notion de Temps",
+                color: "indigo",
+                icon: "clock",
+                questions: [
+                    { q: "Si un événement se passe en l'an 476, à quel siècle appartient-il ?", options: ["IVe siècle", "Ve siècle", "VIe siècle", "XVe siècle"], good: 1, info: "Astuce : On prend le chiffre des centaines (4) et on ajoute 1. Donc 4+1 = 5ème siècle (Ve)." },
+                    { q: "Quelle invention majeure sépare la Préhistoire de l'Histoire ?", options: ["La roue", "Le feu", "L'écriture", "L'agriculture"], good: 2, info: "L'écriture (vers -3300) permet de transmettre des témoignages écrits, ce qui définit le début de l'Histoire." },
+                    { q: "Comment écrit-on 19 en chiffres romains ?", options: ["XVIIII", "XVIV", "XIX", "IXX"], good: 2, info: "X (10) + IX (9). On soustrait I de X pour faire 9." },
+                    { q: "Qu'est-ce qu'un 'millénaire' ?", options: ["Une période de 100 ans", "Une période de 10 ans", "Une période de 1000 ans", "Une période de 500 ans"], good: 2, info: "1 millénaire = 10 siècles = 1000 ans." },
+                    { q: "Pourquoi le calendrier grégorien commence-t-il à l'an 1 ?", options: ["Naissance de Jules César", "Naissance de Jésus-Christ", "Chute de l'Empire Romain", "Invention de l'imprimerie"], good: 1, info: "C'est le point de référence choisi pour l'ère chrétienne, utilisée mondialement aujourd'hui." },
+                    { q: "En quelle année se termine le XVIIIe siècle ?", options: ["1700", "1799", "1800", "1801"], good: 2, info: "Un siècle se termine toujours par l'année '00'. Le XVIIIe siècle va de 1701 à 1800." },
+                    { q: "Une année bissextile possède 366 jours. Pourquoi ?", options: ["Pour fêter le printemps", "Pour rattraper le retard de rotation de la Terre", "Parce que le calendrier est trop court", "C'est une décision politique"], good: 1, info: "La Terre met 365,25 jours à tourner autour du soleil. On cumule les 0,25 tous les 4 ans." },
+                    { q: "Que signifie 'av. J.-C.' sur une frise chronologique ?", options: ["Avenir Joyeux de César", "Avant Jésus-Christ", "Après Jules César", "Ancien Jour Commun"], good: 1, info: "Cela sert à dater les événements avant le point de départ de notre calendrier." },
+                    { q: "Lequel de ces événements est le plus récent ?", options: ["L'Antiquité", "Le Moyen Âge", "La Préhistoire", "Les Temps Modernes"], good: 3, info: "Dans l'ordre : Préhistoire > Antiquité > Moyen Âge > Temps Modernes." },
+                    { q: "À quoi sert une échelle sur une frise chronologique ?", options: ["À mesurer la hauteur des rois", "À représenter la durée réelle du temps", "À décorer le document", "À compter les années à l'envers"], good: 1, info: "L'échelle permet de respecter les proportions : 1cm peut représenter 10 ou 100 ans." }
+                ]
+            },
+            prehistoire: {
+                id: 'prehistoire',
+                title: "La Préhistoire",
+                color: "amber",
+                icon: "skull",
+                questions: [
+                    { q: "Qu'est-ce qui caractérise le mode de vie au Paléolithique ?", options: ["La sédentarité", "Le nomadisme", "L'agriculture", "La ville"], good: 1, info: "Les hommes se déplaçaient pour suivre le gibier et les ressources naturelles." },
+                    { q: "Comment les hommes du Néolithique changeaient-ils la nature ?", options: ["Ils ne faisaient rien", "Ils cultivaient et élevaient des animaux", "Ils utilisaient l'électricité", "Ils voyageaient en bateau"], good: 1, info: "C'est la révolution néolithique : l'homme devient producteur (agriculture/élevage)." },
+                    { q: "Où se trouvent la plupart des peintures rupestres ?", options: ["Dans les chambres des maisons", "Dans des grottes sanctuaires", "Sur les arbres", "Sur des stèles romaines"], good: 1, info: "Les grottes comme Lascaux n'étaient pas des maisons mais des lieux rituels ou religieux." },
+                    { q: "Quel métal marque la fin de la Préhistoire ?", options: ["L'aluminium", "Le fer", "Le cuivre", "Le plastique"], good: 1, info: "L'âge du fer permet de fabriquer des outils et des armes bien plus résistants." },
+                    { q: "Qui est Homo Sapiens ?", options: ["Un dinosaure", "Le premier homme à faire du feu", "L'homme moderne (nous)", "Un singe d'Afrique"], good: 2, info: "Homo Sapiens ('l'homme qui sait') est l'espèce à laquelle nous appartenons tous." },
+                    { q: "À quoi servait principalement le feu il y a 400 000 ans ?", options: ["À faire décoller des fusées", "À se protéger, s'éclairer et cuire", "À fabriquer des voitures", "À fondre le plastique"], good: 1, info: "Le feu a permis une meilleure digestion et a protégé les groupes humains des prédateurs." },
+                    { q: "Quelle est la fonction d'un dolmen ?", options: ["C'est une table géante", "C'est une tombe collective", "C'est un poste de guet", "C'est un abri contre la pluie"], good: 1, info: "Les dolmens sont des sépultures en pierre recouvertes à l'origine de terre (tumulus)." },
+                    { q: "Pourquoi les hommes préhistoriques sont-ils devenus sédentaires ?", options: ["Parce qu'ils étaient fatigués", "Grâce à l'agriculture", "Parce qu'il n'y avait plus de routes", "À cause du froid"], good: 1, info: "Puisqu'ils faisaient pousser leur nourriture, ils devaient rester sur place pour s'occuper des champs." },
+                    { q: "Que chassaient principalement les hommes au Paléolithique ?", options: ["Des poulets", "Des mammouths et des rennes", "Des poissons rouges", "Des lions uniquement"], good: 1, info: "Ils chassaient la mégafaune adaptée au climat froid de l'époque." },
+                    { q: "L'homme a-t-il côtoyé les dinosaures ?", options: ["Oui, au début", "Non, jamais", "Seulement au Néolithique", "Oui, dans les grottes"], good: 1, info: "Les dinosaures ont disparu il y a 66 millions d'années, l'homme est apparu bien plus tard." }
+                ]
+            },
+            antiquite: {
+                id: 'antiquite',
+                title: "L'Antiquité",
+                color: "red",
+                icon: "landmark",
+                questions: [
+                    { q: "Quelle défaite marque la fin de la résistance gauloise en -52 ?", options: ["La bataille de Gergovie", "La bataille d'Alésia", "La bataille de Lyon", "La chute de Rome"], good: 1, info: "Vercingétorix s'est rendu à Jules César à Alésia, marquant le début de la domination romaine." },
+                    { q: "Qu'est-ce qu'un 'oppidum' ?", options: ["Un temple romain", "Un village gaulois fortifié", "Une arme de légionnaire", "Le nom d'un dieu"], good: 1, info: "C'est une ville fortifiée, souvent sur une colline, servant de refuge et de commerce." },
+                    { q: "Quel monument romain servait à transporter l'eau ?", options: ["Le théâtre", "L'arène", "L'aqueduc", "Les thermes"], good: 2, info: "Le Pont du Gard est un célèbre aqueduc qui ravitaillait la ville de Nîmes." },
+                    { q: "Que signifie devenir 'Gallo-Romain' ?", options: ["Être esclave des romains", "Adopter la culture romaine en étant gaulois", "Combattre les romains", "Parler grec"], good: 1, info: "C'est le mélange des deux cultures : langues, lois, architecture et dieux romains." },
+                    { q: "Qui étaient les Druides ?", options: ["Des généraux romains", "Des prêtres, juges et savants gaulois", "Des paysans", "Des marchands grecs"], good: 1, info: "Ils occupaient une place sacrée dans la société celte (gauloise)." },
+                    { q: "Quelle ville française a été fondée par les Grecs ?", options: ["Paris", "Lyon", "Marseille", "Bordeaux"], good: 2, info: "Massalia (Marseille) a été fondée vers -600 par des marins grecs." },
+                    { q: "Qu'est-ce que la 'Pax Romana' ?", options: ["Une guerre mondiale", "Une période de paix et de prospérité", "Le pain romain", "Le nom d'un empereur"], good: 1, info: "C'est la paix imposée par la force romaine qui a permis le développement de l'Empire." },
+                    { q: "Quel empereur a autorisé le christianisme en 313 ?", options: ["Jules César", "Auguste", "Constantin", "Néron"], good: 2, info: "Par l'édit de Milan, Constantin met fin aux persécutions des chrétiens." },
+                    { q: "Quel peuple barbare a donné son nom à la France ?", options: ["Les Huns", "Les Wisigoths", "Les Francs", "Les Vandales"], good: 2, info: "Les Francs, menés par Clovis, ont conquis une grande partie de la Gaule." },
+                    { q: "Quelle est la date précise de la chute de l'Empire romain d'Occident ?", options: ["52 av. J.-C.", "313", "476", "800"], good: 2, info: "C'est la date conventionnelle qui marque la fin de l'Antiquité et le début du Moyen Âge." }
+                ]
+            },
+            moyenage: {
+                id: 'moyenage',
+                title: "Le Moyen Âge",
+                color: "emerald",
+                icon: "castle",
+                questions: [
+                    { q: "Qui est sacré Empereur d'Occident en l'an 800 ?", options: ["Clovis", "Charlemagne", "Saint Louis", "Hugues Capet"], good: 1, info: "Charlemagne a restauré l'idée d'Empire en Europe occidentale." },
+                    { q: "Qu'est-ce que la 'Féodalité' ?", options: ["Un sport médiéval", "L'organisation de la société autour du seigneur", "La religion chrétienne", "Une technique de construction"], good: 1, info: "C'est un système de liens entre un suzerain (chef) et un vassal (protégé)." },
+                    { q: "Qui a délivré Orléans en 1429 ?", options: ["Aliénor d'Aquitaine", "Jeanne d'Arc", "Anne de Bretagne", "Blanche de Castille"], good: 1, info: "Jeanne d'Arc a convaincu le roi Charles VII de lui confier une armée contre les Anglais." },
+                    { q: "Quelle est la principale différence de l'art Gothique ?", options: ["Des murs épais", "Des arcs brisés et de grands vitraux", "L'utilisation du bois", "L'absence de décorations"], good: 1, info: "L'art gothique permet de construire des églises plus hautes et lumineuses que l'art roman." },
+                    { q: "Comment appelle-t-on le paysan attaché à la terre d'un seigneur ?", options: ["Un chevalier", "Un moine", "Un serf", "Un artisan"], good: 2, info: "Le serf n'est pas un esclave, mais il ne peut pas quitter sa terre sans permission." },
+                    { q: "Quel roi a participé à la 8ème croisade et est mort à Tunis ?", options: ["Saint Louis (Louis IX)", "François Ier", "Charlemagne", "Philippe Auguste"], good: 0, info: "Saint Louis était réputé pour sa piété et sa justice." },
+                    { q: "Quelle guerre a duré de 1337 à 1453 ?", options: ["Les Croisades", "La Guerre de 100 ans", "La Guerre de 30 ans", "Les Guerres de religion"], good: 1, info: "Elle opposait les rois de France aux rois d'Angleterre." },
+                    { q: "Quel était le rôle des 'Missi Dominici' ?", options: ["Des soldats d'élite", "Des inspecteurs de Charlemagne", "Des cuisiniers royaux", "Des moines copistes"], good: 1, info: "Ils vérifiaient que les ordres de l'Empereur étaient appliqués dans tout l'empire." },
+                    { q: "Quelle épidémie a ravagé l'Europe en 1348 ?", options: ["Le Choléra", "La Peste Noire", "La Grippe", "La Variole"], good: 1, info: "Elle a tué environ un tiers de la population européenne." },
+                    { q: "Qu'est-ce que l'Adoubement ?", options: ["Une punition", "La cérémonie pour devenir chevalier", "Un impôt sur le blé", "Un repas de fête"], good: 1, info: "Le futur chevalier reçoit ses armes et prête serment de protéger les faibles." }
+                ]
+            },
+            modernes: {
+                id: 'modernes',
+                title: "Les Temps Modernes",
+                color: "purple",
+                icon: "feather",
+                questions: [
+                    { q: "Quelle découverte en 1492 marque un tournant ?", options: ["L'Australie", "L'Amérique par Colomb", "La poudre à canon", "La boussole"], good: 1, info: "Christophe Colomb cherchait les Indes mais a découvert un nouveau continent." },
+                    { q: "Quel roi est le symbole de la Monarchie Absolue ?", options: ["Henri IV", "François Ier", "Louis XIV", "Louis XVI"], good: 2, info: "Le Roi-Soleil prétendait tenir son pouvoir directement de Dieu." },
+                    { q: "Qu'est-ce que l'Humanisme ?", options: ["Une religion", "Un courant qui place l'homme au centre des idées", "Une technique de peinture", "Le nom d'un château"], good: 1, info: "Les savants redécouvrent les textes antiques et croient au progrès de l'homme." },
+                    { q: "Que décide l'Ordonnance de Villers-Cotterêts (1539) ?", options: ["La fin des guerres", "Le français comme langue officielle", "L'impôt sur le sel", "L'invention de l'école"], good: 1, info: "Elle impose le français à la place du latin pour les actes de justice et d'administration." },
+                    { q: "Quel savant a prouvé que la Terre tourne autour du Soleil ?", options: ["Léonard de Vinci", "Galilée", "Pasteur", "Napoléon"], good: 1, info: "C'est la révolution copernicienne, confirmée par les observations de Galilée." },
+                    { q: "Qui a inventé l'imprimerie vers 1450 ?", options: ["Marco Polo", "Gutenberg", "Vasco de Gama", "Jacques Cartier"], good: 1, info: "L'imprimerie a permis de diffuser les livres et les idées beaucoup plus vite." },
+                    { q: "Quel château Louis XIV a-t-il fait agrandir pour sa cour ?", options: ["Chambord", "Chenonceau", "Versailles", "La Bastille"], good: 2, info: "C'était un outil de pouvoir pour surveiller et domestiquer la noblesse." },
+                    { q: "Qu'est-ce que l'Édit de Nantes ?", options: ["Un traité de guerre", "Une loi de tolérance religieuse", "Une taxe sur le vin", "La fin de la royauté"], good: 1, info: "Henri IV l'a signé en 1598 pour mettre fin aux guerres de religion." },
+                    { q: "Comment appelle-t-on le commerce d'esclaves entre l'Afrique et l'Amérique ?", options: ["Le commerce circulaire", "La traite négrière (commerce triangulaire)", "La route de la soie", "L'import-export"], good: 1, info: "C'est une page sombre de l'histoire moderne liée aux plantations coloniales." },
+                    { q: "Qui sont les Philosophes des Lumières ?", options: ["Des rois", "Des savants et écrivains du XVIIIe siècle", "Des prêtres", "Des guerriers"], good: 1, info: "Comme Voltaire ou Rousseau, ils luttaient contre l'injustice et l'ignorance." }
+                ]
+            },
+            contemporaine: {
+                id: 'contemporaine',
+                title: "Époque Contemporaine",
+                color: "slate",
+                icon: "factory",
+                questions: [
+                    { q: "Quel événement lance la Révolution française en 1789 ?", options: ["La mort du Roi", "La prise de la Bastille", "L'invention du train", "La fête nationale"], good: 1, info: "La Bastille était le symbole de l'arbitraire royal." },
+                    { q: "Qui se sacre Empereur en 1804 ?", options: ["Louis-Philippe", "Napoléon Bonaparte", "Charles de Gaulle", "Jules Ferry"], good: 1, info: "Napoléon Ier a créé le Premier Empire et le Code Civil." },
+                    { q: "Quelle révolution change la vie au XIXe siècle ?", options: ["La révolution numérique", "La révolution industrielle", "La révolution verte", "La révolution spatiale"], good: 1, info: "L'invention de la machine à vapeur transforme le travail (usines, trains)." },
+                    { q: "Qu'a rendu obligatoire Jules Ferry ?", options: ["Le service militaire", "L'école gratuite, laïque et obligatoire", "Le vote des femmes", "Le travail à 12 ans"], good: 1, info: "C'est le pilier de la République française à la fin du XIXe siècle." },
+                    { q: "En quelle année commence la Première Guerre Mondiale ?", options: ["1912", "1914", "1939", "1945"], good: 1, info: "Elle oppose la Triple-Entente aux Empires centraux." },
+                    { q: "Qui a mené la Résistance depuis Londres en 1940 ?", options: ["Le Maréchal Pétain", "Le Général de Gaulle", "Jean Moulin", "Victor Hugo"], good: 1, info: "Son appel du 18 juin est l'acte fondateur de la France Libre." },
+                    { q: "Quelle découverte de Marie Curie a révolutionné la science ?", options: ["Le vaccin", "La radioactivité", "L'électricité", "Le cinéma"], good: 1, info: "Elle a reçu deux prix Nobel pour ses travaux sur le polonium et le radium." },
+                    { q: "En quelle année les femmes ont-elles voté pour la première fois en France ?", options: ["1789", "1918", "1945", "1981"], good: 2, info: "Le droit de vote a été accordé en 1944 et exercé en 1945." },
+                    { q: "Qu'est-ce que l'Union Européenne ?", options: ["Une armée mondiale", "Une association de pays pour la paix et l'économie", "Un nouveau continent", "Une entreprise de voitures"], good: 1, info: "Créée après 1945 pour éviter de nouvelles guerres entre voisins." },
+                    { q: "Quel savant a découvert le vaccin contre la rage ?", options: ["Marie Curie", "Louis Pasteur", "Albert Einstein", "Gustave Eiffel"], good: 1, info: "Pasteur a aussi inventé la pasteurisation pour conserver les aliments." }
+                ]
+            }
+        };
+
+        // --- COMPOSANTS UI ---
+        const Icon = ({ name, className }) => {
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [name]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        // --- APPLICATION PRINCIPALE ---
+        function App() {
+            const [view, setView] = useState('menu'); // 'menu', 'quiz', 'result'
+            const [category, setCategory] = useState(null);
+            const [qIndex, setQIndex] = useState(0);
+            const [score, setScore] = useState(0);
+            const [answered, setAnswered] = useState(false);
+            const [selected, setSelected] = useState(null);
+
+            const startQuiz = (catKey) => {
+                setCategory(QUIZ_DATA[catKey]);
+                setQIndex(0);
+                setScore(0);
+                setAnswered(false);
+                setSelected(null);
+                setView('quiz');
+            };
+
+            const handleAnswer = (idx) => {
+                if (answered) return;
+                setSelected(idx);
+                setAnswered(true);
+                if (idx === category.questions[qIndex].good) {
+                    setScore(s => s + 1);
+                }
+            };
+
+            const nextQuestion = () => {
+                if (qIndex < 9) {
+                    setQIndex(qIndex + 1);
+                    setAnswered(false);
+                    setSelected(null);
+                } else {
+                    setView('result');
+                }
+            };
+
+            // Écran d'accueil
+            if (view === 'menu') {
+                return (
+                    <div className="min-h-screen p-6 max-w-5xl mx-auto flex flex-col items-center">
+                        <header className="text-center mb-10 fade-in">
+                            <h1 className="text-4xl font-extrabold text-slate-800 mb-2">Maître Chrono Histoire</h1>
+                            <p className="text-slate-500 font-medium">Relève le défi Expert du programme CM1 !</p>
+                        </header>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full fade-in">
+                            {Object.values(QUIZ_DATA).map((cat) => (
+                                <button 
+                                    key={cat.id}
+                                    onClick={() => startQuiz(cat.id)}
+                                    className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col items-center text-center"
+                                >
+                                    <div className={`w-16 h-16 rounded-2xl mb-4 flex items-center justify-center bg-${cat.color}-100 text-${cat.color}-600 group-hover:scale-110 transition-transform`}>
+                                        <Icon name={cat.icon} className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-slate-800">{cat.title}</h3>
+                                    <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">10 Questions Expert</p>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                );
+            }
+
+            // Écran de Quiz
+            if (view === 'quiz') {
+                const question = category.questions[qIndex];
+                return (
+                    <div className="min-h-screen p-4 flex items-center justify-center bg-slate-50">
+                        <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col fade-in">
+                            {/* Progrès */}
+                            <div className="bg-slate-800 p-4 flex justify-between items-center text-white">
+                                <button onClick={() => setView('menu')} className="text-slate-400 hover:text-white transition-colors">
+                                    <Icon name="home" className="w-5 h-5" />
+                                </button>
+                                <span className="font-bold text-sm tracking-widest uppercase">{category.title}</span>
+                                <span className="font-mono bg-slate-700 px-3 py-1 rounded-full text-xs">{qIndex + 1} / 10</span>
+                            </div>
+                            
+                            <div className="h-1.5 bg-slate-100 w-full">
+                                <div className={`h-full bg-${category.color}-500 transition-all duration-500`} style={{ width: `${(qIndex / 10) * 100}%` }}></div>
+                            </div>
+
+                            <div className="p-8">
+                                <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8 leading-tight">
+                                    {question.q}
+                                </h2>
+
+                                <div className="space-y-3">
+                                    {question.options.map((opt, idx) => {
+                                        let style = "w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ";
+                                        if (answered) {
+                                            if (idx === question.good) style += "bg-green-50 border-green-500 text-green-800 font-bold correct-anim";
+                                            else if (selected === idx) style += "bg-red-50 border-red-500 text-red-800 opacity-60";
+                                            else style += "bg-slate-50 border-slate-100 text-slate-300";
+                                        } else {
+                                            style += "bg-white border-slate-200 hover:border-blue-400 hover:bg-blue-50 text-slate-700 active:scale-[0.98]";
+                                        }
+
+                                        return (
+                                            <button key={idx} onClick={() => handleAnswer(idx)} disabled={answered} className={style}>
+                                                <span>{opt}</span>
+                                                {answered && idx === question.good && <Icon name="check-circle" className="text-green-500 w-5 h-5" />}
+                                                {answered && selected === idx && idx !== question.good && <Icon name="x-circle" className="text-red-500 w-5 h-5" />}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                {answered && (
+                                    <div className="mt-8 fade-in">
+                                        <div className={`p-5 rounded-2xl border-l-4 ${selected === question.good ? 'bg-green-50 border-green-500' : 'bg-orange-50 border-orange-500'}`}>
+                                            <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-1">
+                                                <Icon name="book-open" className="w-4 h-4" /> Le saviez-vous ?
+                                            </h4>
+                                            <p className="text-sm text-slate-600 leading-relaxed">{question.info}</p>
+                                        </div>
+                                        <button onClick={nextQuestion} className={`mt-6 w-full py-4 rounded-2xl bg-slate-900 text-white font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-lg`}>
+                                            {qIndex < 9 ? "Question suivante" : "Voir mon résultat"}
+                                            <Icon name="chevron-right" className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Écran de Résultat
+            if (view === 'result') {
+                const getStatus = () => {
+                    if (score === 10) return { t: "Légendaire !", s: "Tu es un Maître du Temps incollable !", c: "yellow" };
+                    if (score >= 8) return { t: "Excellent !", s: "Tes connaissances sont impressionnantes.", c: "green" };
+                    if (score >= 5) return { t: "Bien joué !", s: "Tu as de bonnes bases, continue !", c: "blue" };
+                    return { t: "C'est un début...", s: "Relis tes leçons et reviens plus fort !", c: "orange" };
+                };
+                const status = getStatus();
+
+                return (
+                    <div className="min-h-screen p-4 flex items-center justify-center">
+                        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 text-center border border-slate-100 fade-in">
+                            <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center bg-${status.c}-100 text-${status.c}-600`}>
+                                <Icon name="trophy" className="w-12 h-12" />
+                            </div>
+                            <h2 className="text-3xl font-black text-slate-800 mb-2">{status.t}</h2>
+                            <p className="text-slate-500 mb-8">{status.s}</p>
+                            
+                            <div className="bg-slate-50 rounded-2xl p-6 mb-8">
+                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Score Final</p>
+                                <div className="text-5xl font-black text-slate-800">{score} <span className="text-2xl text-slate-300">/ 10</span></div>
+                            </div>
+
+                            <div className="flex gap-4">
+                                <button onClick={() => setView('menu')} className="flex-1 py-4 px-6 rounded-2xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                                    <Icon name="home" className="w-5 h-5" /> Menu
+                                </button>
+                                <button onClick={() => startQuiz(category.id)} className="flex-1 py-4 px-6 rounded-2xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                                    <Icon name="refresh-cw" className="w-5 h-5" /> Rejouer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
