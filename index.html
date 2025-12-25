@@ -389,18 +389,9 @@
 <body>
 
 <!-- VIDÉO DE FOND -->
-<!-- 
-     NOTE IMPORTANTE :
-     Pour utiliser TA vidéo téléchargée :
-     1. Assure-toi que ta vidéo s'appelle bien "roblox-background.mp4"
-     2. Assure-toi qu'elle est dans le MÊME DOSSIER que ce fichier html.
-     3. Modifie la ligne <source> ci-dessous.
-     
-     J'ai ajouté "poster" : c'est une image qui s'affiche si la vidéo ne charge pas ou met du temps.
--->
-<video autoplay muted loop playsinline id="video-bg" poster="https://wallpapers.com/images/hd/roblox-cool-loading-screen-o51z2y4k4d0u6m5u.jpg">
+<video autoplay muted loop playsinline id="video-bg" poster="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80">
     <!-- Pour l'instant, je laisse le lien internet pour que tu testes si ça marche -->
-    <source src="roblox-background.mp4" type="video/mp4">
+    <source src="https://cdn.pixabay.com/video/2021/08/04/83896-583525208_large.mp4" type="video/mp4">
     
     <!-- SI TU VEUX TA VIDÉO LOCALE, ENLÈVE LES COMMENTAIRES DE LA LIGNE CI-DESSOUS ET SUPPRIME CELLE DU DESSUS : -->
     <!-- <source src="roblox-background.mp4" type="video/mp4"> -->
@@ -537,6 +528,26 @@
 <footer>
     <p>🌟 Continue ton excellent travail Hamza ! 🌟</p>
 </footer>
+
+<!-- SCRIPT POUR FORCER LE LANCEMENT DE LA VIDÉO SUR EDGE -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var video = document.getElementById("video-bg");
+        // Force le mode muet pour satisfaire les politiques de sécurité (notamment sur Edge)
+        video.muted = true;
+        // Tente de lancer la vidéo manuellement
+        var playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // La lecture automatique a commencé !
+            })
+            .catch(error => {
+                console.log("Le navigateur a bloqué l'autoplay : ", error);
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
