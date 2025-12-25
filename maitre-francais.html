@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maître de la Langue - Défi Expert Français CM1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .correct-anim { animation: pulseGreen 0.5s ease-in-out; }
+        @keyframes pulseGreen {
+            0% { background-color: white; }
+            50% { background-color: #dcfce7; }
+            100% { background-color: #f0fdf4; }
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #fff;
+            border: 3px solid #333;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.1);
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Icon = ({ name, className = "w-6 h-6" }) => {
+            const icons = {
+                home: <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
+                book: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></>,
+                feather: <><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></>,
+                pencil: <><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></>,
+                search: <><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>,
+                brain: <><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.97-2.02 2.5 2.5 0 0 1-2.02-2.97 2.5 2.5 0 0 1 .44-4.96A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.97-2.02 2.5 2.5 0 0 0 2.02-2.97 2.5 2.5 0 0 0-.44-4.96A2.5 2.5 0 0 0 14.5 2z"/></>,
+                layers: <><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></>,
+                "check-circle": <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>,
+                "x-circle": <><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></>,
+                "book-open": <><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></>,
+                "chevron-right": <polyline points="9 18 15 12 9 6"/>,
+                trophy: <><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></>,
+                "refresh-cw": <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></>
+            };
+
+            return (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    {icons[name] || null}
+                </svg>
+            );
+        };
+
+        const COLOR_MAP = {
+            indigo: { bg: 'bg-indigo-500', light: 'bg-indigo-100', text: 'text-indigo-600' },
+            amber: { bg: 'bg-amber-500', light: 'bg-amber-100', text: 'text-amber-600' },
+            red: { bg: 'bg-red-500', light: 'bg-red-100', text: 'text-red-600' },
+            emerald: { bg: 'bg-emerald-500', light: 'bg-emerald-100', text: 'text-emerald-600' },
+            purple: { bg: 'bg-purple-500', light: 'bg-purple-100', text: 'text-purple-600' },
+            slate: { bg: 'bg-slate-500', light: 'bg-slate-100', text: 'text-slate-600' }
+        };
+
+        const QUIZ_DATA = {
+            grammaire: {
+                id: 'grammaire', title: "Nature & Grammaire", color: "indigo", icon: "book",
+                questions: [
+                    { q: "Dans 'Il leur donne des conseils', quelle est la nature de 'leur' ?", options: ["Déterminant possessif", "Pronom personnel", "Adjectif qualificatif", "Nom propre"], good: 1, info: "C'est un pronom personnel car il remplace un groupe nominal (à eux). Il est invariable ici." },
+                    { q: "Trouve le pronom relatif dans : 'Le livre que je lis est passionnant.'", options: ["Le", "je", "que", "est"], good: 2, info: "'Que' est un pronom relatif qui complète le nom 'livre'." },
+                    { q: "Quelle est la nature du mot 'après-midi' ?", options: ["Adverbe", "Nom composé", "Conjonction", "Préposition"], good: 1, info: "C'est un nom composé. On peut dire 'un bel après-midi'." },
+                    { q: "Dans 'La petite fille dort', 'petite' est un...", options: ["Adjectif épithète", "Adjectif attribut", "Complément de nom", "Sujet"], good: 0, info: "Il est placé directement à côté du nom 'fille', c'est donc une épithète." },
+                    { q: "Lequel de ces mots est une préposition ?", options: ["Mais", "Car", "Pendant", "Où"], good: 2, info: "'Pendant' introduit souvent un complément de temps." },
+                    { q: "Identifie le déterminant démonstratif :", options: ["Leurs", "Ces", "Ses", "Des"], good: 1, info: "'Ces' montre quelque chose (ceux-là). 'Ses' est possessif." },
+                    { q: "Quel mot est un adverbe de manière ?", options: ["Demain", "Beaucoup", "Prudemment", "Ici"], good: 2, info: "Les adverbes en -ment indiquent souvent la manière." },
+                    { q: "Quelle est la nature de 'manger' dans 'Il veut manger' ?", options: ["Nom", "Verbe à l'infinitif", "Participe passé", "Adjectif"], good: 1, info: "Après un verbe conjugué comme 'veut', on trouve souvent un infinitif." },
+                    { q: "Dans 'Certains pensent que...', 'Certains' est un...", options: ["Déterminant", "Pronom indéfini", "Adjectif", "Nom"], good: 1, info: "Il n'accompagne pas de nom, il le remplace : c'est un pronom." },
+                    { q: "Quelle classe de mots est invariable ?", options: ["Le nom", "L'adjectif", "La préposition", "Le verbe"], good: 2, info: "Les prépositions ne changent jamais d'orthographe (à, de, pour, sans...)." }
+                ]
+            },
+            conjugaison: {
+                id: 'conjugaison', title: "Temps & Conjugaison", color: "amber", icon: "feather",
+                questions: [
+                    { q: "Conjugue 'vouloir' au futur simple (2e pers. pluriel) :", options: ["Vouliez", "Voudrez", "Voudriez", "Voudrons"], good: 1, info: "Le radical de vouloir change au futur : vous voudrez." },
+                    { q: "Quel est le participe passé du verbe 'peindre' ?", options: ["Peindu", "Peint", "Peingni", "Peigner"], good: 1, info: "Il finit par un 't' muet (on peut dire 'peinte' au féminin)." },
+                    { q: "A quel temps est : 'Nous avions fini' ?", options: ["Passé composé", "Imparfait", "Plus-que-parfait", "Passé simple"], good: 2, info: "Auxiliaire à l'imparfait + participe passé = Plus-que-parfait." },
+                    { q: "Trouve la forme correcte du verbe 'appeler' au présent :", options: ["Tu appelles", "Tu apelles", "Tu appeles", "Tu apeles"], good: 0, info: "On double le 'l' devant un 'e' muet : appelles." },
+                    { q: "Conjugue 'faire' au passé simple (3e pers. singulier) :", options: ["Faisa", "Fit", "Faisait", "Fera"], good: 1, info: "Il fit, nous fîmes... c'est un verbe irrégulier." },
+                    { q: "Quel verbe est à l'imparfait ?", options: ["Je voyais", "Je verrai", "Je vis", "Je vois"], good: 0, info: "La terminaison -ais est typique de l'imparfait." },
+                    { q: "Conjugue 'pouvoir' au présent (1re pers. singulier) :", options: ["Je peus", "Je puis", "Je peux", "Je pourra"], good: 2, info: "Je peux, tu peux, il peut. 'Puis' n'existe que dans certaines questions ('Puis-je ?')." },
+                    { q: "Identifie le verbe au passé composé :", options: ["Il est allé", "Il allait", "Il alla", "Il ira"], good: 0, info: "Auxiliaire être au présent + participe passé." },
+                    { q: "Quelle est la terminaison des verbes en -er à la 2e pers. du singulier au présent ?", options: ["-e", "-es", "-s", "-t"], good: 1, info: "Toujours -es avec 'tu' pour les verbes du 1er groupe." },
+                    { q: "Conjugue 'finir' au présent (3e pers. pluriel) :", options: ["Finissent", "Finirent", "Finissaient", "Finieront"], good: 0, info: "Ils finissent. Le 'iss' apparaît pour les verbes du 2e groupe." }
+                ]
+            },
+            orthographe: {
+                id: 'orthographe', title: "Pièges & Orthographe", color: "red", icon: "pencil",
+                questions: [
+                    { q: "Complète : '... voiture est en panne.'", options: ["Leur", "Leurs", "L'heure", "Lure"], good: 0, info: "C'est un déterminant possessif devant un nom singulier, donc pas de 's'." },
+                    { q: "Complète : '... sont gentilles !'", options: ["Quel", "Quels", "Quelles", "Qu'elles"], good: 3, info: "On peut dire 'Qu'ils sont gentils'. C'est le pronom 'elles' précédé de 'que'." },
+                    { q: "Comment s'écrit le pluriel de 'festival' ?", options: ["Festivaux", "Festivals", "Festivalle", "Festivaus"], good: 1, info: "C'est une exception. La plupart des mots en -al font -aux, mais pas festival !" },
+                    { q: "Trouve l'intrus (féminin en -ière) :", options: ["Boulangère", "Cuisinière", "Épicière", "Sorcière"], good: 3, info: "Toutes les autres sont des noms de métiers transformés." },
+                    { q: "Quel mot est correctement orthographié ?", options: ["Efficasse", "Efficace", "Eficasse", "Efficatse"], good: 1, info: "Efficace s'écrit avec un 'c'." },
+                    { q: "Accorde : 'Les pommes que j'ai ...'", options: ["manger", "mangé", "mangées", "mangés"], good: 2, info: "Le COD 'que' (les pommes) est avant l'auxiliaire avoir, on accorde !" },
+                    { q: "Complète : 'Il ... faire attention.'", options: ["ces", "sait", "s'est", "ses"], good: 1, info: "C'est le verbe savoir conjugué." },
+                    { q: "Comment écrit-on le pluriel de 'bijou' ?", options: ["Bijous", "Bijoux", "Bijou", "Bijouces"], good: 1, info: "Bijou fait partie des 7 mots en -ou qui prennent un 'x' au pluriel." },
+                    { q: "Trouve le mot avec un 'h' muet :", options: ["Le hibou", "L'homme", "Le hêtre", "La hache"], good: 1, info: "On fait l'élision (l'homme), c'est donc un 'h' muet." },
+                    { q: "Complète : '... temps fait-il ?'", options: ["Quel", "Qu'elle", "Quels", "Quelle"], good: 0, info: "On l'accorde avec le nom 'temps' (masculin singulier)." }
+                ]
+            },
+            analyse: {
+                id: 'analyse', title: "Analyse Logique", color: "emerald", icon: "search",
+                questions: [
+                    { q: "Dans 'La neige tombe', quel est le sujet ?", options: ["tombe", "La neige", "La", "neige"], good: 1, info: "C'est de 'la neige' dont on parle." },
+                    { q: "Trouve le COD : 'Le chat regarde la souris.'", options: ["Le chat", "regarde", "la souris", "chat"], good: 2, info: "Le chat regarde QUOI ? La souris." },
+                    { q: "Quelle est la fonction de 'hier' dans 'Hier, il pleuvait' ?", options: ["COD", "Sujet", "Complément de temps (CC)", "Attribut"], good: 2, info: "Il indique quand l'action se passe." },
+                    { q: "Dans 'Elle paraît fatiguée', 'fatiguée' est...", options: ["COD", "COI", "Attribut du sujet", "Épithète"], good: 2, info: "Après un verbe d'état (paraître), on trouve un attribut du sujet." },
+                    { q: "Trouve le COI : 'Je téléphone à mon frère.'", options: ["Je", "téléphone", "à mon frère", "frère"], good: 2, info: "Je téléphone À QUI ? À mon frère." },
+                    { q: "Quelle est la fonction de 'en France' dans 'Il habite en France' ?", options: ["CC de Lieu", "CC de Manière", "COD", "Sujet"], good: 0, info: "Il répond à la question OÙ ?" },
+                    { q: "Dans 'Le petit chien blanc', quelle est la fonction de 'blanc' ?", options: ["Sujet", "Attribut", "Épithète", "COI"], good: 2, info: "Il qualifie directement le nom 'chien'." },
+                    { q: "Quel est le verbe dans : 'Une étoile brille dans le ciel.'", options: ["étoile", "brille", "ciel", "dans"], good: 1, info: "Briller est l'action de la phrase." },
+                    { q: "Dans 'Il parle de son voyage', 'de son voyage' est...", options: ["COD", "COI", "CC de Lieu", "Sujet"], good: 1, info: "Il parle DE QUOI ? De son voyage (introduit par 'de')." },
+                    { q: "Identifie le groupe nominal sujet : 'Les élèves de CM1 travaillent.'", options: ["Les élèves", "travallent", "Les élèves de CM1", "CM1"], good: 2, info: "Le sujet complet inclut le complément du nom 'de CM1'." }
+                ]
+            },
+            lexique: {
+                id: 'lexique', title: "Lexique & Vocabulaire", color: "purple", icon: "brain",
+                questions: [
+                    { q: "Trouve le synonyme de 'calme' :", options: ["Bruyant", "Paisible", "Agité", "Rapide"], good: 1, info: "Paisible et calme ont le même sens." },
+                    { q: "Quel est le préfixe dans 'impatient' ?", options: ["im", "pa", "tient", "patient"], good: 0, info: "Le préfixe 'im-' indique souvent le contraire." },
+                    { q: "Trouve l'intrus dans cette famille de mots :", options: ["Dentier", "Dentiste", "Dentelle", "Denture"], good: 2, info: "La dentelle n'a rien à voir avec les dents (étymologie différente)." },
+                    { q: "Quel est l'antonyme de 'cher' ?", options: ["Coûteux", "Bon marché", "Précieux", "Rare"], good: 1, info: "C'est l'opposé de ce qui coûte beaucoup d'argent." },
+                    { q: "Que signifie le suffixe '-ette' dans 'maisonnette' ?", options: ["Le contraire", "Une petite taille", "Un métier", "Une action"], good: 1, info: "Le suffixe -ette est un diminutif (une petite maison)." },
+                    { q: "Lequel est un mot de sens figuré ?", options: ["Il pleut des cordes", "Il mange une pomme", "Il ouvre la porte", "Le ciel est bleu"], good: 0, info: "Il ne pleut pas vraiment des cordes de guitare, c'est une image." },
+                    { q: "Trouve le mot de niveau de langue 'soutenu' :", options: ["Une bagnole", "Une voiture", "Un véhicule", "Un tacot"], good: 2, info: "Véhicule est plus précis et formel que voiture." },
+                    { q: "Qu'est-ce qu'un homonyme ?", options: ["Mot de sens contraire", "Mot qui se prononce pareil", "Mot de même sens", "Mot très long"], good: 1, info: "Exemple : vert, vers, verre." },
+                    { q: "Trouve le radical du mot 'replantation' :", options: ["re", "plan", "plant", "ation"], good: 2, info: "Le radical est 'plant', autour duquel on ajoute des affixes." },
+                    { q: "Quel mot appartient au champ lexical de la forêt ?", options: ["Sable", "Écorce", "Gratte-ciel", "Bitume"], good: 1, info: "L'écorce fait partie de l'arbre, donc de la forêt." }
+                ]
+            },
+            syntaxe: {
+                id: 'syntaxe', title: "Phrase & Ponctuation", color: "slate", icon: "layers",
+                questions: [
+                    { q: "Quelle ponctuation utilise-t-on pour introduire un dialogue ?", options: ["Le point", "Les deux-points", "Le point d'exclamation", "La virgule"], good: 1, info: "On met deux-points (:) puis on ouvre les guillemets." },
+                    { q: "Quelle est la forme de cette phrase : 'Il ne viendra pas.'", options: ["Affirmative", "Négative", "Interrogative", "Exclamative"], good: 1, info: "Les mots 'ne... pas' indiquent la négation." },
+                    { q: "Transforme en phrase interrogative avec inversion :", options: ["Tu viens ?", "Est-ce que tu viens ?", "Viens-tu ?", "Tu ne viens pas ?"], good: 2, info: "On inverse le sujet et le verbe avec un trait d'union." },
+                    { q: "Quel type de phrase exprime un ordre ?", options: ["Déclarative", "Injonctive (impérative)", "Interrogative", "Exclamative"], good: 1, info: "Une phrase injonctive sert à donner un ordre ou un conseil." },
+                    { q: "Où place-t-on la virgule pour isoler le CC de temps ? 'Demain nous partirons.'", options: ["Demain, nous", "nous, partirons", "Demain nous, partirons", "Pas de virgule"], good: 0, info: "On peut mettre une virgule après un complément circonstanciel en début de phrase." },
+                    { q: "Combien y a-t-il de propositions dans : 'Je pense qu'il va pleuvoir.' ?", options: ["1", "2", "3", "0"], good: 1, info: "Il y a deux verbes conjugués (pense, va), donc deux propositions." },
+                    { q: "Lequel est un mot de liaison (conjonction) ?", options: ["Petit", "Mais", "Lentement", "Ici"], good: 1, info: "Mais, ou, et, donc, or, ni, car sont des conjonctions de coordination." },
+                    { q: "Que manque-t-il à cette phrase : 'le chat dort'", options: ["Un verbe", "Une majuscule et un point", "Un sujet", "Rien"], good: 1, info: "Une phrase commence par une majuscule et finit par un point." },
+                    { q: "Dans une énumération, quelle ponctuation sépare les éléments ?", options: ["Le point", "Le point-virgule", "La virgule", "Le tiret"], good: 2, info: "On sépare les mots par des virgules." },
+                    { q: "Quelle est la fonction des guillemets ?", options: ["Finir la phrase", "Encadrer des paroles", "Poser une question", "Séparer le sujet"], good: 1, info: "Ils servent à rapporter ce que quelqu'un dit exactement." }
+                ]
+            }
+        };
+
+        function App() {
+            const [view, setView] = useState('menu'); 
+            const [category, setCategory] = useState(null);
+            const [qIndex, setQIndex] = useState(0);
+            const [score, setScore] = useState(0);
+            const [answered, setAnswered] = useState(false);
+            const [selected, setSelected] = useState(null);
+
+            const startQuiz = (catKey) => {
+                const cat = QUIZ_DATA[catKey];
+                if (!cat) return;
+                setCategory(cat);
+                setQIndex(0);
+                setScore(0);
+                setAnswered(false);
+                setSelected(null);
+                setView('quiz');
+            };
+
+            const handleAnswer = (idx) => {
+                if (answered || !category) return;
+                setSelected(idx);
+                setAnswered(true);
+                if (idx === category.questions[qIndex].good) {
+                    setScore(s => s + 1);
+                }
+            };
+
+            const nextQuestion = () => {
+                if (!category) return;
+                const nextIdx = qIndex + 1;
+                if (nextIdx < category.questions.length) {
+                    setQIndex(nextIdx);
+                    setAnswered(false);
+                    setSelected(null);
+                } else {
+                    setView('result');
+                }
+            };
+
+            const renderHomeButton = () => (
+                <a href="index.html" className="home-btn" title="Retour à l'accueil">🏠</a>
+            );
+
+            if (view === 'menu') {
+                return (
+                    <div className="min-h-screen p-6 max-w-5xl mx-auto flex flex-col items-center">
+                        {renderHomeButton()}
+
+                        <header className="text-center mb-10 fade-in mt-12 sm:mt-0">
+                            <h1 className="text-4xl font-extrabold text-slate-800 mb-2">Maître de la Langue</h1>
+                            <p className="text-slate-500 font-medium">Défi Français CM1 - Niveau Expert</p>
+                        </header>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full fade-in">
+                            {Object.values(QUIZ_DATA).map((cat) => {
+                                const colors = COLOR_MAP[cat.color] || COLOR_MAP.indigo;
+                                return (
+                                    <button 
+                                        key={cat.id}
+                                        onClick={() => startQuiz(cat.id)}
+                                        className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col items-center text-center"
+                                    >
+                                        <div className={`w-16 h-16 rounded-2xl mb-4 flex items-center justify-center ${colors.light} ${colors.text} group-hover:scale-110 transition-transform`}>
+                                            <Icon name={cat.icon} className="w-8 h-8" />
+                                        </div>
+                                        <h3 className="text-lg font-bold text-slate-800">{cat.title}</h3>
+                                        <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">10 Questions Expert</p>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            }
+
+            if (view === 'quiz' && category) {
+                const question = category.questions[qIndex];
+                const colors = COLOR_MAP[category.color] || COLOR_MAP.indigo;
+
+                return (
+                    <div className="min-h-screen p-4 flex items-center justify-center bg-slate-50">
+                        {renderHomeButton()}
+                        <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col fade-in">
+                            
+                            <div className="bg-slate-800 p-4 flex justify-between items-center text-white">
+                                <button onClick={() => setView('menu')} className="text-slate-400 hover:text-white transition-colors">
+                                    <Icon name="home" className="w-5 h-5" />
+                                </button>
+                                <span className="font-bold text-sm tracking-widest uppercase">{category.title}</span>
+                                <span className="font-mono bg-slate-700 px-3 py-1 rounded-full text-xs">{qIndex + 1} / {category.questions.length}</span>
+                            </div>
+                            
+                            <div className="h-1.5 bg-slate-100 w-full">
+                                <div 
+                                    className={`h-full ${colors.bg} transition-all duration-500`} 
+                                    style={{ width: `${((qIndex + 1) / category.questions.length) * 100}%` }}
+                                ></div>
+                            </div>
+
+                            <div className="p-8">
+                                <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8 leading-tight">
+                                    {question.q}
+                                </h2>
+
+                                <div className="space-y-3">
+                                    {question.options.map((opt, idx) => {
+                                        let style = "w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ";
+                                        if (answered) {
+                                            if (idx === question.good) style += "bg-green-50 border-green-500 text-green-800 font-bold correct-anim";
+                                            else if (selected === idx) style += "bg-red-50 border-red-500 text-red-800 opacity-60";
+                                            else style += "bg-slate-50 border-slate-100 text-slate-300";
+                                        } else {
+                                            style += "bg-white border-slate-200 hover:border-blue-400 hover:bg-blue-50 text-slate-700 active:scale-[0.98]";
+                                        }
+
+                                        return (
+                                            <button key={idx} onClick={() => handleAnswer(idx)} disabled={answered} className={style}>
+                                                <span>{opt}</span>
+                                                {answered && idx === question.good && <Icon name="check-circle" className="text-green-500 w-5 h-5" />}
+                                                {answered && selected === idx && idx !== question.good && <Icon name="x-circle" className="text-red-500 w-5 h-5" />}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                {answered && (
+                                    <div className="mt-8 fade-in">
+                                        <div className={`p-5 rounded-2xl border-l-4 ${selected === question.good ? 'bg-green-50 border-green-500' : 'bg-orange-50 border-orange-500'}`}>
+                                            <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-1">
+                                                <Icon name="book-open" className="w-4 h-4" /> Analyse
+                                            </h4>
+                                            <p className="text-sm text-slate-600 leading-relaxed">{question.info}</p>
+                                        </div>
+                                        <button onClick={nextQuestion} className="mt-6 w-full py-4 rounded-2xl bg-slate-900 text-white font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-lg">
+                                            {qIndex < category.questions.length - 1 ? "Question suivante" : "Voir mon résultat"}
+                                            <Icon name="chevron-right" className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (view === 'result') {
+                const getStatus = () => {
+                    if (score === 10) return { t: "Linguiste Suprême !", s: "Tu maîtrises la langue française à la perfection.", c: "emerald" };
+                    if (score >= 8) return { t: "Excellent !", s: "Très peu de pièges t'ont arrêté.", c: "indigo" };
+                    if (score >= 5) return { t: "Bien joué !", s: "Tu as de bonnes bases, attention aux détails.", c: "amber" };
+                    return { t: "Entraîne-toi encore...", s: "La grammaire demande de la pratique !", c: "red" };
+                };
+                const status = getStatus();
+                const colors = COLOR_MAP[status.c] || COLOR_MAP.slate;
+
+                return (
+                    <div className="min-h-screen p-4 flex items-center justify-center">
+                        {renderHomeButton()}
+                        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 text-center border border-slate-100 fade-in">
+                            <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center ${colors.light} ${colors.text}`}>
+                                <Icon name="trophy" className="w-12 h-12" />
+                            </div>
+                            <h2 className="text-3xl font-black text-slate-800 mb-2">{status.t}</h2>
+                            <p className="text-slate-500 mb-8">{status.s}</p>
+                            
+                            <div className="bg-slate-50 rounded-2xl p-6 mb-8">
+                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Score Final</p>
+                                <div className="text-5xl font-black text-slate-800">{score} <span className="text-2xl text-slate-300">/ 10</span></div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-3 mb-4">
+                                <button onClick={() => startQuiz(category.id)} className="w-full py-4 px-6 rounded-2xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                                    <Icon name="refresh-cw" className="w-5 h-5" /> Rejouer ce thème
+                                </button>
+                            </div>
+
+                            <div className="flex gap-3">
+                                <button onClick={() => setView('menu')} className="flex-1 py-4 px-6 rounded-2xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                                    Menu Quiz
+                                </button>
+                                <a href="index.html" className="flex-1 py-4 px-6 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition-colors flex items-center justify-center gap-2">
+                                    Accueil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return null;
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
