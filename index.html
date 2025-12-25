@@ -26,8 +26,8 @@
             flex-direction: column;
             align-items: center;
             color: var(--text-color);
-            /* On enlève l'ancien background radial pour laisser voir la vidéo */
-            background: transparent;
+            /* Important : fond transparent pour voir la vidéo derrière */
+            background-color: transparent; 
         }
 
         /* --- VIDÉO DE FOND --- */
@@ -37,8 +37,11 @@
             bottom: 0;
             min-width: 100%;
             min-height: 100%;
+            width: auto;
+            height: auto;
             z-index: -10; /* Derrière tout le reste */
             object-fit: cover; /* Remplit l'écran sans déformer */
+            background: #e0f7fa; /* Couleur de secours si la vidéo ne charge pas */
         }
 
         /* --- VOILE BLANC (OVERLAY) --- */
@@ -386,16 +389,21 @@
 
 <!-- VIDÉO DE FOND -->
 <!-- 
-     INSTRUCTIONS :
-     1. Télécharge ta vidéo Roblox et nomme-la "roblox-background.mp4".
-     2. Mets-la dans le même dossier que ce fichier.
-     3. Change src="..." ci-dessous par src="roblox-background.mp4"
+     NOTE IMPORTANTE :
+     Pour utiliser TA vidéo téléchargée :
+     1. Assure-toi que ta vidéo s'appelle bien "roblox-background.mp4"
+     2. Assure-toi qu'elle est dans le MÊME DOSSIER que ce fichier html.
+     3. Modifie la ligne <source> ci-dessous.
 -->
-<video autoplay muted loop id="video-bg">
-    <!-- J'ai mis un lien d'exemple qui fonctionne pour que tu puisses voir le résultat immédiatement -->
-    <source src="roblox-background.mp4" type="video/mp4">
-    <!-- Remplace la ligne du dessus par celle du dessous quand tu auras ta vidéo : -->
+<video autoplay muted loop playsinline id="video-bg">
+    <!-- Pour l'instant, je laisse le lien internet pour que tu testes si ça marche -->
+    <source src="https://cdn.pixabay.com/video/2021/08/04/83896-583525208_large.mp4" type="video/mp4">
+    
+    <!-- SI TU VEUX TA VIDÉO LOCALE, ENLÈVE LES COMMENTAIRES DE LA LIGNE CI-DESSOUS ET SUPPRIME CELLE DU DESSUS : -->
     <!-- <source src="roblox-background.mp4" type="video/mp4"> -->
+    
+    <!-- Message si le navigateur ne supporte pas la vidéo -->
+    Votre navigateur ne supporte pas la vidéo HTML5.
 </video>
 
 <!-- VOILE TRANSPARENT (pour que le texte reste lisible) -->
@@ -529,4 +537,3 @@
 
 </body>
 </html>
-
