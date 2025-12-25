@@ -8,7 +8,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&family=Patrick+Hand&display=swap');
 
         :root {
-            /* On garde les couleurs mais on adapte le fond */
             --bg-color: transparent; 
             --card-bg: #ffffff;
             --text-color: #2c3e50;
@@ -26,7 +25,6 @@
             flex-direction: column;
             align-items: center;
             color: var(--text-color);
-            /* Important : fond transparent pour voir la vidéo derrière */
             background-color: transparent; 
         }
 
@@ -35,27 +33,25 @@
             position: fixed;
             right: 0;
             bottom: 0;
-            /* Utilisation de vw/vh pour forcer la couverture de l'écran */
             min-width: 100vw;
             min-height: 100vh;
             width: auto;
             height: auto;
-            z-index: -10; /* Derrière tout le reste */
-            object-fit: cover; /* Remplit l'écran sans déformer */
-            background: #e0f7fa; /* Couleur de secours ultime */
+            z-index: -10;
+            object-fit: cover;
+            background: #e0f7fa;
         }
 
         /* --- VOILE BLANC (OVERLAY) --- */
-        /* Cela permet de lire le texte même si la vidéo est sombre ou très colorée */
         .overlay-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(224, 247, 250, 0.6); /* Couleur bleu clair semi-transparente */
+            background: rgba(224, 247, 250, 0.6);
             z-index: -5;
-            pointer-events: none; /* Permet de cliquer à travers */
+            pointer-events: none;
         }
 
         /* --- BOUTON HOME --- */
@@ -94,7 +90,7 @@
             margin-top: 20px;
             padding: 0 20px;
             box-sizing: border-box;
-            position: relative; /* Pour être au dessus de la vidéo */
+            position: relative;
         }
 
         .hero-left, .hero-right {
@@ -111,7 +107,7 @@
             align-self: center;
         }
 
-        /* --- POST-IT (DEVOIRS - MODE BOUTON) --- */
+        /* --- POST-IT (DEVOIRS) --- */
         .post-it-link {
             text-decoration: none;
             display: block;
@@ -175,7 +171,7 @@
             font-weight: bold;
         }
 
-        /* --- ICONE VIDEO --- */
+        /* --- ICONES VIDEO & CARTABLE --- */
         .video-link {
             display: flex;
             flex-direction: column;
@@ -190,22 +186,10 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .video-link:hover {
-            transform: scale(1.1);
-            color: #e74c3c;
-        }
+        .video-link:hover { transform: scale(1.1); color: #e74c3c; }
+        .video-icon { font-size: 3em; margin-bottom: 5px; }
+        .video-label { font-family: 'Fredoka', sans-serif; font-weight: bold; }
 
-        .video-icon {
-            font-size: 3em;
-            margin-bottom: 5px;
-        }
-
-        .video-label {
-            font-family: 'Fredoka', sans-serif;
-            font-weight: bold;
-        }
-
-        /* --- CARTABLE --- */
         .cartable-link {
             display: inline-block;
             text-decoration: none;
@@ -214,9 +198,7 @@
             position: relative;
         }
 
-        .cartable-link:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
+        .cartable-link:hover { transform: scale(1.1) rotate(5deg); }
         
         .cartable-link::after {
             content: 'Mes Cahiers';
@@ -235,15 +217,8 @@
             white-space: nowrap;
         }
 
-        .cartable-link:hover::after {
-            opacity: 1;
-        }
-
-        .cartable-img {
-            width: 150px;
-            height: auto;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
-        }
+        .cartable-link:hover::after { opacity: 1; }
+        .cartable-img { width: 150px; height: auto; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2)); }
 
         /* --- PHOTO ELEVE --- */
         .student-photo {
@@ -257,7 +232,7 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95); /* Plus opaque pour la lisibilité */
+            background: rgba(255, 255, 255, 0.95);
             padding: 20px 40px;
             border-radius: 50px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -267,22 +242,10 @@
             display: inline-block;
         }
 
-        header:hover {
-            transform: rotate(0deg) scale(1.05);
-        }
+        header:hover { transform: rotate(0deg) scale(1.05); }
 
-        h1 {
-            font-family: 'Fredoka', cursive;
-            margin: 0;
-            font-size: 2.2em;
-            color: #2d3436;
-        }
-
-        .subtitle {
-            color: #636e72;
-            font-size: 1.1em;
-            margin-top: 5px;
-        }
+        h1 { font-family: 'Fredoka', cursive; margin: 0; font-size: 2.2em; color: #2d3436; }
+        .subtitle { color: #636e72; font-size: 1.1em; margin-top: 5px; }
 
         /* --- GRILLE DE MENU --- */
         .grid-container {
@@ -292,11 +255,11 @@
             width: 100%;
             max-width: 1000px;
             padding: 20px 0;
-            position: relative; /* Au dessus de la vidéo */
+            position: relative;
         }
 
         .menu-card {
-            background: rgba(255, 255, 255, 0.95); /* Légère transparence pour l'effet moderne */
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 25px;
             text-align: center;
@@ -327,24 +290,12 @@
             transition: transform 0.3s;
         }
 
-        .menu-card:hover .icon {
-            transform: scale(1.2) rotate(10deg);
-        }
+        .menu-card:hover .icon { transform: scale(1.2) rotate(10deg); }
+        .card-title { font-family: 'Fredoka', cursive; font-size: 1.4em; margin-bottom: 10px; display: block; }
+        .card-desc { font-size: 0.9em; color: #95a5a6; display: block; }
 
-        .card-title {
-            font-family: 'Fredoka', cursive;
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .card-desc {
-            font-size: 0.9em;
-            color: #95a5a6;
-            display: block;
-        }
-
-        /* Couleurs pour chaque bouton du menu */
+        /* Couleurs personnalisées */
+        .exercices { border-bottom-color: #e67e22; } /* Orange pour les exercices */
         .revisions { border-bottom-color: #74b9ff; }
         .quiz { border-bottom-color: #a29bfe; }
         .notes { border-bottom-color: #55efc4; }
@@ -366,19 +317,9 @@
             margin-bottom: 20px;
         }
 
-        /* Adaptation Mobile */
         @media (max-width: 768px) {
-            .hero-section {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-            .hero-left, .hero-right {
-                width: 100%;
-                flex-direction: row;
-                justify-content: space-around;
-                flex-wrap: wrap;
-            }
+            .hero-section { flex-direction: column; align-items: center; gap: 30px; }
+            .hero-left, .hero-right { width: 100%; flex-direction: row; justify-content: space-around; flex-wrap: wrap; }
             .cartable-img { width: 120px; }
             .student-photo { width: 110px; height: 110px; }
             h1 { font-size: 1.8em; }
@@ -388,31 +329,19 @@
 </head>
 <body>
 
-<!-- VIDÉO DE FOND -->
 <video autoplay muted loop playsinline id="video-bg" poster="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80">
-    <!-- Pour l'instant, je laisse le lien internet pour que tu testes si ça marche -->
     <source src="roblox-background.mp4" type="video/mp4">
-    
-    <!-- SI TU VEUX TA VIDÉO LOCALE, ENLÈVE LES COMMENTAIRES DE LA LIGNE CI-DESSOUS ET SUPPRIME CELLE DU DESSUS : -->
-    <!-- <source src="roblox-background.mp4" type="video/mp4"> -->
-    
-    <!-- Message si le navigateur ne supporte pas la vidéo -->
     Votre navigateur ne supporte pas la vidéo HTML5.
 </video>
 
-<!-- VOILE TRANSPARENT (pour que le texte reste lisible) -->
 <div class="overlay-bg"></div>
 
-<!-- BOUTON HOME FIXE -->
 <a href="index.html" class="home-btn" title="Recharger l'accueil">🏠</a>
 
-<!-- SECTION HERO : PHOTO/POST-IT | TITRE | CARTABLE/VIDEO -->
 <div class="hero-section">
-    <!-- GAUCHE : Photo + Post-it (Mode Bouton) -->
     <div class="hero-left">
         <img src="photo.jpg" alt="Hamza" class="student-photo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2922/2922510.png';">
         
-        <!-- LE POST-IT DEVOIRS (CLIQUABLE) -->
         <a href="mission-rentree.html" target="_blank" class="post-it-link" title="Voir les devoirs en PDF">
             <div class="post-it">
                 <h3>Devoir pour le 05/01</h3>
@@ -427,7 +356,6 @@
         </a>
     </div>
 
-    <!-- CENTRE : Header Principal -->
     <div class="hero-center">
         <header>
             <h1>🚀 Mon Espace CM1</h1>
@@ -435,14 +363,12 @@
         </header>
     </div>
 
-    <!-- DROITE : Cartable + Video -->
     <div class="hero-right">
         <a href="cahiers_hamza.html" class="cartable-link" title="Ouvrir mes cahiers">
             <img src="cartable.png" alt="Mon Cartable" class="cartable-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div style="display:none; font-size: 100px; cursor: pointer;">🎒</div>
         </a>
 
-        <!-- ICONE VIDEO -->
         <a href="Le_monde_d_un_élève_de_CM1.mp4" class="video-link" target="_blank" title="Voir la vidéo">
             <span class="video-icon">🎬</span>
             <span class="video-label">Ma Vidéo</span>
@@ -450,8 +376,14 @@
     </div>
 </div>
 
-<!-- GRILLE DES ACTIVITÉS -->
 <div class="grid-container">
+
+    <!-- Bloc Exercices (Nouvel ajout en 1ère place) -->
+    <a href="exercices_hamza.html" class="menu-card exercices">
+        <span class="icon">✏️</span>
+        <span class="card-title">Exercices</span>
+        <span class="card-desc">Entraîne-toi sur toutes les matières.</span>
+    </a>
 
     <!-- Fiches de Révisions -->
     <a href="fiches_revision_cm1.html" class="menu-card revisions">
@@ -529,21 +461,15 @@
     <p>🌟 Continue ton excellent travail Hamza ! 🌟</p>
 </footer>
 
-<!-- SCRIPT POUR FORCER LE LANCEMENT DE LA VIDÉO SUR EDGE -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var video = document.getElementById("video-bg");
-        // Force le mode muet pour satisfaire les politiques de sécurité (notamment sur Edge)
         video.muted = true;
-        // Tente de lancer la vidéo manuellement
         var playPromise = video.play();
         
         if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                // La lecture automatique a commencé !
-            })
-            .catch(error => {
-                console.log("Le navigateur a bloqué l'autoplay : ", error);
+            playPromise.then(_ => {}).catch(error => {
+                console.log("Autoplay bloqué : ", error);
             });
         }
     });
@@ -551,4 +477,3 @@
 
 </body>
 </html>
-
